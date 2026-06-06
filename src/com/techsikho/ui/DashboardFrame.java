@@ -160,8 +160,21 @@ public class DashboardFrame extends JFrame {
         navButtons.setLayout(new BoxLayout(navButtons, BoxLayout.Y_AXIS));
 
         navButtons.add(createSectionLabel("MAIN"));
-        notifBtn = new JButton("Notif [0]"); notifBtn.setOpaque(true); notifBtn.setBorderPainted(false);
-        notifBtn.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        notifBtn = new JButton("Alerts");
+        notifBtn.setVisible(false);
+        notifBtn.setBackground(new Color(30,30,60));
+        notifBtn.setForeground(Color.WHITE);
+        notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        notifBtn.setBorderPainted(false);
+        notifBtn.setFocusPainted(false);
+        notifBtn.setMaximumSize(new Dimension(160, 30));
+        notifBtn.setBackground(new Color(30,30,60));
+        notifBtn.setForeground(Color.WHITE);
+        notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        notifBtn.setBorderPainted(false);
+        notifBtn.setFocusPainted(false);
+        notifBtn.setMaximumSize(new Dimension(160, 30)); notifBtn.setOpaque(true); notifBtn.setBorderPainted(false);
+        notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         notifBtn.setBackground(new Color(40, 40, 80));
         notifBtn.setForeground(Color.WHITE);
         notifBtn.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
@@ -413,7 +426,7 @@ public class DashboardFrame extends JFrame {
     private void showNotifications() {
         unreadCount = 0;
         if (notifBtn != null) {
-            notifBtn.setText("Notif [0]");
+            notifBtn.setText("Alerts");
             notifBtn.setBackground(new Color(40, 40, 80));
         }
         JDialog dialog = new JDialog(this, "Notifications", true);
@@ -466,7 +479,7 @@ public class DashboardFrame extends JFrame {
             notifications.clear();
             unreadCount = 0;
             if (notifBtn != null) {
-                notifBtn.setText("Notif [0]");
+                notifBtn.setText("Alerts");
                 notifBtn.setBackground(new Color(40, 40, 80));
             }
             dialog.dispose();

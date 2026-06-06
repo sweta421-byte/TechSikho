@@ -118,7 +118,12 @@ public class SplashFrame extends JFrame {
         if(dotTimer!=null) dotTimer.stop();
         if(animTimer!=null) animTimer.stop();
         if(autoTimer!=null) autoTimer.stop();
-        dispose();
-        SwingUtilities.invokeLater(() -> new HomeFrame().setVisible(true));
+        SwingUtilities.invokeLater(() -> {
+            HomeFrame hf = new HomeFrame();
+            hf.setVisible(true);
+            hf.toFront();
+            setVisible(false);
+            dispose();
+        });
     }
 }

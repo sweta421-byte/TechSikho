@@ -12,7 +12,7 @@ public class HomeFrame extends JFrame {
         setUndecorated(true);
 
         JPanel root = new JPanel(new BorderLayout());
-        root.setBackground(new Color(8,5,25));
+        root.setBackground(new Color(15,10,40));
 
         // NAVBAR
         JPanel nav = new JPanel(new BorderLayout());
@@ -32,7 +32,7 @@ public class HomeFrame extends JFrame {
         loginBtn.setFocusPainted(false);
         loginBtn.setPreferredSize(new Dimension(85,32));
         loginBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        loginBtn.addActionListener(e -> { dispose(); new LoginFrame().setVisible(true); });
+        loginBtn.addActionListener(e -> { new LoginFrame().setVisible(true); dispose(); });
         JButton regBtn = new JButton("Get Started");
         regBtn.setFont(new Font("Segoe UI",Font.BOLD,13));
         regBtn.setForeground(Color.WHITE);
@@ -41,7 +41,7 @@ public class HomeFrame extends JFrame {
         regBtn.setFocusPainted(false);
         regBtn.setPreferredSize(new Dimension(115,32));
         regBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        regBtn.addActionListener(e -> { dispose(); new RegisterFrame().setVisible(true); });
+        regBtn.addActionListener(e -> { new RegisterFrame().setVisible(true); dispose(); });
         JButton closeBtn = new JButton("X");
         closeBtn.setFont(new Font("Segoe UI",Font.BOLD,13));
         closeBtn.setForeground(new Color(150,150,180));
@@ -62,12 +62,16 @@ public class HomeFrame extends JFrame {
             protected void paintComponent(Graphics g){
                 Graphics2D g2=(Graphics2D)g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-                GradientPaint bg=new GradientPaint(0,0,new Color(8,5,25),getWidth(),getHeight(),new Color(18,8,45));
+                GradientPaint bg=new GradientPaint(0,0,new Color(15,10,40),getWidth(),getHeight(),new Color(28,15,60));
                 g2.setPaint(bg); g2.fillRect(0,0,getWidth(),getHeight());
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.08f));
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1.0f));
+                // Subtle glow orbs
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.06f));
                 g2.setColor(new Color(139,92,246));
-                g2.fillOval(-80,50,400,400);
-                g2.fillOval(getWidth()-250,getHeight()-250,400,400);
+                g2.fillOval(-100,100,350,350);
+                g2.fillOval(getWidth()-200,getHeight()-200,350,350);
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1.0f));
+                
             }
         };
         hero.setLayout(new GridBagLayout());
@@ -78,7 +82,7 @@ public class HomeFrame extends JFrame {
 
         JLabel badge = new JLabel("  GAMIFIED PROGRAMMING PLATFORM  ");
         badge.setFont(new Font("Segoe UI",Font.BOLD,11));
-        badge.setForeground(new Color(167,139,250));
+        badge.setForeground(new Color(200,180,255));
         badge.setBackground(new Color(139,92,246,30));
         badge.setOpaque(true);
         badge.setBorder(BorderFactory.createCompoundBorder(
@@ -105,15 +109,15 @@ public class HomeFrame extends JFrame {
         sb.setBorder(BorderFactory.createEmptyBorder(12,28,12,28));
         sb.setFocusPainted(false);
         sb.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        sb.addActionListener(e -> { dispose(); new RegisterFrame().setVisible(true); });
+        sb.addActionListener(e -> { new RegisterFrame().setVisible(true); dispose(); });
         JButton si = new JButton("Sign In");
         si.setFont(new Font("Segoe UI",Font.PLAIN,15));
-        si.setForeground(new Color(167,139,250));
-        si.setBackground(new Color(8,5,25));
+        si.setForeground(new Color(200,180,255));
+        si.setBackground(new Color(15,10,40));
         si.setBorder(BorderFactory.createLineBorder(new Color(139,92,246),1));
         si.setFocusPainted(false);
         si.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        si.addActionListener(e -> { dispose(); new LoginFrame().setVisible(true); });
+        si.addActionListener(e -> { new LoginFrame().setVisible(true); dispose(); });
         btnRow.add(sb); btnRow.add(si);
 
         JPanel statsRow = new JPanel(new FlowLayout(FlowLayout.CENTER,40,0));
@@ -122,9 +126,9 @@ public class HomeFrame extends JFrame {
         for(String[] s:stats){
             JPanel sc=new JPanel(); sc.setLayout(new BoxLayout(sc,BoxLayout.Y_AXIS)); sc.setOpaque(false);
             JLabel num=new JLabel(s[0]); num.setFont(new Font("Segoe UI",Font.BOLD,28));
-            num.setForeground(new Color(167,139,250)); num.setAlignmentX(Component.CENTER_ALIGNMENT);
+            num.setForeground(new Color(200,180,255)); num.setAlignmentX(Component.CENTER_ALIGNMENT);
             JLabel lbl=new JLabel(s[1]); lbl.setFont(new Font("Segoe UI",Font.PLAIN,12));
-            lbl.setForeground(new Color(160,160,200)); lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            lbl.setForeground(new Color(180,180,220)); lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             sc.add(num); sc.add(lbl); statsRow.add(sc);
         }
 
@@ -158,7 +162,7 @@ public class HomeFrame extends JFrame {
             JLabel ft=new JLabel(f[0]); ft.setFont(new Font("Segoe UI",Font.BOLD,12));
             ft.setForeground(new Color(167,139,250));
             JLabel fd=new JLabel("<html><body style=width:150px>"+f[1]+"</body></html>");
-            fd.setFont(new Font("Segoe UI",Font.PLAIN,12)); fd.setForeground(new Color(160,160,200));
+            fd.setFont(new Font("Segoe UI",Font.PLAIN,12)); fd.setForeground(new Color(180,180,220));
             fc.add(ft); fc.add(Box.createVerticalStrut(5)); fc.add(fd);
             featStrip.add(fc);
         }
