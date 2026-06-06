@@ -419,7 +419,7 @@ public class DashboardFrame extends JFrame {
         unreadCount++;
         if (notifBtn != null) {
             notifBtn.setText("Notif [" + unreadCount + "]");
-            notifBtn.setBackground(new Color(180, 30, 30));
+            notifBtn.setBackground(new Color(99,102,241));
         }
     }
 
@@ -1563,7 +1563,7 @@ public class DashboardFrame extends JFrame {
         wrapper.add(questionLabel);
 
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setBackground(new Color(25, 25, 45));
+        optionsPanel.setBackground(new Color(15,10,40));
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 10, 15));
@@ -3524,13 +3524,13 @@ public class DashboardFrame extends JFrame {
         stopBossTimer();
         contentPanel.removeAll();
         JPanel intro = new JPanel();
-        intro.setBackground(new Color(40, 0, 0));
+        intro.setBackground(new Color(15,10,40));
         intro.setLayout(new BoxLayout(intro, BoxLayout.Y_AXIS));
         intro.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
 
         JLabel title = new JLabel("BOSS BATTLE");
         title.setFont(new Font("Segoe UI", Font.BOLD, 36));
-        title.setForeground(new Color(220, 50, 50));
+        title.setForeground(new Color(167,139,250));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel subtitle = new JLabel("20 Questions. 30 seconds each. Can you survive?");
         subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 16));
@@ -3538,7 +3538,7 @@ public class DashboardFrame extends JFrame {
         subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton startBtn = new JButton("START BATTLE");
         startBtn.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        startBtn.setBackground(new Color(180, 30, 30));
+        startBtn.setBackground(new Color(99,102,241));
         startBtn.setForeground(Color.WHITE);
         startBtn.setFocusPainted(false);
         startBtn.setBorderPainted(false);
@@ -3577,7 +3577,7 @@ public class DashboardFrame extends JFrame {
 
         contentPanel.removeAll();
         JPanel battlePanel = new JPanel();
-        battlePanel.setBackground(new Color(40, 0, 0));
+        battlePanel.setBackground(new Color(15,10,40));
         battlePanel.setLayout(new BoxLayout(battlePanel, BoxLayout.Y_AXIS));
         battlePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
 
@@ -3587,14 +3587,14 @@ public class DashboardFrame extends JFrame {
         qNumLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel timerLbl = new JLabel("30");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 48));
-        timerLbl.setForeground(new Color(220, 50, 50));
+        timerLbl.setForeground(new Color(167,139,250));
         timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel qTextLbl = new JLabel();
         qTextLbl.setFont(new Font("Segoe UI", Font.BOLD, 18));
         qTextLbl.setForeground(Color.WHITE);
         qTextLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JPanel optionsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        optionsPanel.setBackground(new Color(40, 0, 0));
+        optionsPanel.setBackground(new Color(15,10,40));
         optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         optionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
@@ -3623,7 +3623,7 @@ public class DashboardFrame extends JFrame {
                 for (int i = 0; i < 4; i++) {
                     JButton optBtn = new JButton(labels[i] + ". " + opts[i]);
                     optBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                    optBtn.setBackground(new Color(80, 10, 10));
+                    optBtn.setBackground(new Color(25,25,55));
                     optBtn.setForeground(Color.WHITE);
                     optBtn.setFocusPainted(false);
                     optBtn.setBorderPainted(false);
@@ -3665,12 +3665,12 @@ public class DashboardFrame extends JFrame {
         }
         contentPanel.removeAll();
         JPanel results = new JPanel();
-        results.setBackground(new Color(40, 0, 0));
+        results.setBackground(new Color(15,10,40));
         results.setLayout(new BoxLayout(results, BoxLayout.Y_AXIS));
         results.setBorder(BorderFactory.createEmptyBorder(50, 40, 50, 40));
         JLabel title = new JLabel("BATTLE COMPLETE!");
         title.setFont(new Font("Segoe UI", Font.BOLD, 32));
-        title.setForeground(new Color(220, 50, 50));
+        title.setForeground(new Color(167,139,250));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel score = new JLabel("Score: " + correct + "/20 correct");
         score.setFont(new Font("Segoe UI", Font.PLAIN, 18));
@@ -3688,7 +3688,7 @@ public class DashboardFrame extends JFrame {
         JButton dashboard = new JButton("Return to Dashboard");
         for (JButton b : new JButton[]{playAgain, dashboard}) {
             b.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            b.setBackground(new Color(180, 30, 30));
+            b.setBackground(new Color(99,102,241));
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
             b.setBorderPainted(false);
@@ -3841,11 +3841,11 @@ public class DashboardFrame extends JFrame {
         grid.setMaximumSize(new Dimension(Integer.MAX_VALUE, 520));
         grid.add(createMiniGameCard("Word Scramble", new Color(99, 102, 241),
             "Unscramble coding terms", this::showWordScramble));
-        grid.add(createMiniGameCard("Rapid Fire", new Color(220, 50, 50),
+        grid.add(createMiniGameCard("Rapid Fire", new Color(167,139,250),
             "True or False in 5 seconds", this::showRapidFire));
         grid.add(createMiniGameCard("Mystery Language", new Color(30, 144, 255),
             "Guess the language from code", this::showMysteryLanguage));
-        grid.add(createMiniGameCard("Boss Battle", new Color(180, 30, 30),
+        grid.add(createMiniGameCard("Boss Battle", new Color(99,102,241),
             "20 questions survival mode", this::showBossBattle));
         grid.add(createMiniGameCard("Code Breaker", new Color(50, 200, 80),
             "Fix the broken code!", this::showCodeBreaker));
@@ -4094,7 +4094,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel timerLbl = new JLabel("60");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        timerLbl.setForeground(new Color(220, 50, 50));
+        timerLbl.setForeground(new Color(167,139,250));
         timerLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel progressLbl = new JLabel("Challenge 1 of 10");
         progressLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -4410,7 +4410,7 @@ public class DashboardFrame extends JFrame {
                 for (int i = 0; i < 4; i++) {
                     JButton optBtn = new JButton(labels[i] + ". " + opts[i]);
                     optBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                    optBtn.setBackground(new Color(99, 102, 241));
+                    optBtn.setBackground(new Color(25,25,55));
                     optBtn.setForeground(Color.WHITE);
                     optBtn.setFocusPainted(false);
                     optBtn.setBorderPainted(false);
@@ -4750,7 +4750,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel title = new JLabel("RAPID FIRE");
         title.setFont(new Font("Segoe UI", Font.BOLD, 40));
-        title.setForeground(new Color(220, 50, 50));
+        title.setForeground(new Color(167,139,250));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel subtitle = new JLabel("10 questions. 5 seconds each. How fast are you?");
         subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 16));
@@ -4810,7 +4810,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel timerLbl = new JLabel("5");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 80));
-        timerLbl.setForeground(new Color(220, 50, 50));
+        timerLbl.setForeground(new Color(167,139,250));
         timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel qTextLbl = new JLabel();
         qTextLbl.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -5053,7 +5053,7 @@ public class DashboardFrame extends JFrame {
         scoreLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel timerLbl = new JLabel("20");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 36));
-        timerLbl.setForeground(new Color(220, 50, 50));
+        timerLbl.setForeground(new Color(167,139,250));
         timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         center.add(timerLbl);
@@ -5136,7 +5136,7 @@ public class DashboardFrame extends JFrame {
                 for (String choice : choices) {
                     JButton optBtn = new JButton(choice);
                     optBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                    optBtn.setBackground(new Color(30, 30, 60));
+                    optBtn.setBackground(new Color(25,25,55));
                     optBtn.setForeground(Color.WHITE);
                     optBtn.setFocusPainted(false);
                     optBtn.setBorderPainted(false);
