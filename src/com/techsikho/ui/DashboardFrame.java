@@ -86,8 +86,8 @@ public class DashboardFrame extends JFrame {
         new Color(245, 158, 11),
         new Color(234, 179, 8),
         new Color(16, 185, 129),
-        new Color(59, 130, 246),
-        new Color(147, 51, 234)
+        new Color(0x0ea5e9),
+        new Color(0x2dd4bf)
     };
 
     public DashboardFrame(User user) {
@@ -103,12 +103,13 @@ public class DashboardFrame extends JFrame {
     }
 
     private void initUI() {
+        
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(18, 18, 35));
+        getContentPane().setBackground(new Color(0x0a0a0a));
         sidebarPanel = createSidebar();
         add(sidebarPanel, BorderLayout.WEST);
         contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(new Color(15, 15, 35));
+        contentPanel.setBackground(new Color(0x0a0a0a));
         add(contentPanel, BorderLayout.CENTER);
         applyTheme(isDarkMode);
         showDashboard();
@@ -118,19 +119,19 @@ public class DashboardFrame extends JFrame {
     private JPanel createSidebar() {
         JPanel sidebar = new JPanel(new BorderLayout());
         sidebarPanel = sidebar;
-        sidebar.setBackground(new Color(20, 20, 40));
+        sidebar.setBackground(new Color(0x0d1117));
         sidebar.setPreferredSize(new Dimension(200, 0));
         sidebar.setBorder(BorderFactory.createEmptyBorder(16, 12, 16, 12));
 
         // Logo panel
         JPanel logoPanel = new JPanel();
         logoPanelRef = logoPanel;
-        logoPanel.setBackground(new Color(20, 20, 40));
+        logoPanel.setBackground(new Color(0x0d1117));
         logoPanel.setLayout(new BoxLayout(logoPanel, BoxLayout.Y_AXIS));
 
         JButton themeToggle = new JButton("Light Mode"); themeToggle.setVisible(false);
         themeToggle.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        themeToggle.setBackground(new Color(99, 102, 241));
+        themeToggle.setBackground(new Color(0x0ea5e9));
         themeToggle.setForeground(Color.WHITE);
         themeToggle.setFocusPainted(false);
         themeToggle.setBorderPainted(false);
@@ -147,7 +148,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel logo = new JLabel("TechSikho");
         logo.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        logo.setForeground(new Color(99, 102, 241));
+        logo.setForeground(new Color(0x0ea5e9));
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         logoPanel.add(logo);
         logoPanel.add(Box.createVerticalStrut(12));
@@ -156,26 +157,26 @@ public class DashboardFrame extends JFrame {
         // Nav buttons
         JPanel navButtons = new JPanel();
         navButtonsPanel = navButtons;
-        navButtons.setBackground(new Color(20, 20, 40));
+        navButtons.setBackground(new Color(0x0d1117));
         navButtons.setLayout(new BoxLayout(navButtons, BoxLayout.Y_AXIS));
 
         navButtons.add(createSectionLabel("MAIN"));
         notifBtn = new JButton("Alerts");
         notifBtn.setVisible(false);
-        notifBtn.setBackground(new Color(30,30,60));
+        notifBtn.setBackground(new Color(0x0d1520));
         notifBtn.setForeground(Color.WHITE);
         notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         notifBtn.setBorderPainted(false);
         notifBtn.setFocusPainted(false);
         notifBtn.setMaximumSize(new Dimension(160, 30));
-        notifBtn.setBackground(new Color(30,30,60));
+        notifBtn.setBackground(new Color(0x0d1520));
         notifBtn.setForeground(Color.WHITE);
         notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         notifBtn.setBorderPainted(false);
         notifBtn.setFocusPainted(false);
         notifBtn.setMaximumSize(new Dimension(160, 30)); notifBtn.setOpaque(true); notifBtn.setBorderPainted(false);
         notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        notifBtn.setBackground(new Color(40, 40, 80));
+        notifBtn.setBackground(new Color(0x0d1520));
         notifBtn.setForeground(Color.WHITE);
         notifBtn.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
         notifBtn.setFocusPainted(false);
@@ -208,9 +209,20 @@ public class DashboardFrame extends JFrame {
         navButtons.add(createNavBtn("Glossary", () -> showGlossary()));
         navButtons.add(Box.createVerticalStrut(4));
         navButtons.add(createNavBtn("Code Breaker", () -> showCodeBreaker()));
+
+
+
+
         navButtons.add(Box.createVerticalStrut(4));
-        navButtons.add(createNavBtn("Challenge", () -> showChallenge()));
-        navButtons.add(Box.createVerticalStrut(6));
+        navButtons.add(createNavBtn("Binary Blitz", () -> showBinaryBlitz()));
+        navButtons.add(Box.createVerticalStrut(4));
+        navButtons.add(createNavBtn("Debug Dhamaal", () -> showDebugDhamaal()));
+        navButtons.add(Box.createVerticalStrut(4));
+        navButtons.add(createNavBtn("Stack Overflow", () -> showStackOverflow()));
+        navButtons.add(Box.createVerticalStrut(4));
+        navButtons.add(createNavBtn("Deploy or Die", () -> showDeployOrDie()));
+
+
 
         navButtons.add(createSectionLabel("TRACK"));
         navButtons.add(createNavBtn("Progress", () -> showProgress()));
@@ -231,13 +243,13 @@ public class DashboardFrame extends JFrame {
         navButtons.add(Box.createVerticalStrut(4));
         navButtons.add(createNavBtn("XP History", () -> showXPHistory()));
         navButtons.add(Box.createVerticalStrut(4));
-        navButtons.add(createNavBtn("My Notes", () -> showNotes()));
+
         navButtons.add(Box.createVerticalStrut(4));
-        navButtons.add(createNavBtn("Export", () -> showExport()));
+
         navButtons.add(Box.createVerticalStrut(4));
         navButtons.add(createNavBtn("Settings", () -> showSettings()));
         navButtons.add(Box.createVerticalStrut(4));
-        navButtons.add(createNavBtn("Study Timer", () -> showStudyTimer()));
+
 
         if (currentUser.isAdmin()) {
             navButtons.add(Box.createVerticalStrut(6));
@@ -250,9 +262,9 @@ public class DashboardFrame extends JFrame {
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.setBackground(new Color(20, 20, 40));
+        scrollPane.setBackground(new Color(0x0d1117));
         scrollPane.setBorder(null);
-        scrollPane.getViewport().setBackground(new Color(20, 20, 40));
+        scrollPane.getViewport().setBackground(new Color(0x0d1117));
         sidebar.add(scrollPane, BorderLayout.CENTER);
 
         // Logout
@@ -266,7 +278,7 @@ public class DashboardFrame extends JFrame {
         });
         JPanel logoutPanel = new JPanel();
         logoutPanelRef = logoutPanel;
-        logoutPanel.setBackground(new Color(20, 20, 40));
+        logoutPanel.setBackground(new Color(0x0d1117));
         logoutPanel.setLayout(new BoxLayout(logoutPanel, BoxLayout.Y_AXIS));
         logoutPanel.add(Box.createVerticalStrut(8));
         logoutPanel.add(logoutBtn);
@@ -318,7 +330,7 @@ public class DashboardFrame extends JFrame {
                 dialog.setSize(440, 360);
                 dialog.setLocationRelativeTo(this);
                 JPanel panel = new JPanel();
-                panel.setBackground(new Color(20,20,50));
+                panel.setBackground(new Color(0x0a0a0a));
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 panel.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
                 JLabel titleLbl = new JLabel("Daily Login Reward!");
@@ -330,14 +342,14 @@ public class DashboardFrame extends JFrame {
                 subLbl.setForeground(Color.WHITE);
                 subLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
                 JPanel dayGrid = new JPanel(new GridLayout(1,7,4,0));
-                dayGrid.setBackground(new Color(20,20,50));
+                dayGrid.setBackground(new Color(0x0a0a0a));
                 String[] dayXp = {"10","15","20","25","30","40","100"};
                 for (int i=1; i<=7; i++) {
                     JPanel card = new JPanel();
                     card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
                     if (i == day) card.setBackground(new Color(60,50,0));
-                    else if (i < day) card.setBackground(new Color(30,30,50));
-                    else card.setBackground(new Color(20,20,40));
+                    else if (i < day) card.setBackground(new Color(0x0d1520));
+                    else card.setBackground(new Color(0x0a0a0a));
                     card.setBorder(BorderFactory.createEmptyBorder(8,4,8,4));
                     JLabel dayL = new JLabel("Day "+i);
                     dayL.setFont(new Font("Segoe UI", Font.BOLD, 10));
@@ -352,7 +364,7 @@ public class DashboardFrame extends JFrame {
                 }
                 JButton claimBtn = new JButton("Claim Reward! +" + xp + " XP");
                 claimBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                claimBtn.setBackground(new Color(99,102,241));
+                claimBtn.setBackground(new Color(0x0ea5e9));
                 claimBtn.setForeground(Color.WHITE);
                 claimBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
                 claimBtn.setMaximumSize(new Dimension(220,44));
@@ -395,7 +407,7 @@ public class DashboardFrame extends JFrame {
     private JPanel pomodoroPanel = null;
     private JLabel pomodoroModeLabel = null;
     private Timer bossQuestionTimer = null;
-    private static Color avatarColor = new Color(99, 102, 241);
+    private static Color avatarColor = new Color(0x0ea5e9);
     private static String selectedBadge = "Beginner";
     private static String selectedTitle = "";
     private static final String[] FUN_FACTS = {
@@ -419,7 +431,7 @@ public class DashboardFrame extends JFrame {
         unreadCount++;
         if (notifBtn != null) {
             notifBtn.setText("Notif [" + unreadCount + "]");
-            notifBtn.setBackground(new Color(99,102,241));
+            notifBtn.setBackground(new Color(0x0ea5e9));
         }
     }
 
@@ -427,23 +439,23 @@ public class DashboardFrame extends JFrame {
         unreadCount = 0;
         if (notifBtn != null) {
             notifBtn.setText("Alerts");
-            notifBtn.setBackground(new Color(40, 40, 80));
+            notifBtn.setBackground(new Color(0x0d1520));
         }
         JDialog dialog = new JDialog(this, "Notifications", true);
         dialog.setSize(380, 420);
         dialog.setLocationRelativeTo(this);
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(20, 20, 50));
+        panel.setBackground(new Color(0x0a0a0a));
         JLabel title = new JLabel("  Notifications");
         title.setFont(new Font("Segoe UI", Font.BOLD, 18));
         title.setForeground(Color.WHITE);
         title.setOpaque(true);
-        title.setBackground(new Color(25, 25, 55));
+        title.setBackground(new Color(0x0a0a0a));
         title.setBorder(BorderFactory.createEmptyBorder(12, 10, 12, 10));
         panel.add(title, BorderLayout.NORTH);
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-        listPanel.setBackground(new Color(20, 20, 50));
+        listPanel.setBackground(new Color(0x0a0a0a));
         if (notifications.isEmpty()) {
             JLabel empty = new JLabel("No notifications yet");
             empty.setForeground(new Color(150, 150, 180));
@@ -454,9 +466,9 @@ public class DashboardFrame extends JFrame {
         } else {
             for (String n : notifications) {
                 JPanel row = new JPanel(new BorderLayout());
-                row.setBackground(new Color(25, 25, 55));
+                row.setBackground(new Color(0x0a0a0a));
                 row.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(40, 40, 70)),
+                    BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(0x0d1520)),
                     BorderFactory.createEmptyBorder(10, 12, 10, 12)));
                 row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
                 JLabel msg = new JLabel(n);
@@ -468,10 +480,9 @@ public class DashboardFrame extends JFrame {
         }
         JScrollPane scroll = new JScrollPane(listPanel);
         scroll.setBorder(null);
-        scroll.getViewport().setBackground(new Color(20, 20, 50));
+        scroll.getViewport().setBackground(new Color(0x0a0a0a));
         panel.add(scroll, BorderLayout.CENTER);
         JButton clearBtn = new JButton("Clear All");
-        clearBtn.setBackground(new Color(99, 102, 241));
         clearBtn.setForeground(Color.WHITE);
         clearBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
         clearBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -480,12 +491,12 @@ public class DashboardFrame extends JFrame {
             unreadCount = 0;
             if (notifBtn != null) {
                 notifBtn.setText("Alerts");
-                notifBtn.setBackground(new Color(40, 40, 80));
+                notifBtn.setBackground(new Color(0x0d1520));
             }
             dialog.dispose();
         });
         JPanel bottom = new JPanel();
-        bottom.setBackground(new Color(20, 20, 50));
+        bottom.setBackground(new Color(0x0a0a0a));
         bottom.add(clearBtn);
         panel.add(bottom, BorderLayout.SOUTH);
         dialog.add(panel);
@@ -495,73 +506,84 @@ public class DashboardFrame extends JFrame {
     private void showLearningPath() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(15,15,35));
-        main.setBorder(BorderFactory.createEmptyBorder(30,30,30,30));
+        main.setBackground(new Color(0x0a0a0a));
+        main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
         JLabel title = new JLabel("Learning Path");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
         title.setForeground(Color.WHITE);
-        JLabel sub = new JLabel("Your journey from Beginner to Legend");
-        sub.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        sub.setForeground(new Color(150,150,180));
-        JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
-        topPanel.setBackground(new Color(15,15,35));
-        topPanel.add(title);
-        topPanel.add(Box.createVerticalStrut(6));
-        topPanel.add(sub);
-        topPanel.add(Box.createVerticalStrut(24));
-        String[][] beginner = {{"Java Basics","java"},{"Python Basics","python"},{"Web Basics","web"},{"C++ Basics","cpp"}};
-        String[][] intermediate = {{"OOP Concepts","oop"},{"Data Structures","ds"},{"Algorithms","algo"},{"Databases","db"}};
-        String[][] advanced = {{"Design Patterns","dp"},{"System Design","sd"},{"Cloud Basics","cloud"},{"AI Basics","ai"}};
+        JLabel sub = new JLabel("  Your journey from Beginner to Legend");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+        main.add(hdr, BorderLayout.NORTH);
+
+        String[][] beginner     = {{"Java Basics","Beginner"},{"Python Basics","Beginner"},{"Web Basics","Beginner"},{"C++ Basics","Beginner"}};
+        String[][] intermediate = {{"OOP Concepts","Intermediate"},{"Data Structures","Intermediate"},{"Algorithms","Intermediate"},{"SQL & Databases","Intermediate"}};
+        String[][] advanced     = {{"Design Patterns","Advanced"},{"System Design","Advanced"},{"AI / ML Basics","Advanced"},{"Git & DevOps","Advanced"}};
+        String[] headers  = {"BEGINNER", "INTERMEDIATE", "ADVANCED"};
+        Color[]  hdrColors = {new Color(0x22c55e), new Color(0xf59e0b), new Color(0xef4444)};
+        java.util.List<String[][]> cols = java.util.Arrays.asList(beginner, intermediate, advanced);
         int userLevel = currentUser.getCurrentLevel();
-        JPanel roadmap = new JPanel(new java.awt.GridLayout(1,3,20,0));
-        roadmap.setBackground(new Color(15,15,35));
-        String[][] columns = null;
-        String[] headers = {"BEGINNER","INTERMEDIATE","ADVANCED"};
-        int[][] colColors = {{99,102,241},{245,158,11},{239,68,68}};
-        java.util.List<String[][]> cols = new java.util.ArrayList<>();
-        cols.add(beginner); cols.add(intermediate); cols.add(advanced);
-        for (int c=0; c<3; c++) {
+
+        JPanel roadmap = new JPanel(new GridLayout(1, 3, 20, 0));
+        roadmap.setOpaque(false);
+        roadmap.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+        for (int c = 0; c < 3; c++) {
             JPanel col = new JPanel();
             col.setLayout(new BoxLayout(col, BoxLayout.Y_AXIS));
-            col.setBackground(new Color(20,20,45));
-            col.setBorder(BorderFactory.createEmptyBorder(16,16,16,16));
-            JLabel hdr = new JLabel(headers[c]);
-            hdr.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            hdr.setForeground(new Color(colColors[c][0],colColors[c][1],colColors[c][2]));
-            hdr.setAlignmentX(Component.CENTER_ALIGNMENT);
-            col.add(hdr);
+            col.setBackground(new Color(0x0d1520));
+            col.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(hdrColors[c].getRed(), hdrColors[c].getGreen(), hdrColors[c].getBlue(), 80), 1),
+                BorderFactory.createEmptyBorder(16, 16, 16, 16)));
+
+            JLabel colHdr = new JLabel(headers[c]);
+            colHdr.setFont(new Font("Segoe UI", Font.BOLD, 13));
+            colHdr.setForeground(hdrColors[c]);
+            colHdr.setAlignmentX(Component.CENTER_ALIGNMENT);
+            col.add(colHdr);
             col.add(Box.createVerticalStrut(16));
+
             String[][] nodes = cols.get(c);
-            for (int i=0; i<nodes.length; i++) {
+            for (int i = 0; i < nodes.length; i++) {
                 boolean completed = (c == 0 && userLevel > i+1) || (c == 1 && userLevel > 4+i) || (c == 2 && userLevel > 8+i);
-                boolean current = (c == 0 && userLevel == i+1) || (c == 1 && userLevel == 4+i+1) || (c == 2 && userLevel == 8+i+1);
+                boolean current   = (c == 0 && userLevel == i+1) || (c == 1 && userLevel == 4+i+1) || (c == 2 && userLevel == 8+i+1);
+                Color nodeBg     = completed ? new Color(0x052e16) : current ? new Color(0x0d1f3c) : new Color(0x0d1117);
+                Color nodeAccent = completed ? new Color(0x22c55e) : current ? new Color(0x0ea5e9) : new Color(0x1e293b);
+                String statusTxt = completed ? "✓ Completed" : current ? "→ In Progress" : "🔒 Locked";
+                Color statusColor = completed ? new Color(0x22c55e) : current ? new Color(0xf59e0b) : new Color(0x334155);
+
                 JPanel node = new JPanel();
                 node.setLayout(new BoxLayout(node, BoxLayout.Y_AXIS));
-                Color nodeBg = completed ? new Color(20,60,20) : current ? new Color(40,30,80) : new Color(30,30,55);
-                Color nodeAccent = completed ? new Color(50,200,80) : current ? new Color(99,102,241) : new Color(70,70,100);
                 node.setBackground(nodeBg);
                 node.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(nodeAccent, 2),
-                    BorderFactory.createEmptyBorder(10,12,10,12)));
-                node.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
+                    BorderFactory.createLineBorder(nodeAccent, current ? 2 : 1),
+                    BorderFactory.createEmptyBorder(10, 12, 10, 12)));
+                node.setMaximumSize(new Dimension(Integer.MAX_VALUE, 65));
+
                 JLabel nodeName = new JLabel(nodes[i][0]);
                 nodeName.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                nodeName.setForeground(completed ? new Color(50,200,80) : current ? new Color(99,102,241) : new Color(120,120,150));
+                nodeName.setForeground(completed ? new Color(0x22c55e) : current ? new Color(0x0ea5e9) : new Color(0x475569));
                 nodeName.setAlignmentX(Component.CENTER_ALIGNMENT);
-                JLabel status = new JLabel(completed ? "Completed" : current ? "In Progress" : "Locked");
-                status.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-                status.setForeground(completed ? new Color(50,200,80) : current ? new Color(245,158,11) : new Color(80,80,110));
-                status.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                JLabel statusLbl = new JLabel(statusTxt);
+                statusLbl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+                statusLbl.setForeground(statusColor);
+                statusLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
                 node.add(nodeName);
                 node.add(Box.createVerticalStrut(4));
-                node.add(status);
+                node.add(statusLbl);
                 node.setAlignmentX(Component.CENTER_ALIGNMENT);
                 col.add(node);
-                if (i < nodes.length-1) {
+
+                if (i < nodes.length - 1) {
                     JLabel arrow = new JLabel("↓");
-                    arrow.setForeground(new Color(80,80,110));
-                    arrow.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+                    arrow.setForeground(new Color(0x1e293b));
+                    arrow.setFont(new Font("Segoe UI", Font.PLAIN, 16));
                     arrow.setAlignmentX(Component.CENTER_ALIGNMENT);
                     col.add(Box.createVerticalStrut(4));
                     col.add(arrow);
@@ -570,62 +592,144 @@ public class DashboardFrame extends JFrame {
             }
             roadmap.add(col);
         }
-        JPanel focusCard = new JPanel();
-        focusCard.setBackground(new Color(25,25,55));
-        focusCard.setBorder(BorderFactory.createEmptyBorder(16,20,16,20));
-        focusCard.setLayout(new BoxLayout(focusCard, BoxLayout.Y_AXIS));
-        JLabel focusTitle = new JLabel("Current Focus");
-        focusTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        focusTitle.setForeground(new Color(255,215,0));
-        String focusTopic = userLevel <= 4 ? beginner[Math.min(userLevel-1,3)][0] : userLevel <= 8 ? intermediate[Math.min(userLevel-5,3)][0] : advanced[Math.min(userLevel-9,3)][0];
-        JLabel focusText = new JLabel("Keep going with: " + focusTopic);
-        focusText.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        focusText.setForeground(Color.WHITE);
-        focusCard.add(focusTitle);
-        focusCard.add(Box.createVerticalStrut(8));
-        focusCard.add(focusText);
-        JScrollPane scroll = new JScrollPane(roadmap);
-        scroll.setBorder(null);
-        scroll.getViewport().setBackground(new Color(15,15,35));
-        topPanel.add(scroll);
-        topPanel.add(Box.createVerticalStrut(16));
-        topPanel.add(focusCard);
-        main.add(topPanel, BorderLayout.CENTER);
+        main.add(roadmap, BorderLayout.CENTER);
         contentPanel.add(main);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
 
-    private JLabel createSectionLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Segoe UI", Font.BOLD, 10));
-        label.setForeground(new Color(80, 80, 130));
-        label.setBorder(BorderFactory.createEmptyBorder(10, 6, 4, 0));
-        label.setAlignmentX(Component.LEFT_ALIGNMENT);
-        return label;
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private JLabel createSectionLabel(String text) {
+        JLabel lbl = new JLabel(text);
+        lbl.setFont(new Font("Segoe UI", Font.BOLD, 10));
+        lbl.setForeground(new Color(0x334155));
+        lbl.setBorder(BorderFactory.createEmptyBorder(12, 4, 4, 4));
+        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return lbl;
+    }
     private JButton createNavBtn(String text, Runnable action) {
         JButton btn = new JButton(text);
-        btn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        btn.setBackground(new Color(35, 35, 60));
-        btn.setForeground(new Color(200, 200, 220));
+        btn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        btn.setBackground(new Color(0x0d1520));
+        btn.setForeground(new Color(0xb8c4cc));
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn.setMaximumSize(new Dimension(180, 40));
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
         btn.addActionListener(e -> action.run());
-        btn.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) { btn.setBackground(new Color(99, 102, 241)); }
-            public void mouseExited(MouseEvent e)  { btn.setBackground(new Color(35, 35, 60)); }
-        });
         return btn;
     }
 
-    // â”€â”€ DASHBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private void showDashboard() {
+
+
+
+
+
         if (!notificationsShown) {
             notificationsShown = true;
             showNotifications();
@@ -633,189 +737,347 @@ public class DashboardFrame extends JFrame {
         boolean bonusGiven = com.techsikho.dao.UserDAO.checkAndUpdateDailyBonus(currentUser.getUserId());
         if (bonusGiven) {
             currentUser.setTotalXp(currentUser.getTotalXp() + 5);
-            JOptionPane.showMessageDialog(this,
-                "Daily Login Bonus: +5 XP", "Bonus", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Daily Login Bonus: +5 XP", "Bonus", JOptionPane.INFORMATION_MESSAGE);
         }
 
         contentPanel.removeAll();
 
-        Color bgMain = new Color(18, 18, 35);
-        Color cardBg = new Color(25, 25, 50);
-        Color bannerBg = new Color(30, 30, 60);
-        Color gold = new Color(255, 215, 0);
-        Color purple = new Color(147, 51, 234);
+        // Theme colors matching Matrix Rain
+        Color bgMain   = new Color(0x0a0a0a);
+        Color cardBg   = new Color(0x0d1520);
+        Color teal     = new Color(0x2dd4bf);
+        Color cyan     = new Color(0x0ea5e9);
+        Color silver   = new Color(0xb8c4cc);
+        Color dimText  = new Color(0x475569);
 
         int level = XPService.calculateLevel(currentUser.getTotalXp());
         currentUser.setCurrentLevel(level);
-        if (previousLevel != -1 && level > previousLevel) {
-            showConfetti(level);
-        }
+        if (previousLevel != -1 && level > previousLevel) showConfetti(level);
         previousLevel = level;
-
         processStreakFreeze();
 
-        ProgressData dashboardProgress = loadProgressData();
-        int quizzesDone = dashboardProgress.completedLevels;
+        ProgressData dp = loadProgressData();
+        int quizzesDone = dp.completedLevels;
 
-        JPanel main = new JPanel(new BorderLayout(0, 20));
-        main.setBackground(bgMain);
-        main.setBorder(BorderFactory.createEmptyBorder(20, 25, 25, 25));
-
-        // â”€â”€ TOP: Welcome banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-        JPanel banner = new JPanel();
-        banner.setBackground(bannerBg);
-        banner.setLayout(new BoxLayout(banner, BoxLayout.Y_AXIS));
-        banner.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
-
-        JLabel welcome = new JLabel("Welcome back, " + currentUser.getUsername() + "!");
-        welcome.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        welcome.setForeground(Color.WHITE);
-        welcome.setAlignmentX(Component.LEFT_ALIGNMENT);
-        banner.add(welcome);
-        banner.add(Box.createVerticalStrut(6));
-
-        JLabel levelXp = new JLabel("Level " + level + " | " + currentUser.getTotalXp() + " XP");
-        levelXp.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        levelXp.setForeground(gold);
-        levelXp.setAlignmentX(Component.LEFT_ALIGNMENT);
-        banner.add(levelXp);
-        banner.add(Box.createVerticalStrut(12));
-
-        int[] xpTable = {0, 0, 100, 250, 500, 900, 1400, 2000, 2700, 3500, 4500};
+        // XP progress
+        int[] xpTable = {0,0,100,250,500,900,1400,2000,2700,3500,4500};
         int minXP = (level < xpTable.length) ? xpTable[level] : 4500;
-        int maxXP = (level + 1 < xpTable.length) ? xpTable[level + 1] : 4500;
-        int pct = (maxXP == minXP) ? 100 :
-            (int) ((double) (currentUser.getTotalXp() - minXP) / (maxXP - minXP) * 100);
+        int maxXP = (level+1 < xpTable.length) ? xpTable[level+1] : 4500;
+        int pct = (maxXP == minXP) ? 100 : (int)((double)(currentUser.getTotalXp()-minXP)/(maxXP-minXP)*100);
+        pct = Math.max(0, Math.min(100, pct));
 
+        JPanel main = new JPanel(new BorderLayout(0, 16));
+        main.setBackground(bgMain);
+        main.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
+
+        // ── BANNER ──────────────────────────────────────────────────
+        JPanel banner = new JPanel(null) {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0x0d1520));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 12, 12);
+                g2.setColor(new Color(0x2dd4bf, false));
+                g2.setColor(new Color(45,212,191,60));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 12, 12);
+            }
+        };
+        banner.setPreferredSize(new Dimension(0, 110));
+        banner.setOpaque(false);
+
+        JLabel welcomeLbl = new JLabel("Welcome back, " + currentUser.getUsername() + "!");
+        welcomeLbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        welcomeLbl.setForeground(Color.WHITE);
+        welcomeLbl.setBounds(20, 14, 700, 30);
+        banner.add(welcomeLbl);
+
+        JLabel lvlLbl = new JLabel("Level " + level + "  |  " + currentUser.getTotalXp() + " XP");
+        lvlLbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        lvlLbl.setForeground(teal);
+        lvlLbl.setBounds(20, 46, 400, 22);
+        banner.add(lvlLbl);
+
+        // XP bar
         JProgressBar xpBar = new JProgressBar(0, 100);
-        xpBar.setValue(Math.max(0, Math.min(100, pct)));
+        xpBar.setValue(pct);
         xpBar.setStringPainted(true);
-        xpBar.setString(xpBar.getValue() + "% to next level");
-        xpBar.setForeground(purple);
-        xpBar.setBackground(new Color(40, 40, 70));
+        xpBar.setString(pct + "% to next level");
+        xpBar.setForeground(cyan);
+        xpBar.setBackground(new Color(0x1e293b));
         xpBar.setBorderPainted(false);
-        xpBar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
-        xpBar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        xpBar.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        xpBar.setBounds(20, 72, 500, 20);
         banner.add(xpBar);
 
         if (isWeeklyChampion()) {
-            banner.add(Box.createVerticalStrut(10));
-            JLabel championLbl = new JLabel("Weekly Champion!");
-            championLbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            championLbl.setForeground(gold);
-            championLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-            banner.add(championLbl);
+            JLabel champ = new JLabel("★ Weekly Champion!");
+            champ.setFont(new Font("Segoe UI", Font.BOLD, 13));
+            champ.setForeground(new Color(255, 215, 0));
+            champ.setBounds(540, 72, 200, 20);
+            banner.add(champ);
         }
 
         main.add(banner, BorderLayout.NORTH);
 
-        // â”€â”€ CENTER: Two-column layout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        // ── CENTER: two columns ──────────────────────────────────────
         JPanel leftCol = new JPanel();
         leftCol.setLayout(new BoxLayout(leftCol, BoxLayout.Y_AXIS));
-        leftCol.setBackground(bgMain);
         leftCol.setOpaque(false);
 
-        JPanel statsRow = new JPanel(new GridLayout(1, 4, 12, 0));
-        statsRow.setBackground(bgMain);
-        statsRow.setAlignmentX(Component.LEFT_ALIGNMENT);
-        statsRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
-        statsRow.add(createDashboardStatCard("Total XP", String.valueOf(currentUser.getTotalXp()), purple, cardBg));
-        statsRow.add(createDashboardStatCard("Streak", getStreakDisplayText(),
-            new Color(245, 158, 11), cardBg));
-        statsRow.add(createDashboardStatCard("Quizzes Done", String.valueOf(quizzesDone),
-            new Color(59, 130, 246), cardBg));
-        statsRow.add(createDashboardStatCard("Level", String.valueOf(level),
-            new Color(16, 185, 129), cardBg));
-        leftCol.add(statsRow);
-        leftCol.add(Box.createVerticalStrut(16));
-        leftCol.add(wrapDashboardCard(createDailyMissionsCard(), cardBg));
-        leftCol.add(Box.createVerticalStrut(16));
-        leftCol.add(wrapDashboardCard(createFunFactCard(), cardBg));
+        // Stat cards row
+        JPanel statsRow = new JPanel(new GridLayout(1, 4, 10, 0));
+        statsRow.setOpaque(false);
+        statsRow.setPreferredSize(new Dimension(0, 95));
+        statsRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        statsRow.add(createPolishedStatCard("Total XP",     String.valueOf(currentUser.getTotalXp()), cyan,   cardBg));
+        statsRow.add(createPolishedStatCard("Streak",       getStreakDisplayText(),                   teal,   cardBg));
 
-        JPanel rightCol = new JPanel();
-        rightCol.setLayout(new BoxLayout(rightCol, BoxLayout.Y_AXIS));
-        rightCol.setBackground(bgMain);
-        rightCol.setOpaque(false);
+        statsRow.add(createPolishedStatCard("Quiz",    String.valueOf(quizzesDone),             silver, cardBg));
+        statsRow.add(createPolishedStatCard("Level",   String.valueOf(level),                   new Color(0x22c55e), cardBg));
 
-        JPanel quickActionsCard = new JPanel();
-        quickActionsCard.setBackground(cardBg);
-        quickActionsCard.setLayout(new BoxLayout(quickActionsCard, BoxLayout.Y_AXIS));
-        quickActionsCard.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        quickActionsCard.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel quickTitle = new JLabel("Quick Actions");
-        quickTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        quickTitle.setForeground(Color.WHITE);
-        quickTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
-        quickActionsCard.add(quickTitle);
-        quickActionsCard.add(Box.createVerticalStrut(12));
-
-        JPanel actionGrid = new JPanel(new GridLayout(2, 2, 10, 10));
-        actionGrid.setBackground(cardBg);
-        actionGrid.setAlignmentX(Component.LEFT_ALIGNMENT);
-        actionGrid.setMaximumSize(new Dimension(Integer.MAX_VALUE, 160));
-        actionGrid.add(createQuickActionBtn("Take Quiz", new Color(99, 102, 241), this::showLanguages));
-        actionGrid.add(createQuickActionBtn("Boss Battle", new Color(239, 68, 68), this::showBossBattle));
-        actionGrid.add(createQuickActionBtn("Word Scramble", new Color(16, 185, 129), this::showWordScramble));
-        actionGrid.add(createQuickActionBtn("Rapid Fire", new Color(245, 158, 11), this::showRapidFire));
-        quickActionsCard.add(actionGrid);
-        rightCol.add(quickActionsCard);
-        rightCol.add(Box.createVerticalStrut(16));
-
-        JPanel activityCard = new JPanel();
-        activityCard.setBackground(cardBg);
-        activityCard.setLayout(new BoxLayout(activityCard, BoxLayout.Y_AXIS));
-        activityCard.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        activityCard.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        JLabel activityTitle = new JLabel("Recent Activity");
-        activityTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        activityTitle.setForeground(Color.WHITE);
-        activityTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
-        activityCard.add(activityTitle);
-        activityCard.add(Box.createVerticalStrut(10));
-
-        DefaultListModel<String> activityModel = new DefaultListModel<>();
-        int activityCount = Math.min(5, dashboardProgress.recentProgress.size());
-        if (activityCount == 0) {
-            activityModel.addElement("No completed lessons yet - start a quiz!");
-        } else {
-            for (int i = 0; i < activityCount; i++) {
-                String[] row = dashboardProgress.recentProgress.get(i);
-                String date = row[0] != null && row[0].length() >= 10 ? row[0].substring(0, 10) : row[0];
-                activityModel.addElement(date + "  -  " + row[1] + " - " + row[2] + "  (+" + row[3] + " XP)");
-            }
+        // Daily Missions card
+        JPanel missionsCard = createPolishedCard("Daily Missions", cardBg, teal);
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(
+                 "SELECT COUNT(*) FROM user_progress WHERE user_id=? AND DATE(completion_date)=CURDATE()")) {
+            ps.setInt(1, currentUser.getUserId());
+            ResultSet rs = ps.executeQuery();
+            int quizzesToday = rs.next() ? rs.getInt(1) : 0;
+            missionsCard.add(createMissionRowPolished("Complete 2 activities today", "+25 XP", quizzesToday >= 2, cardBg));
+            missionsCard.add(Box.createVerticalStrut(6));
+            missionsCard.add(createMissionRowPolished("Win a Boss Battle", "+25 XP", false, cardBg));
+            missionsCard.add(Box.createVerticalStrut(6));
+            missionsCard.add(createMissionRowPolished("100% Typing Accuracy", "+25 XP", false, cardBg));
+        } catch (Exception e) {
+            missionsCard.add(createMissionRowPolished("Complete 2 activities today", "+25 XP", false, cardBg));
         }
 
-        JList<String> activityList = new JList<>(activityModel);
-        activityList.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        activityList.setBackground(cardBg);
-        activityList.setForeground(new Color(200, 200, 220));
-        activityList.setSelectionBackground(new Color(60, 60, 100));
-        activityList.setSelectionForeground(Color.WHITE);
-        activityList.setFixedCellHeight(28);
-        activityList.setEnabled(false);
-        activityList.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JScrollPane activityScroll = new JScrollPane(activityList);
-        activityScroll.setBorder(null);
-        activityScroll.getViewport().setBackground(cardBg);
-        activityScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
-        activityScroll.setPreferredSize(new Dimension(0, 160));
-        activityCard.add(activityScroll);
-        rightCol.add(activityCard);
 
-        JPanel columns = new JPanel(new GridLayout(1, 2, 20, 0));
-        columns.setBackground(bgMain);
+        // Fun Fact card
+        JPanel factCard = createPolishedCard("Fun Fact", cardBg, teal);
+        JLabel factLbl = new JLabel("<html><div style='width:220px;font-style:italic;'>" + getRandomFunFact() + "</div></html>");
+        factLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        factLbl.setForeground(silver);
+        factLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton refreshFact = new JButton("Refresh");
+        refreshFact.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        refreshFact.setBackground(new Color(0x1e293b));
+        refreshFact.setForeground(teal);
+        refreshFact.setBorderPainted(false);
+        refreshFact.setFocusPainted(false);
+        refreshFact.setAlignmentX(Component.LEFT_ALIGNMENT);
+        refreshFact.setMaximumSize(new Dimension(80, 26));
+        refreshFact.addActionListener(e ->
+            factLbl.setText("<html><div style='width:220px;font-style:italic;'>" + getRandomFunFact() + "</div></html>"));
+        factCard.add(factLbl);
+        factCard.add(Box.createVerticalStrut(10));
+        factCard.add(refreshFact);
+
+        factCard.add(Box.createVerticalStrut(12));
+        JSeparator factSep = new JSeparator(); factSep.setForeground(new Color(0x1e293b)); factSep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1)); factCard.add(factSep);
+        factCard.add(Box.createVerticalStrut(8));
+        JLabel tipTitle = new JLabel("Tip of the Day"); tipTitle.setFont(new Font("Segoe UI", Font.BOLD, 12)); tipTitle.setForeground(new Color(0x0ea5e9)); tipTitle.setAlignmentX(Component.LEFT_ALIGNMENT); factCard.add(tipTitle);
+        factCard.add(Box.createVerticalStrut(4));
+        String[] tips = {"Practice coding daily for 30 mins!", "Read error messages carefully.", "Break big problems into small ones.", "Comment your code well.", "Review yesterday's code today."};
+        JLabel tipLbl = new JLabel("<html><div style='width:260px;'>" + tips[new java.util.Random().nextInt(tips.length)] + "</div></html>"); tipLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12)); tipLbl.setForeground(new Color(0xb8c4cc)); tipLbl.setAlignmentX(Component.LEFT_ALIGNMENT); factCard.add(tipLbl);
+        leftCol.add(missionsCard);
+        leftCol.add(Box.createVerticalStrut(12));
+        leftCol.add(factCard);
+
+
+        // ── RIGHT COLUMN ─────────────────────────────────────────────
+        JPanel rightCol = new JPanel();
+        rightCol.setLayout(new BoxLayout(rightCol, BoxLayout.Y_AXIS));
+        rightCol.setOpaque(false);
+
+        // Quick Actions
+        JPanel qaCard = createPolishedCard("Quick Actions", cardBg, teal);
+        JPanel actionGrid = new JPanel(new GridLayout(2, 2, 8, 8));
+        actionGrid.setOpaque(false);
+        actionGrid.setAlignmentX(Component.LEFT_ALIGNMENT);
+        actionGrid.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
+        actionGrid.add(createPolishedActionBtn("Take Quiz",     cyan,                   this::showLanguages));
+        actionGrid.add(createPolishedActionBtn("Boss Battle",   new Color(0xef4444),    this::showBossBattle));
+        actionGrid.add(createPolishedActionBtn("Word Scramble", teal,                   this::showWordScramble));
+        actionGrid.add(createPolishedActionBtn("Rapid Fire",    new Color(0xf59e0b),    this::showRapidFire));
+        qaCard.add(actionGrid);
+        rightCol.add(qaCard);
+        rightCol.add(Box.createVerticalStrut(12));
+
+        // Recent Activity
+        JPanel actCard = createPolishedCard("Recent Activity", cardBg, teal);
+        if (dp.recentProgress.isEmpty()) {
+            JLabel empty = new JLabel("No activity yet — start a quiz!");
+            empty.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            empty.setForeground(dimText);
+            empty.setAlignmentX(Component.LEFT_ALIGNMENT);
+            actCard.add(empty);
+        } else {
+            int show = Math.min(5, dp.recentProgress.size());
+            for (int i = 0; i < show; i++) {
+                String[] row = dp.recentProgress.get(i);
+                String date = (row[0] != null && row[0].length() >= 10) ? row[0].substring(0,10) : row[0];
+                JPanel actRow = new JPanel(new BorderLayout());
+                actRow.setOpaque(false);
+                actRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
+                JLabel actLbl = new JLabel(date + "  —  " + row[1] + " › " + row[2]);
+                actLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                actLbl.setForeground(silver);
+                JLabel xpBadge = new JLabel("+" + row[3] + " XP");
+                xpBadge.setFont(new Font("Segoe UI", Font.BOLD, 11));
+                xpBadge.setForeground(teal);
+                actRow.add(actLbl, BorderLayout.WEST);
+                actRow.add(xpBadge, BorderLayout.EAST);
+                actCard.add(actRow);
+                if (i < show-1) actCard.add(Box.createVerticalStrut(4));
+            }
+        }
+        rightCol.add(actCard);
+
+
+
+
+
+        JPanel centerPanel = new JPanel(new BorderLayout(0, 12));
+        centerPanel.setOpaque(false);
+        JPanel columns = new JPanel(new GridLayout(1, 2, 16, 0));
+        columns.setOpaque(false);
         columns.add(leftCol);
         columns.add(rightCol);
-        main.add(columns, BorderLayout.CENTER);
+        centerPanel.add(statsRow, BorderLayout.NORTH);
+        centerPanel.add(columns, BorderLayout.CENTER);
+        main.add(centerPanel, BorderLayout.CENTER);
 
         contentPanel.add(main);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
+    private JPanel createPolishedCard(String title, Color cardBg, Color accentColor) {
+        JPanel card = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(cardBg);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 12, 12);
+                g2.setColor(new Color(accentColor.getRed(), accentColor.getGreen(), accentColor.getBlue(), 60));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 12, 12);
+            }
+        };
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setOpaque(false);
+        card.setBorder(BorderFactory.createEmptyBorder(14, 16, 14, 16));
+        card.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel titleLbl = new JLabel(title);
+        titleLbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        titleLbl.setForeground(Color.WHITE);
+        titleLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JSeparator sep = new JSeparator();
+        sep.setForeground(new Color(accentColor.getRed(), accentColor.getGreen(), accentColor.getBlue(), 80));
+        sep.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
+
+        card.add(titleLbl);
+        card.add(Box.createVerticalStrut(6));
+        card.add(sep);
+        card.add(Box.createVerticalStrut(10));
+        return card;
+    }
+
+    private JPanel createPolishedStatCard(String title, String value, Color accent, Color cardBg) {
+        JPanel card = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(cardBg);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
+                g2.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 80));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
+                // top accent line
+                g2.setColor(accent);
+                g2.setStroke(new BasicStroke(2f));
+                g2.drawLine(16, 0, getWidth()-16, 0);
+            }
+        };
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setOpaque(false);
+        card.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
+        JLabel t = new JLabel(title);
+        t.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        t.setForeground(new Color(0x64748b));
+        t.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel v = new JLabel(value);
+        v.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        v.setForeground(accent);
+        v.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        card.add(Box.createVerticalStrut(4));
+        card.add(t);
+        card.add(Box.createVerticalStrut(4));
+        card.add(v);
+        return card;
+    }
+
+    private JPanel createMissionRowPolished(String mission, String reward, boolean done, Color cardBg) {
+        JPanel row = new JPanel(new BorderLayout());
+        row.setOpaque(false);
+        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 26));
+
+        JLabel mLbl = new JLabel((done ? "✓ " : "○ ") + mission);
+        mLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        mLbl.setForeground(done ? new Color(0x22c55e) : new Color(0xcbd5e1));
+
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
+        right.setOpaque(false);
+        JLabel rLbl = new JLabel(reward);
+        rLbl.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        rLbl.setForeground(done ? new Color(0x22c55e) : new Color(0x0ea5e9));
+        JLabel sLbl = new JLabel(done ? "DONE" : "Pending");
+        sLbl.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        sLbl.setForeground(done ? new Color(0x22c55e) : new Color(0x475569));
+        right.add(rLbl);
+        right.add(sLbl);
+
+        row.add(mLbl, BorderLayout.WEST);
+        row.add(right, BorderLayout.EAST);
+        return row;
+    }
+
+    private JButton createPolishedActionBtn(String text, Color accent, Runnable action) {
+        JButton btn = new JButton(text) {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                Color bg = getModel().isRollover()
+                    ? new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 200)
+                    : new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 120);
+                g2.setColor(bg);
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                g2.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 150));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 8, 8);
+                g2.setColor(getModel().isRollover() ? Color.WHITE : accent);
+                g2.setFont(new Font("Segoe UI", Font.BOLD, 13));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2,
+                    (getHeight()+fm.getAscent()-fm.getDescent())/2);
+            }
+        };
+        btn.setContentAreaFilled(false);
+        btn.setBorderPainted(false);
+        btn.setFocusPainted(false);
+        btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btn.addActionListener(e -> action.run());
+        return btn;
+    }
     private JPanel createDashboardStatCard(String title, String value, Color accent, Color cardBg) {
         JPanel card = new JPanel();
         card.setBackground(cardBg);
@@ -991,7 +1253,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createDailyMissionsCard() {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 50));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
@@ -1024,20 +1286,20 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createMissionRow(String mission, String reward, boolean done) {
         JPanel row = new JPanel(new BorderLayout());
-        row.setBackground(new Color(25, 25, 50));
+        row.setBackground(new Color(0x0d1520));
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 28));
 
         JLabel missionLbl = new JLabel(mission);
         missionLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         missionLbl.setForeground(Color.WHITE);
-        missionLbl.setBackground(new Color(25, 25, 50));
+        missionLbl.setBackground(new Color(0x0d1520));
         missionLbl.setOpaque(true);
 
         JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 0));
-        right.setBackground(new Color(25, 25, 50));
+        right.setBackground(new Color(0x0d1520));
         JLabel rewardLbl = new JLabel(reward);
         rewardLbl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        rewardLbl.setForeground(new Color(99, 102, 241));
+        rewardLbl.setForeground(new Color(0x0ea5e9));
         JLabel statusLbl = new JLabel(done ? "DONE" : "Pending");
         statusLbl.setFont(new Font("Segoe UI", Font.BOLD, 11));
         statusLbl.setForeground(done ? new Color(16, 185, 129) : new Color(100, 100, 130));
@@ -1049,55 +1311,171 @@ public class DashboardFrame extends JFrame {
         return row;
     }
 
-    // â”€â”€ LESSONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private void showLessons() {
         contentPanel.removeAll();
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
-
         JLabel title = new JLabel("Lessons");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
         title.setForeground(Color.WHITE);
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(title);
-        panel.add(Box.createVerticalStrut(20));
-
-        JPanel langs = new JPanel(new GridLayout(1, 4, 15, 0));
-        langs.setBackground(new Color(18, 18, 35));
-        langs.add(createLessonLangCard("Java"));
-        langs.add(createLessonLangCard("Python"));
-        langs.add(createLessonLangCard("C++"));
-        langs.add(createLessonLangCard("Web Dev"));
-        panel.add(langs);
-
+        JLabel sub = new JLabel("  Learn concepts before taking quizzes");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+        panel.add(hdr, BorderLayout.NORTH);
+        JPanel grid = new JPanel(new GridLayout(2, 4, 16, 16));
+        grid.setBackground(new Color(0x0a0a0a));
+        grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+        grid.add(createLessonLangCard("Java",         "OOP, Collections, Exceptions",  new Color(0xf59e0b)));
+        grid.add(createLessonLangCard("Python",       "Basics, OOP, Functions",        new Color(0x22c55e)));
+        grid.add(createLessonLangCard("C++",          "Pointers, STL, Memory",         new Color(0x0ea5e9)));
+        grid.add(createLessonLangCard("Web Dev",      "HTML, CSS, JavaScript",         new Color(0xef4444)));
+        grid.add(createLessonLangCard("DSA",          "Arrays, Trees, Graphs",         new Color(0x8b5cf6)));
+        grid.add(createLessonLangCard("SQL",          "Queries, Joins, Aggregations",  new Color(0x06b6d4)));
+        grid.add(createLessonLangCard("AI / ML",      "ML, Algorithms, Deep Learning", new Color(0xec4899)));
+        grid.add(createLessonLangCard("Git & DevOps", "Git, CI/CD, Docker",            new Color(0xf97316)));
+        panel.add(grid, BorderLayout.CENTER);
         contentPanel.add(panel);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    private JPanel createLessonLangCard(String name) {
-        JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private JPanel createLessonLangCard(String name, String topics, Color accent) {
+        JPanel card = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0x0d1520));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 12, 12);
+                g2.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 60));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 12, 12);
+                g2.setColor(accent);
+                g2.setStroke(new BasicStroke(3f));
+                g2.drawLine(0, 0, getWidth(), 0);
+            }
+        };
+        card.setOpaque(false);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        JLabel n = new JLabel(name);
-        n.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        n.setForeground(Color.WHITE);
-        n.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton open = new JButton("View Lessons");
-        open.setAlignmentX(Component.CENTER_ALIGNMENT);
-        open.setBackground(new Color(99, 102, 241));
-        open.setForeground(Color.WHITE);
-        open.setFocusPainted(false);
+        card.setBorder(BorderFactory.createEmptyBorder(18, 16, 18, 16));
+        card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        JLabel nameLbl = new JLabel(name);
+        nameLbl.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        nameLbl.setForeground(accent);
+        nameLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JLabel topicsLbl = new JLabel(topics);
+        topicsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        topicsLbl.setForeground(new Color(0x64748b));
+        topicsLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton open = new JButton("View Lessons →") {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(getModel().isRollover() ? accent : new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 40));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 6, 6);
+                g2.setColor(getModel().isRollover() ? Color.WHITE : accent);
+                g2.setFont(new Font("Segoe UI", Font.BOLD, 11));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2, (getHeight()+fm.getAscent()-fm.getDescent())/2);
+            }
+        };
+        open.setContentAreaFilled(false);
         open.setBorderPainted(false);
+        open.setFocusPainted(false);
+        open.setAlignmentX(Component.LEFT_ALIGNMENT);
+        open.setMaximumSize(new Dimension(140, 30));
+        open.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         open.addActionListener(e -> showLessonsForLanguage(name));
-        card.add(n);
-        card.add(Box.createVerticalStrut(10));
+        card.add(nameLbl);
+        card.add(Box.createVerticalStrut(6));
+        card.add(topicsLbl);
+        card.add(Box.createVerticalGlue());
+        card.add(Box.createVerticalStrut(14));
         card.add(open);
         return card;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private int getLangIdByName(String name) {
         int id = -1;
@@ -1123,7 +1501,7 @@ public class DashboardFrame extends JFrame {
     private void showLessonsForLanguage(String langName) {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -1167,7 +1545,7 @@ public class DashboardFrame extends JFrame {
             String lt = lessons[i][0];
             String desc = lessons[i][1];
             JPanel card = new JPanel();
-            card.setBackground(new Color(25, 25, 45));
+            card.setBackground(new Color(0x0d1520));
             card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
             card.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
             card.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1182,19 +1560,19 @@ public class DashboardFrame extends JFrame {
             txt.setWrapStyleWord(true);
             txt.setEditable(false);
             txt.setRows(5);
-            txt.setBackground(new Color(30, 30, 55));
+            txt.setBackground(new Color(0x0d1520));
             txt.setForeground(Color.WHITE);
             txt.setFont(new Font("Segoe UI", Font.PLAIN, 13));
             txt.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
             JScrollPane descScroll = new JScrollPane(txt);
             descScroll.setBorder(null);
-            descScroll.getViewport().setBackground(new Color(30, 30, 55));
+            descScroll.getViewport().setBackground(new Color(0x0d1520));
             descScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
             descScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
 
             JButton complete = new JButton("Complete Lesson +5 XP");
             complete.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            complete.setBackground(new Color(99, 102, 241));
+            complete.setBackground(new Color(0x0ea5e9));
             complete.setForeground(Color.WHITE);
             complete.setFocusPainted(false);
             complete.setBorderPainted(false);
@@ -1222,14 +1600,14 @@ public class DashboardFrame extends JFrame {
                 codeArea.setLineWrap(true);
                 codeArea.setWrapStyleWord(true);
                 codeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-                codeArea.setBackground(new Color(15, 15, 30));
-                codeArea.setForeground(new Color(200, 220, 255));
+                codeArea.setBackground(new Color(0x0a0a0a));
+                codeArea.setForeground(new Color(0xb8c4cc));
                 codeArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
                 JScrollPane codeScroll = new JScrollPane(codeArea);
                 codeScroll.setBorder(BorderFactory.createTitledBorder(
-                    BorderFactory.createLineBorder(new Color(99, 102, 241)),
+                    BorderFactory.createLineBorder(new Color(0x0ea5e9)),
                     "Code Example", 0, 0, new Font("Segoe UI", Font.BOLD, 12), Color.WHITE));
-                codeScroll.getViewport().setBackground(new Color(15, 15, 30));
+                codeScroll.getViewport().setBackground(new Color(0x0a0a0a));
                 codeScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
                 codeScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 140));
                 card.add(codeScroll);
@@ -1239,8 +1617,8 @@ public class DashboardFrame extends JFrame {
             card.add(complete);
 
             JScrollPane cardScroll = new JScrollPane(card);
-            cardScroll.setBorder(BorderFactory.createLineBorder(new Color(40, 40, 65)));
-            cardScroll.getViewport().setBackground(new Color(25, 25, 45));
+            cardScroll.setBorder(BorderFactory.createLineBorder(new Color(0x0d1520)));
+            cardScroll.getViewport().setBackground(new Color(0x0d1520));
             cardScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             cardScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
             cardScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1254,7 +1632,7 @@ public class DashboardFrame extends JFrame {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         scroll.setBorder(null);
-        scroll.getViewport().setBackground(new Color(18, 18, 35));
+        scroll.getViewport().setBackground(new Color(0x0a0a0a));
         contentPanel.add(scroll);
         contentPanel.revalidate();
         contentPanel.repaint();
@@ -1288,7 +1666,7 @@ public class DashboardFrame extends JFrame {
     private void showProgress() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("Progress Tracker");
@@ -1299,31 +1677,31 @@ public class DashboardFrame extends JFrame {
         ProgressData progress = loadProgressData();
 
         JPanel languagePanel = new JPanel(new GridLayout(1, 4, 15, 0));
-        languagePanel.setBackground(new Color(18, 18, 35));
+        languagePanel.setBackground(new Color(0x0a0a0a));
         languagePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         languagePanel.add(createMiniProgressCard("Java", getCompletedLessonCount(1), 3, new Color(245, 158, 11)));
         languagePanel.add(createMiniProgressCard("Python", getCompletedLessonCount(2), 3, new Color(16, 185, 129)));
-        languagePanel.add(createMiniProgressCard("C++", getCompletedLessonCount(3), 3, new Color(99, 102, 241)));
+        languagePanel.add(createMiniProgressCard("C++", getCompletedLessonCount(3), 3, new Color(0x0ea5e9)));
         languagePanel.add(createMiniProgressCard("Web", getCompletedLessonCount(4), 3, new Color(239, 68, 68)));
         panel.add(languagePanel, BorderLayout.CENTER);
 
         JPanel topStats = new JPanel(new GridLayout(1, 3, 20, 0));
-        topStats.setBackground(new Color(18, 18, 35));
+        topStats.setBackground(new Color(0x0a0a0a));
         topStats.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
-        topStats.add(createStatCard("Completed Lessons", String.valueOf(progress.completedLevels), new Color(99, 102, 241)));
+        topStats.add(createStatCard("Completed Lessons", String.valueOf(progress.completedLevels), new Color(0x0ea5e9)));
         topStats.add(createStatCard("Progress XP", String.valueOf(progress.totalXp), new Color(16, 185, 129)));
         topStats.add(createStatCard("Recent Activity", String.valueOf(Math.min(progress.recentProgress.size(), 5)), new Color(245, 158, 11)));
 
         JPanel centerBlock = new JPanel();
         centerBlock.setLayout(new BoxLayout(centerBlock, BoxLayout.Y_AXIS));
-        centerBlock.setBackground(new Color(18, 18, 35));
+        centerBlock.setBackground(new Color(0x0a0a0a));
         centerBlock.add(topStats);
 
         JProgressBar completionBar = new JProgressBar(0, 10);
         completionBar.setValue(Math.min(progress.completedLevels, 10));
         completionBar.setStringPainted(true);
-        completionBar.setForeground(new Color(99, 102, 241));
-        completionBar.setBackground(new Color(25, 25, 45));
+        completionBar.setForeground(new Color(0x0ea5e9));
+        completionBar.setBackground(new Color(0x0d1520));
         completionBar.setString(progress.completedLevels + " / 10 lessons completed");
         completionBar.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         centerBlock.add(completionBar);
@@ -1334,9 +1712,9 @@ public class DashboardFrame extends JFrame {
         styleLeaderboardTable(progressTable);
         JScrollPane progressScroll = new JScrollPane(progressTable);
         progressScroll.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             "Recent Completed Lessons", 0, 0, new Font("Segoe UI", Font.BOLD, 14), Color.WHITE));
-        progressScroll.getViewport().setBackground(new Color(25, 25, 45));
+        progressScroll.getViewport().setBackground(new Color(0x0d1520));
         progressScroll.setPreferredSize(new Dimension(0, 220));
         centerBlock.add(progressScroll);
 
@@ -1391,7 +1769,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createStatCard(String title, String value, Color accent) {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
         JLabel t = new JLabel(title);
@@ -1410,7 +1788,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createLevelStatCard(int level) {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
         JLabel t = new JLabel("Level");
@@ -1435,7 +1813,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createStreakStatCard(int streak) {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(20, 15, 20, 15));
         JLabel t = new JLabel("Streak");
@@ -1537,10 +1915,10 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createDailyChallengeCard() {
         JPanel wrapper = new JPanel();
-        wrapper.setBackground(new Color(25, 25, 45));
+        wrapper.setBackground(new Color(0x0d1520));
         wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
         wrapper.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             "Daily Challenge", 0, 0, new Font("Segoe UI", Font.BOLD, 14), Color.WHITE));
         wrapper.setAlignmentX(Component.LEFT_ALIGNMENT);
         wrapper.setMaximumSize(new Dimension(Integer.MAX_VALUE, 280));
@@ -1563,7 +1941,7 @@ public class DashboardFrame extends JFrame {
         wrapper.add(questionLabel);
 
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setBackground(new Color(15,10,40));
+        optionsPanel.setBackground(new Color(0x0a0a0a));
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 10, 15));
@@ -1576,7 +1954,7 @@ public class DashboardFrame extends JFrame {
             radios[i] = new JRadioButton(labels[i] + ". " + options[i]);
             radios[i].setFont(new Font("Segoe UI", Font.PLAIN, 13));
             radios[i].setForeground(Color.WHITE);
-            radios[i].setBackground(new Color(25, 25, 45));
+            radios[i].setBackground(new Color(0x0d1520));
             radios[i].setAlignmentX(Component.LEFT_ALIGNMENT);
             group.add(radios[i]);
             optionsPanel.add(radios[i]);
@@ -1585,7 +1963,6 @@ public class DashboardFrame extends JFrame {
 
         JButton submitBtn = new JButton("Submit Answer");
         submitBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        submitBtn.setBackground(new Color(99, 102, 241));
         submitBtn.setForeground(Color.WHITE);
         submitBtn.setFocusPainted(false);
         submitBtn.setBorderPainted(false);
@@ -1619,7 +1996,7 @@ public class DashboardFrame extends JFrame {
         }
 
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
-        btnPanel.setBackground(new Color(25, 25, 45));
+        btnPanel.setBackground(new Color(0x0d1520));
         btnPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnPanel.add(submitBtn);
         wrapper.add(btnPanel);
@@ -1634,7 +2011,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createFunFactCard() {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 50));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         card.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1651,7 +2028,6 @@ public class DashboardFrame extends JFrame {
 
         JButton refreshBtn = new JButton("Refresh");
         refreshBtn.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        refreshBtn.setBackground(new Color(99, 102, 241));
         refreshBtn.setForeground(Color.WHITE);
         refreshBtn.setFocusPainted(false);
         refreshBtn.setBorderPainted(false);
@@ -1674,13 +2050,13 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createSpinWheelPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
         JButton spinBtn = new JButton("Spin the Wheel");
         spinBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        spinBtn.setBackground(new Color(147, 51, 234));
+        spinBtn.setBackground(new Color(0x2dd4bf));
         spinBtn.setForeground(Color.WHITE);
         spinBtn.setFocusPainted(false);
         spinBtn.setBorderPainted(false);
@@ -1694,20 +2070,19 @@ public class DashboardFrame extends JFrame {
         JDialog dlg = new JDialog(this, "Spin the Wheel", true);
         dlg.setSize(420, 480);
         dlg.setLocationRelativeTo(this);
-        dlg.getContentPane().setBackground(new Color(25, 25, 45));
+        dlg.getContentPane().setBackground(new Color(0x0d1520));
 
         WheelPanel wheelPanel = new WheelPanel();
         wheelPanel.setPreferredSize(new Dimension(360, 360));
 
         JButton spinActionBtn = new JButton("SPIN!");
         spinActionBtn.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        spinActionBtn.setBackground(new Color(99, 102, 241));
         spinActionBtn.setForeground(Color.WHITE);
         spinActionBtn.setFocusPainted(false);
         spinActionBtn.setBorderPainted(false);
 
         JPanel content = new JPanel();
-        content.setBackground(new Color(25, 25, 45));
+        content.setBackground(new Color(0x0d1520));
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
         content.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         wheelPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -1754,7 +2129,7 @@ public class DashboardFrame extends JFrame {
 
     private class WheelPanel extends JPanel {
         private double rotation = 0;
-        WheelPanel() { setBackground(new Color(25, 25, 45)); }
+        WheelPanel() { setBackground(new Color(0x0d1520)); }
         void setRotation(double rotation) { this.rotation = rotation; }
 
         @Override
@@ -1784,7 +2159,7 @@ public class DashboardFrame extends JFrame {
             int[] py = {y - 5, y - 5, y + 18};
             g2.setColor(Color.WHITE);
             g2.fillPolygon(px, py, 3);
-            g2.setColor(new Color(30, 30, 55));
+            g2.setColor(new Color(0x0d1520));
             g2.fillOval(cx - 14, y + size / 2 - 14, 28, 28);
         }
     }
@@ -1819,51 +2194,139 @@ public class DashboardFrame extends JFrame {
                 {"What is CSS Box Model?", "Content + Padding + Border + Margin"},
                 {"What is REST API?", "Architectural style for web services using HTTP"}
             };
+            case "DSA": return new String[][]{
+                {"What is an Array?", "Fixed-size sequential collection of elements"},
+                {"What is a Linked List?", "Linear data structure with nodes pointing to next"},
+                {"What is a Stack?", "LIFO - Last In First Out data structure"},
+                {"What is a Queue?", "FIFO - First In First Out data structure"},
+                {"What is Binary Search?", "Search algorithm on sorted array - O(log n)"},
+                {"What is Big O notation?", "Describes algorithm time/space complexity"}
+            };
+            case "SQL": return new String[][]{
+                {"What is SELECT?", "Retrieves data from database table"},
+                {"What is JOIN?", "Combines rows from two or more tables"},
+                {"What is PRIMARY KEY?", "Uniquely identifies each row in a table"},
+                {"What is GROUP BY?", "Groups rows with same values together"},
+                {"What is an INDEX?", "Speeds up data retrieval in database"}
+            };
+            case "AI / ML": return new String[][]{
+                {"What is supervised learning?", "Model trained on labeled input-output pairs"},
+                {"What is overfitting?", "Model performs well on training but fails on new data"},
+                {"What is a neural network?", "Layers of interconnected nodes inspired by brain"},
+                {"What is gradient descent?", "Optimization algorithm to minimize loss function"},
+                {"What is NLP?", "Natural Language Processing - AI understanding text"}
+            };
+            case "Git & DevOps": return new String[][]{
+                {"What is git commit?", "Saves snapshot of changes to local repository"},
+                {"What is git merge?", "Combines two branches into one"},
+                {"What is CI/CD?", "Continuous Integration and Continuous Deployment"},
+                {"What is Docker?", "Platform to build and run containerized apps"},
+                {"What is a branch?", "Separate line of development in git"}
+            };
             default: return new String[0][0];
         }
     }
 
     private void showFlashCards() {
         contentPanel.removeAll();
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("Flash Cards");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
         title.setForeground(Color.WHITE);
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(title);
-        panel.add(Box.createVerticalStrut(15));
+        JLabel sub = new JLabel("  Tap a topic, then flip cards to test yourself");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
 
-        JPanel topicBtns = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        topicBtns.setBackground(new Color(18, 18, 35));
-        topicBtns.setAlignmentX(Component.LEFT_ALIGNMENT);
-        String[] topics = {"Java", "Python", "C++", "Web Dev"};
+        JPanel topicBar = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 8));
+        topicBar.setOpaque(false);
+        String[][] topics = {
+            {"Java","#f59e0b"},{"Python","#22c55e"},{"C++","#0ea5e9"},{"Web Dev","#ef4444"},
+            {"DSA","#8b5cf6"},{"SQL","#06b6d4"},{"AI / ML","#ec4899"},{"Git & DevOps","#f97316"}
+        };
         JPanel cardArea = new JPanel();
-        cardArea.setBackground(new Color(18, 18, 35));
+        cardArea.setBackground(new Color(0x0a0a0a));
         cardArea.setLayout(new BoxLayout(cardArea, BoxLayout.Y_AXIS));
-        cardArea.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        for (String topic : topics) {
-            JButton btn = new JButton(topic);
-            btn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            btn.setBackground(new Color(99, 102, 241));
-            btn.setForeground(Color.WHITE);
-            btn.setFocusPainted(false);
+        for (String[] t : topics) {
+            Color c = Color.decode(t[1]);
+            JButton btn = new JButton(t[0]) {
+                protected void paintComponent(Graphics g) {
+                    Graphics2D g2 = (Graphics2D)g;
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.setColor(getModel().isRollover() ? c : new Color(c.getRed(), c.getGreen(), c.getBlue(), 40));
+                    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
+                    g2.setColor(getModel().isRollover() ? Color.WHITE : c);
+                    g2.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                    FontMetrics fm = g2.getFontMetrics();
+                    g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2, (getHeight()+fm.getAscent()-fm.getDescent())/2);
+                }
+            };
+            btn.setContentAreaFilled(false);
             btn.setBorderPainted(false);
-            btn.addActionListener(e -> showFlashCardDeck(cardArea, topic));
-            topicBtns.add(btn);
+            btn.setFocusPainted(false);
+            btn.setPreferredSize(new Dimension(110, 32));
+            btn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            final String topicName = t[0];
+            btn.addActionListener(e -> showFlashCardDeck(cardArea, topicName));
+            topicBar.add(btn);
         }
-        panel.add(topicBtns);
-        panel.add(Box.createVerticalStrut(20));
-        panel.add(cardArea);
 
+        JPanel north = new JPanel(new BorderLayout());
+        north.setOpaque(false);
+        north.add(hdr, BorderLayout.NORTH);
+        north.add(topicBar, BorderLayout.CENTER);
+        panel.add(north, BorderLayout.NORTH);
+        panel.add(cardArea, BorderLayout.CENTER);
         contentPanel.add(panel);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void showFlashCardDeck(JPanel cardArea, String topic) {
         cardArea.removeAll();
@@ -1887,7 +2350,7 @@ public class DashboardFrame extends JFrame {
         JButton prevBtn = new JButton("Previous");
         for (JButton b : new JButton[]{flipBtn, nextBtn, prevBtn}) {
             b.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            b.setBackground(new Color(99, 102, 241));
+            b.setBackground(new Color(0x0ea5e9));
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
             b.setBorderPainted(false);
@@ -1905,7 +2368,7 @@ public class DashboardFrame extends JFrame {
         prevBtn.addActionListener(e -> { if (index[0] > 0) { index[0]--; showingAnswer[0] = false; updateCard.run(); } });
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        btnRow.setBackground(new Color(18, 18, 35));
+        btnRow.setBackground(new Color(0x0a0a0a));
         btnRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnRow.add(flipBtn);
         btnRow.add(prevBtn);
@@ -1927,13 +2390,13 @@ public class DashboardFrame extends JFrame {
         FlashCardPanel(String question, String answer, boolean showingAnswer) {
             setLayout(new BorderLayout());
             setPreferredSize(new Dimension(650, 200));
-            setBackground(new Color(25, 25, 45));
+            setBackground(new Color(0x0d1520));
             setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(99, 102, 241), 2, true),
+                BorderFactory.createLineBorder(new Color(0x0ea5e9), 2, true),
                 BorderFactory.createEmptyBorder(20, 20, 20, 20)));
             typeLabel = new JLabel(showingAnswer ? "Answer" : "Question");
             typeLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            typeLabel.setForeground(showingAnswer ? new Color(16, 185, 129) : new Color(200, 200, 220));
+            typeLabel.setForeground(showingAnswer ? new Color(16, 185, 129) : new Color(0xb8c4cc));
             contentLabel = new JLabel("<html><div style='width:580px;'>" + (showingAnswer ? answer : question) + "</div></html>");
             contentLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
             contentLabel.setForeground(Color.WHITE);
@@ -1943,7 +2406,7 @@ public class DashboardFrame extends JFrame {
 
         void setContent(String text, boolean isAnswer) {
             typeLabel.setText(isAnswer ? "Answer" : "Question");
-            typeLabel.setForeground(isAnswer ? new Color(16, 185, 129) : new Color(200, 200, 220));
+            typeLabel.setForeground(isAnswer ? new Color(16, 185, 129) : new Color(0xb8c4cc));
             contentLabel.setText("<html><div style='width:580px;'>" + text + "</div></html>");
         }
     }
@@ -1957,7 +2420,7 @@ public class DashboardFrame extends JFrame {
         stopPomodoroTimer();
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -1988,7 +2451,7 @@ public class DashboardFrame extends JFrame {
         JButton resetBtn = new JButton("Reset");
         for (JButton b : new JButton[]{studyBtn, breakBtn, resetBtn}) {
             b.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            b.setBackground(new Color(99, 102, 241));
+            b.setBackground(new Color(0x0ea5e9));
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
             b.setBorderPainted(false);
@@ -2040,7 +2503,7 @@ public class DashboardFrame extends JFrame {
     }
 
     private class PomodoroPanel extends JPanel {
-        PomodoroPanel() { setPreferredSize(new Dimension(280, 280)); setBackground(new Color(18, 18, 35)); }
+        PomodoroPanel() { setPreferredSize(new Dimension(280, 280)); setBackground(new Color(0x0a0a0a)); }
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -2050,7 +2513,7 @@ public class DashboardFrame extends JFrame {
             int size = Math.min(getWidth(), getHeight()) - 10;
             int x = (getWidth() - size) / 2;
             int y = (getHeight() - size) / 2;
-            g2.setColor(new Color(40, 40, 65));
+            g2.setColor(new Color(0x0d1520));
             g2.setStroke(new BasicStroke(14));
             g2.drawOval(x, y, size, size);
             double progress = pomodoroTotalSeconds > 0 ? (double) pomodoroSecondsLeft / pomodoroTotalSeconds : 0;
@@ -2088,7 +2551,7 @@ public class DashboardFrame extends JFrame {
         stopPomodoroTimer();
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -2101,14 +2564,14 @@ public class DashboardFrame extends JFrame {
 
         JTextArea notesArea = new JTextArea(loadNotesFromFile());
         notesArea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        notesArea.setBackground(new Color(30, 30, 55));
+        notesArea.setBackground(new Color(0x0d1520));
         notesArea.setForeground(Color.WHITE);
         notesArea.setLineWrap(true);
         notesArea.setWrapStyleWord(true);
         notesArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         JScrollPane scroll = new JScrollPane(notesArea);
         scroll.setPreferredSize(new Dimension(0, 350));
-        scroll.getViewport().setBackground(new Color(30, 30, 55));
+        scroll.getViewport().setBackground(new Color(0x0d1520));
         scroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(scroll);
         panel.add(Box.createVerticalStrut(15));
@@ -2117,7 +2580,7 @@ public class DashboardFrame extends JFrame {
         JButton clearBtn = new JButton("Clear Notes");
         for (JButton b : new JButton[]{saveBtn, clearBtn}) {
             b.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            b.setBackground(new Color(99, 102, 241));
+            b.setBackground(new Color(0x0ea5e9));
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
             b.setBorderPainted(false);
@@ -2135,7 +2598,7 @@ public class DashboardFrame extends JFrame {
         clearBtn.addActionListener(e -> notesArea.setText(""));
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        btnRow.setBackground(new Color(18, 18, 35));
+        btnRow.setBackground(new Color(0x0a0a0a));
         btnRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnRow.add(saveBtn);
         btnRow.add(clearBtn);
@@ -2148,7 +2611,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createMiniProgressCard(String name, int count, int total, Color accent) {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         JLabel nameLbl = new JLabel(name);
@@ -2157,12 +2620,12 @@ public class DashboardFrame extends JFrame {
         nameLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel progressLbl = new JLabel(count + " / " + total + " lessons");
         progressLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        progressLbl.setForeground(new Color(200, 200, 220));
+        progressLbl.setForeground(new Color(0xb8c4cc));
         progressLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JProgressBar bar = new JProgressBar(0, total);
         bar.setValue(Math.min(count, total));
         bar.setForeground(accent);
-        bar.setBackground(new Color(40, 40, 65));
+        bar.setBackground(new Color(0x0d1520));
         bar.setMaximumSize(new Dimension(Integer.MAX_VALUE, 14));
         bar.setAlignmentX(Component.LEFT_ALIGNMENT);
         card.add(nameLbl);
@@ -2174,63 +2637,148 @@ public class DashboardFrame extends JFrame {
     }
 
     // â”€â”€ LANGUAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
     private void showLanguages() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
         JLabel title = new JLabel("Choose a Language");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
         title.setForeground(Color.WHITE);
-        panel.add(title, BorderLayout.NORTH);
-        JPanel grid = new JPanel(new GridLayout(2, 2, 20, 20));
-        grid.setBackground(new Color(18, 18, 35));
+        JLabel sub = new JLabel("  Select a topic to start your learning journey");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+        panel.add(hdr, BorderLayout.NORTH);
+
+        JPanel grid = new JPanel(new GridLayout(2, 4, 16, 16));
+        grid.setBackground(new Color(0x0a0a0a));
         grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-        grid.add(createLangCard("Java", "5 Levels", new Color(245, 158, 11), 1));
-        grid.add(createLangCard("Python", "3 Levels", new Color(16, 185, 129), 2));
-        grid.add(createLangCard("C++", "2 Levels", new Color(99, 102, 241), 3));
-        grid.add(createLangCard("Web Dev", "3 Levels", new Color(239, 68, 68), 4));
+        grid.add(createLangCard("Java",          "5 Levels · OOP, Collections", new Color(0xf59e0b), 1));
+        grid.add(createLangCard("Python",        "3 Levels · Basics, OOP",      new Color(0x22c55e), 2));
+        grid.add(createLangCard("C++",           "2 Levels · Pointers, STL",    new Color(0x0ea5e9), 3));
+        grid.add(createLangCard("Web Dev",       "3 Levels · HTML, CSS, JS",    new Color(0xef4444), 4));
+        grid.add(createLangCard("DSA",           "4 Levels · Arrays, Trees",    new Color(0x8b5cf6), 5));
+        grid.add(createLangCard("SQL",           "3 Levels · Queries, Joins",   new Color(0x06b6d4), 6));
+        grid.add(createLangCard("AI / ML",       "3 Levels · ML Basics",        new Color(0xec4899), 7));
+        grid.add(createLangCard("Git & DevOps",  "2 Levels · Git, CI/CD",       new Color(0xf97316), 8));
         panel.add(grid, BorderLayout.CENTER);
         contentPanel.add(panel);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private JPanel createLangCard(String name, String levels, Color accent, int langId) {
-        JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+        JPanel card = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(new Color(0x0d1520));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 12, 12);
+                g2.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 60));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 12, 12);
+                g2.setColor(accent);
+                g2.setStroke(new BasicStroke(3f));
+                g2.drawLine(0, 0, getWidth(), 0);
+            }
+        };
+        card.setOpaque(false);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+        card.setBorder(BorderFactory.createEmptyBorder(20, 16, 20, 16));
+        card.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         JLabel nameLbl = new JLabel(name);
-        nameLbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        nameLbl.setFont(new Font("Segoe UI", Font.BOLD, 18));
         nameLbl.setForeground(accent);
-        nameLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel levelsLbl = new JLabel(levels);
-        levelsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        levelsLbl.setForeground(new Color(150, 150, 180));
-        levelsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton startBtn = new JButton("Start Learning");
-        startBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        startBtn.setBackground(accent);
-        startBtn.setForeground(Color.WHITE);
-        startBtn.setFocusPainted(false);
+        levelsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        levelsLbl.setForeground(new Color(0x64748b));
+        levelsLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
+        JButton startBtn = new JButton("Start Learning →") {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(getModel().isRollover() ? accent : new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 40));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 6, 6);
+                g2.setColor(getModel().isRollover() ? Color.WHITE : accent);
+                g2.setFont(new Font("Segoe UI", Font.BOLD, 11));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2, (getHeight()+fm.getAscent()-fm.getDescent())/2);
+            }
+        };
+        startBtn.setContentAreaFilled(false);
         startBtn.setBorderPainted(false);
-        startBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        startBtn.setFocusPainted(false);
+        startBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        startBtn.setMaximumSize(new Dimension(140, 30));
+        startBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         startBtn.addActionListener(e -> new QuizFrame(currentUser, langId).setVisible(true));
         card.add(nameLbl);
-        card.add(Box.createVerticalStrut(10));
+        card.add(Box.createVerticalStrut(6));
         card.add(levelsLbl);
-        card.add(Box.createVerticalStrut(20));
+        card.add(Box.createVerticalGlue());
+        card.add(Box.createVerticalStrut(14));
         card.add(startBtn);
         return card;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // â”€â”€ ANALYTICS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private void showAnalytics() {
         AnalyticsData analytics = loadAnalyticsData();
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Analytics");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -2239,25 +2787,25 @@ public class DashboardFrame extends JFrame {
 
         JPanel centerContent = new JPanel();
         centerContent.setLayout(new BoxLayout(centerContent, BoxLayout.Y_AXIS));
-        centerContent.setBackground(new Color(18, 18, 35));
+        centerContent.setBackground(new Color(0x0a0a0a));
 
         if (analytics.totalAttempts == 0) {
             JLabel empty = new JLabel("No quiz attempts yet. Complete lessons and quizzes to see analytics!");
             empty.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-            empty.setForeground(new Color(200, 200, 220));
+            empty.setForeground(new Color(0xb8c4cc));
             empty.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
             empty.setAlignmentX(Component.LEFT_ALIGNMENT);
             centerContent.add(empty);
         } else {
             JPanel summary = new JPanel(new GridLayout(1, 2, 20, 0));
-            summary.setBackground(new Color(18, 18, 35));
+            summary.setBackground(new Color(0x0a0a0a));
             summary.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-            summary.add(createStatCard("Quizzes Completed", String.valueOf(analytics.totalAttempts), new Color(99, 102, 241)));
+            summary.add(createStatCard("Quizzes Completed", String.valueOf(analytics.totalAttempts), new Color(0x0ea5e9)));
             summary.add(createStatCard("Total XP Earned", String.valueOf(analytics.totalXp), new Color(16, 185, 129)));
             centerContent.add(summary);
 
             JPanel charts = new JPanel(new GridLayout(1, 2, 20, 0));
-            charts.setBackground(new Color(18, 18, 35));
+            charts.setBackground(new Color(0x0a0a0a));
             charts.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
             charts.setMaximumSize(new Dimension(Integer.MAX_VALUE, 280));
             charts.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -2333,14 +2881,14 @@ public class DashboardFrame extends JFrame {
         AchievementData data = loadAchievementData();
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Achievements");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setForeground(Color.WHITE);
         panel.add(title, BorderLayout.NORTH);
         JPanel grid = new JPanel(new GridLayout(2, 3, 20, 20));
-        grid.setBackground(new Color(18, 18, 35));
+        grid.setBackground(new Color(0x0a0a0a));
         grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         grid.add(createAchievementCard("First Quiz", data.totalAttempts > 0, "Complete 1 quiz"));
         grid.add(createAchievementCard("Quiz Veteran", data.totalAttempts >= 5, "Complete 5 quizzes"));
@@ -2358,7 +2906,7 @@ public class DashboardFrame extends JFrame {
     private void showExport() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Export Progress");
@@ -2369,14 +2917,13 @@ public class DashboardFrame extends JFrame {
         panel.add(Box.createVerticalStrut(15));
         JLabel subtitle = new JLabel("Download your quiz progress as a CSV file.");
         subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        subtitle.setForeground(new Color(200, 200, 220));
+        subtitle.setForeground(new Color(0xb8c4cc));
         subtitle.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(subtitle);
         panel.add(Box.createVerticalStrut(25));
 
         JButton exportBtn = new JButton("Export Progress to CSV");
         exportBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        exportBtn.setBackground(new Color(99, 102, 241));
         exportBtn.setForeground(Color.WHITE);
         exportBtn.setFocusPainted(false);
         exportBtn.setBorderPainted(false);
@@ -2418,7 +2965,7 @@ public class DashboardFrame extends JFrame {
     private void showXPHistory() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("XP History");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -2448,14 +2995,14 @@ public class DashboardFrame extends JFrame {
         if (rows.isEmpty()) {
             JLabel empty = new JLabel("No XP history yet. Complete lessons and quizzes!");
             empty.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-            empty.setForeground(new Color(200, 200, 220));
+            empty.setForeground(new Color(0xb8c4cc));
             empty.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
             panel.add(empty, BorderLayout.CENTER);
         } else {
             JTable table = new JTable(rows.toArray(new String[0][]), cols);
             styleDashboardTable(table);
             JScrollPane scroll = new JScrollPane(table);
-            scroll.getViewport().setBackground(new Color(25, 25, 45));
+            scroll.getViewport().setBackground(new Color(0x0d1520));
             scroll.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
             panel.add(scroll, BorderLayout.CENTER);
         }
@@ -2468,7 +3015,7 @@ public class DashboardFrame extends JFrame {
     private void showSettings() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -2518,7 +3065,6 @@ public class DashboardFrame extends JFrame {
 
         JButton updateBtn = new JButton("Update Password");
         updateBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        updateBtn.setBackground(new Color(99, 102, 241));
         updateBtn.setForeground(Color.WHITE);
         updateBtn.setFocusPainted(false);
         updateBtn.setBorderPainted(false);
@@ -2556,36 +3102,36 @@ public class DashboardFrame extends JFrame {
 
     private void styleReadOnlyField(JTextField field) {
         field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        field.setBackground(new Color(30, 30, 55));
+        field.setBackground(new Color(0x0d1520));
         field.setForeground(Color.WHITE);
         field.setEditable(false);
         field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241), 1),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9), 1),
             BorderFactory.createEmptyBorder(8, 12, 8, 12)));
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
     }
 
     private void styleInputField(JComponent field) {
         field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        field.setBackground(new Color(30, 30, 55));
+        field.setBackground(new Color(0x0d1520));
         field.setForeground(Color.WHITE);
         field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241), 1),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9), 1),
             BorderFactory.createEmptyBorder(8, 12, 8, 12)));
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 42));
     }
 
     private void styleDashboardTable(JTable table) {
         table.setOpaque(true);
-        table.setBackground(new Color(25, 25, 45));
+        table.setBackground(new Color(0x0d1520));
         table.setForeground(Color.WHITE);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.setRowHeight(32);
-        table.getTableHeader().setBackground(new Color(99, 102, 241));
+        table.getTableHeader().setBackground(new Color(0x0ea5e9));
         table.getTableHeader().setForeground(Color.WHITE);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-        table.setGridColor(new Color(40, 40, 65));
-        table.setSelectionBackground(new Color(99, 102, 241));
+        table.setGridColor(new Color(0x0d1520));
+        table.setSelectionBackground(new Color(0x0ea5e9));
         table.setSelectionForeground(Color.WHITE);
     }
 
@@ -2626,9 +3172,9 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createAchievementCard(String title, boolean unlocked, String description) {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 45));
+        card.setBackground(new Color(0x0d1520));
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(unlocked ? new Color(16, 185, 129) : new Color(75, 75, 85), 2),
+            BorderFactory.createLineBorder(unlocked ? new Color(16, 185, 129) : new Color(0x1e293b), 2),
             BorderFactory.createEmptyBorder(15, 15, 15, 15)));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         JLabel titleLabel = new JLabel(title);
@@ -2637,7 +3183,7 @@ public class DashboardFrame extends JFrame {
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel descriptionLabel = new JLabel(description);
         descriptionLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        descriptionLabel.setForeground(new Color(200, 200, 220));
+        descriptionLabel.setForeground(new Color(0xb8c4cc));
         descriptionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel statusLabel = new JLabel(unlocked ? "Unlocked" : "Locked");
         statusLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -2656,7 +3202,7 @@ public class DashboardFrame extends JFrame {
         private final List<Integer> values;
         BarChartPanel(List<String> labels, List<Integer> values) {
             this.labels = labels; this.values = values;
-            setBackground(new Color(25, 25, 45));
+            setBackground(new Color(0x0d1520));
         }
         @Override
         protected void paintComponent(Graphics g) {
@@ -2664,7 +3210,7 @@ public class DashboardFrame extends JFrame {
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             int width = getWidth(); int height = getHeight();
-            g2.setColor(new Color(45, 45, 65));
+            g2.setColor(new Color(0x0d1520));
             g2.fillRect(0, 0, width, height);
             g2.setColor(Color.WHITE);
             g2.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -2677,7 +3223,7 @@ public class DashboardFrame extends JFrame {
             for (int i = 0; i < values.size(); i++) {
                 int barHeight = (int) ((values.get(i) / (double) maxValue) * barAreaHeight);
                 int y = height - 40 - barHeight;
-                g2.setColor(new Color(99, 102, 241));
+                g2.setColor(new Color(0x0ea5e9));
                 g2.fillRoundRect(x, y, barWidth, barHeight, 10, 10);
                 g2.setColor(Color.WHITE);
                 g2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -2690,21 +3236,21 @@ public class DashboardFrame extends JFrame {
 
     private class PieChartPanel extends JPanel {
         private final Map<String, Integer> slices;
-        PieChartPanel(Map<String, Integer> slices) { this.slices = slices; setBackground(new Color(25, 25, 45)); }
+        PieChartPanel(Map<String, Integer> slices) { this.slices = slices; setBackground(new Color(0x0d1520)); }
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             int width = getWidth(); int height = getHeight();
-            g2.setColor(new Color(45, 45, 65)); g2.fillRect(0, 0, width, height);
+            g2.setColor(new Color(0x0d1520)); g2.fillRect(0, 0, width, height);
             g2.setColor(Color.WHITE); g2.setFont(new Font("Segoe UI", Font.BOLD, 16));
             g2.drawString("Languages Attempted", 20, 30);
             int total = slices.values().stream().mapToInt(Integer::intValue).sum();
             if (total == 0) { g2.setFont(new Font("Segoe UI", Font.PLAIN, 14)); g2.drawString("No language data.", 20, 60); return; }
             int pieSize = Math.min(width, height) / 2 - 40;
             int x = 20; int y = 50; int startAngle = 0;
-            Color[] colors = {new Color(99,102,241), new Color(16,185,129), new Color(239,68,68), new Color(245,158,11), new Color(147,51,234)};
+            Color[] colors = {new Color(0x0ea5e9), new Color(16,185,129), new Color(239,68,68), new Color(245,158,11), new Color(0x0ea5e9)};
             int colorIndex = 0;
             for (Map.Entry<String, Integer> entry : slices.entrySet()) {
                 int angle = (int) Math.round(entry.getValue() / (double) total * 360);
@@ -2729,11 +3275,11 @@ public class DashboardFrame extends JFrame {
     private void showLeaderboard() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JPanel northBlock = new JPanel();
-        northBlock.setBackground(new Color(18, 18, 35));
+        northBlock.setBackground(new Color(0x0a0a0a));
         northBlock.setLayout(new BoxLayout(northBlock, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Leaderboard - Top Players");
@@ -2751,14 +3297,14 @@ public class DashboardFrame extends JFrame {
         northBlock.add(Box.createVerticalStrut(15));
 
         JPanel searchPanel = new JPanel(new BorderLayout(10, 0));
-        searchPanel.setBackground(new Color(18, 18, 35));
+        searchPanel.setBackground(new Color(0x0a0a0a));
         searchPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         JLabel searchLabel = new JLabel("Search Leaderboard:");
         searchLabel.setForeground(Color.WHITE);
         JTextField searchField = new JTextField();
-        searchField.setBackground(new Color(30, 30, 55));
+        searchField.setBackground(new Color(0x0d1520));
         searchField.setForeground(Color.WHITE);
-        searchField.setBorder(BorderFactory.createLineBorder(new Color(99, 102, 241)));
+        searchField.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9)));
         searchPanel.add(searchLabel, BorderLayout.WEST);
         searchPanel.add(searchField, BorderLayout.CENTER);
         northBlock.add(searchPanel);
@@ -2823,7 +3369,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createHallOfFamePanel(java.util.List<String[]> topUsers) {
         JPanel section = new JPanel();
-        section.setBackground(new Color(18, 18, 35));
+        section.setBackground(new Color(0x0a0a0a));
         section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
         section.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -2835,7 +3381,7 @@ public class DashboardFrame extends JFrame {
         section.add(Box.createVerticalStrut(10));
 
         JPanel cards = new JPanel(new GridLayout(1, 3, 15, 0));
-        cards.setBackground(new Color(18, 18, 35));
+        cards.setBackground(new Color(0x0a0a0a));
         cards.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
 
         Color[] bgColors = {new Color(180, 140, 20), new Color(160, 160, 170), new Color(160, 100, 50)};
@@ -2867,11 +3413,11 @@ public class DashboardFrame extends JFrame {
                 uname.setAlignmentX(Component.CENTER_ALIGNMENT);
                 JLabel xpLbl = new JLabel("XP: " + user[3]);
                 xpLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-                xpLbl.setForeground(new Color(30, 30, 55));
+                xpLbl.setForeground(new Color(0x0d1520));
                 xpLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
                 JLabel lvlLbl = new JLabel("Level: " + user[4]);
                 lvlLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-                lvlLbl.setForeground(new Color(30, 30, 55));
+                lvlLbl.setForeground(new Color(0x0d1520));
                 lvlLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
                 card.add(medal);
                 card.add(Box.createVerticalStrut(4));
@@ -2894,22 +3440,22 @@ public class DashboardFrame extends JFrame {
 
     private void styleLeaderboardTable(JTable table) {
         table.setOpaque(true);
-        table.setBackground(new Color(25, 25, 45));
+        table.setBackground(new Color(0x0d1520));
         table.setForeground(Color.WHITE);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         table.setRowHeight(35);
-        table.getTableHeader().setBackground(new Color(99, 102, 241));
+        table.getTableHeader().setBackground(new Color(0x0ea5e9));
         table.getTableHeader().setForeground(Color.WHITE);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
-        table.setGridColor(new Color(40, 40, 65));
-        table.setSelectionBackground(new Color(99, 102, 241));
+        table.setGridColor(new Color(0x0d1520));
+        table.setSelectionBackground(new Color(0x0ea5e9));
         table.setSelectionForeground(Color.WHITE);
     }
 
     // â”€â”€ PROFILE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private void showProfile() {
         contentPanel.removeAll();
-        Color bg = new Color(18, 18, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel panel = new JPanel();
         panel.setBackground(bg);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -2953,10 +3499,10 @@ public class DashboardFrame extends JFrame {
 
         JTextField fullNameField = new JTextField(currentUser.getFullName());
         fullNameField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        fullNameField.setBackground(new Color(25, 25, 45));
+        fullNameField.setBackground(new Color(0x0d1520));
         fullNameField.setForeground(Color.WHITE);
         fullNameField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             BorderFactory.createEmptyBorder(6, 8, 6, 8)));
         JTextField usernameField = new JTextField(currentUser.getUsername());
         styleReadOnlyField(usernameField);
@@ -3002,8 +3548,8 @@ public class DashboardFrame extends JFrame {
         colorRow.setBackground(bg);
         colorRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         Color[] colors = {
-            new Color(239, 68, 68), new Color(59, 130, 246), new Color(16, 185, 129),
-            new Color(147, 51, 234), new Color(245, 158, 11), new Color(236, 72, 153)
+            new Color(239, 68, 68), new Color(0x0ea5e9), new Color(16, 185, 129),
+            new Color(0x2dd4bf), new Color(245, 158, 11), new Color(236, 72, 153)
         };
         for (Color c : colors) {
             JButton colorBtn = new JButton();
@@ -3040,7 +3586,7 @@ public class DashboardFrame extends JFrame {
             badgeBtn.setOpaque(true);
             badgeBtn.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
             if (unlocked) {
-                badgeBtn.setBackground(badge.equals(selectedBadge) ? new Color(99, 102, 241) : new Color(40, 40, 65));
+                badgeBtn.setBackground(badge.equals(selectedBadge) ? new Color(0x0ea5e9) : new Color(0x0d1520));
                 badgeBtn.setForeground(Color.WHITE);
                 badgeBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 badgeBtn.addMouseListener(new MouseAdapter() {
@@ -3054,8 +3600,8 @@ public class DashboardFrame extends JFrame {
                     }
                 });
             } else {
-                badgeBtn.setBackground(new Color(30, 30, 45));
-                badgeBtn.setForeground(new Color(80, 80, 100));
+                badgeBtn.setBackground(new Color(0x0d1520));
+                badgeBtn.setForeground(new Color(0x1e293b));
             }
             badgeRow.add(badgeBtn);
         }
@@ -3088,7 +3634,7 @@ public class DashboardFrame extends JFrame {
         JButton saveAvatarBtn = styleGameBtn("Save Avatar", new Color(16, 185, 129));
         saveAvatarBtn.addActionListener(e ->
             JOptionPane.showMessageDialog(this, "Avatar saved!", "Profile", JOptionPane.INFORMATION_MESSAGE));
-        JButton saveBtn = styleGameBtn("Save Changes", new Color(99, 102, 241));
+        JButton saveBtn = styleGameBtn("Save Changes", new Color(0x0ea5e9));
         saveBtn.addActionListener(e -> {
             String newName = fullNameField.getText().trim();
             if (newName.isEmpty()) {
@@ -3153,7 +3699,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createLabeledField(String labelText, JComponent field) {
         JPanel row = new JPanel();
-        row.setBackground(new Color(18, 18, 35));
+        row.setBackground(new Color(0x0a0a0a));
         row.setLayout(new BoxLayout(row, BoxLayout.Y_AXIS));
         row.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel label = new JLabel(labelText);
@@ -3168,7 +3714,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel profileRow(String label, String value) {
         JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        row.setBackground(new Color(25, 25, 45));
+        row.setBackground(new Color(0x0d1520));
         row.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
         JLabel lbl = new JLabel(label + ":  ");
@@ -3181,14 +3727,15 @@ public class DashboardFrame extends JFrame {
         row.add(val);
         return row;
     }
-private void showAdmin() {
+
+private void showAdmin() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(new Color(18, 18, 35));
+        headerPanel.setBackground(new Color(0x0a0a0a));
         JLabel title = new JLabel("Admin Panel");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setForeground(Color.WHITE);
@@ -3205,17 +3752,16 @@ public class DashboardFrame extends JFrame {
         } catch (Exception e) { e.printStackTrace(); }
 
         JPanel statsPanel = new JPanel(new GridLayout(1, 3, 15, 0));
-        statsPanel.setBackground(new Color(18, 18, 35));
+        statsPanel.setBackground(new Color(0x0a0a0a));
         statsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         statsPanel.setPreferredSize(new Dimension(800, 120));
-        statsPanel.add(createStatCard("Total Users", String.valueOf(totalUsers), new Color(99, 102, 241)));
+        statsPanel.add(createStatCard("Total Users", String.valueOf(totalUsers), new Color(0x0ea5e9)));
         statsPanel.add(createStatCard("Total Questions", String.valueOf(totalQuestions), new Color(16, 185, 129)));
         statsPanel.add(createStatCard("Total Attempts", String.valueOf(totalAttempts), new Color(245, 158, 11)));
         headerPanel.add(statsPanel, BorderLayout.SOUTH);
 
         JButton importCsvBtn = new JButton("Import Questions from CSV");
         importCsvBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        importCsvBtn.setBackground(new Color(99, 102, 241));
         importCsvBtn.setForeground(Color.WHITE);
         importCsvBtn.setFocusPainted(false);
         importCsvBtn.setBorderPainted(false);
@@ -3228,7 +3774,7 @@ public class DashboardFrame extends JFrame {
             }
         });
         JPanel importPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        importPanel.setBackground(new Color(18, 18, 35));
+        importPanel.setBackground(new Color(0x0a0a0a));
         importPanel.add(importCsvBtn);
         headerPanel.add(importPanel, BorderLayout.CENTER);
         panel.add(headerPanel, BorderLayout.NORTH);
@@ -3237,16 +3783,16 @@ public class DashboardFrame extends JFrame {
         java.util.List<String[]> data = getAllUsersData();
         JTable table = new JTable(data.toArray(new String[0][]), cols);
         table.setOpaque(true);
-        table.setBackground(new Color(25, 25, 45));
+        table.setBackground(new Color(0x0d1520));
         table.setForeground(Color.WHITE);
         table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         table.setRowHeight(30);
-        table.getTableHeader().setBackground(new Color(99, 102, 241));
+        table.getTableHeader().setBackground(new Color(0x0ea5e9));
         table.getTableHeader().setForeground(Color.WHITE);
         table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
-        table.setGridColor(new Color(40, 40, 65));
+        table.setGridColor(new Color(0x0d1520));
         JScrollPane scroll = new JScrollPane(table);
-        scroll.getViewport().setBackground(new Color(25, 25, 45));
+        scroll.getViewport().setBackground(new Color(0x0d1520));
         scroll.setBorder(BorderFactory.createEmptyBorder(15, 0, 0, 0));
         panel.add(scroll, BorderLayout.CENTER);
         contentPanel.add(panel);
@@ -3270,7 +3816,7 @@ public class DashboardFrame extends JFrame {
     private void showCertificate() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -3304,7 +3850,6 @@ public class DashboardFrame extends JFrame {
 
             JButton saveBtn = new JButton("Save Certificate");
             saveBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            saveBtn.setBackground(new Color(99, 102, 241));
             saveBtn.setForeground(Color.WHITE);
             saveBtn.setFocusPainted(false);
             saveBtn.setBorderPainted(false);
@@ -3342,7 +3887,7 @@ public class DashboardFrame extends JFrame {
             this.fullName = fullName; this.statsLine = statsLine;
             this.dateStr = dateStr; this.funMessage = funMessage;
             setPreferredSize(new Dimension(620, 420));
-            setBackground(new Color(25, 25, 45));
+            setBackground(new Color(0x0d1520));
         }
         @Override
         protected void paintComponent(Graphics g) {
@@ -3350,7 +3895,7 @@ public class DashboardFrame extends JFrame {
             Graphics2D g2 = (Graphics2D) g;
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             int w = getWidth(); int h = getHeight();
-            g2.setColor(new Color(25, 25, 45)); g2.fillRect(0, 0, w, h);
+            g2.setColor(new Color(0x0d1520)); g2.fillRect(0, 0, w, h);
             g2.setColor(new Color(255, 215, 0));
             g2.drawRect(20, 20, w - 40, h - 40);
             g2.drawRect(30, 30, w - 60, h - 60);
@@ -3358,7 +3903,7 @@ public class DashboardFrame extends JFrame {
             drawCenteredString(g2, "CERTIFICATE OF ACHIEVEMENT", w, 80);
             g2.setColor(Color.WHITE); g2.setFont(new Font("Segoe UI", Font.PLAIN, 16));
             drawCenteredString(g2, "This is to certify that", w, 130);
-            g2.setColor(new Color(99, 102, 241)); g2.setFont(new Font("Segoe UI", Font.BOLD, 30));
+            g2.setColor(new Color(0x0ea5e9)); g2.setFont(new Font("Segoe UI", Font.BOLD, 30));
             drawCenteredString(g2, fullName, w, 180);
             g2.setColor(Color.WHITE); g2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
             drawCenteredString(g2, "has successfully completed the TechSikho Learning Program", w, 220);
@@ -3423,12 +3968,12 @@ public class DashboardFrame extends JFrame {
     }
 
     private void applyTheme(boolean dark) {
-        Color bg = dark ? new Color(15, 15, 35) : new Color(240, 242, 255);
+        Color bg = dark ? new Color(0x0a0a0a) : new Color(0xb8c4cc);
         Color sidebarBg;
         if (purchasedItems.contains("Dark Ninja Theme") && dark) {
-            sidebarBg = new Color(10, 10, 25);
+            sidebarBg = new Color(0x0a0a0a);
         } else {
-            sidebarBg = dark ? new Color(20, 20, 40) : new Color(200, 205, 240);
+            sidebarBg = dark ? new Color(0x0d1117) : new Color(0xb8c4cc);
         }
         getContentPane().setBackground(bg);
         if (contentPanel != null) contentPanel.setBackground(bg);
@@ -3470,7 +4015,7 @@ public class DashboardFrame extends JFrame {
         private final Map<String, Integer> activityData;
         ActivityHeatmapPanel(Map<String, Integer> activityData) {
             this.activityData = activityData;
-            setBackground(new Color(18, 18, 35));
+            setBackground(new Color(0x0a0a0a));
             setPreferredSize(new Dimension(200, 200));
         }
         @Override
@@ -3492,7 +4037,7 @@ public class DashboardFrame extends JFrame {
                 for (int col = 0; col < 7; col++) {
                     LocalDate day = base.plusDays((long) row * 7 + col);
                     int cnt = activityData.getOrDefault(day.toString(), 0);
-                    Color c = cnt == 0 ? new Color(30,30,50) : cnt == 1 ? new Color(20,80,40) : cnt == 2 ? new Color(30,130,60) : new Color(50,200,80);
+                    Color c = cnt == 0 ? new Color(0x0d1520) : cnt == 1 ? new Color(20,80,40) : cnt == 2 ? new Color(30,130,60) : new Color(50,200,80);
                     g2.setColor(c);
                     g2.fillRect(startX + col * (sq + gap), startY + row * (sq + gap), sq, sq);
                 }
@@ -3524,13 +4069,13 @@ public class DashboardFrame extends JFrame {
         stopBossTimer();
         contentPanel.removeAll();
         JPanel intro = new JPanel();
-        intro.setBackground(new Color(15,10,40));
+        intro.setBackground(new Color(0x0a0a0a));
         intro.setLayout(new BoxLayout(intro, BoxLayout.Y_AXIS));
         intro.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
 
         JLabel title = new JLabel("BOSS BATTLE");
         title.setFont(new Font("Segoe UI", Font.BOLD, 36));
-        title.setForeground(new Color(167,139,250));
+        title.setForeground(new Color(0xef4444));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel subtitle = new JLabel("20 Questions. 30 seconds each. Can you survive?");
         subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 16));
@@ -3538,7 +4083,7 @@ public class DashboardFrame extends JFrame {
         subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton startBtn = new JButton("START BATTLE");
         startBtn.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        startBtn.setBackground(new Color(99,102,241));
+        startBtn.setBackground(new Color(0xef4444));
         startBtn.setForeground(Color.WHITE);
         startBtn.setFocusPainted(false);
         startBtn.setBorderPainted(false);
@@ -3577,7 +4122,7 @@ public class DashboardFrame extends JFrame {
 
         contentPanel.removeAll();
         JPanel battlePanel = new JPanel();
-        battlePanel.setBackground(new Color(15,10,40));
+        battlePanel.setBackground(new Color(0x0a0a0a));
         battlePanel.setLayout(new BoxLayout(battlePanel, BoxLayout.Y_AXIS));
         battlePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
 
@@ -3587,14 +4132,14 @@ public class DashboardFrame extends JFrame {
         qNumLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel timerLbl = new JLabel("30");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 48));
-        timerLbl.setForeground(new Color(167,139,250));
+        timerLbl.setForeground(new Color(0xef4444));
         timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel qTextLbl = new JLabel();
         qTextLbl.setFont(new Font("Segoe UI", Font.BOLD, 18));
         qTextLbl.setForeground(Color.WHITE);
         qTextLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JPanel optionsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        optionsPanel.setBackground(new Color(15,10,40));
+        optionsPanel.setBackground(new Color(0x0a0a0a));
         optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         optionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
@@ -3623,7 +4168,7 @@ public class DashboardFrame extends JFrame {
                 for (int i = 0; i < 4; i++) {
                     JButton optBtn = new JButton(labels[i] + ". " + opts[i]);
                     optBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                    optBtn.setBackground(new Color(25,25,55));
+                    optBtn.setBackground(new Color(0x0d1520));
                     optBtn.setForeground(Color.WHITE);
                     optBtn.setFocusPainted(false);
                     optBtn.setBorderPainted(false);
@@ -3665,12 +4210,12 @@ public class DashboardFrame extends JFrame {
         }
         contentPanel.removeAll();
         JPanel results = new JPanel();
-        results.setBackground(new Color(15,10,40));
+        results.setBackground(new Color(0x0a0a0a));
         results.setLayout(new BoxLayout(results, BoxLayout.Y_AXIS));
         results.setBorder(BorderFactory.createEmptyBorder(50, 40, 50, 40));
         JLabel title = new JLabel("BATTLE COMPLETE!");
         title.setFont(new Font("Segoe UI", Font.BOLD, 32));
-        title.setForeground(new Color(167,139,250));
+        title.setForeground(new Color(0xef4444));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel score = new JLabel("Score: " + correct + "/20 correct");
         score.setFont(new Font("Segoe UI", Font.PLAIN, 18));
@@ -3688,7 +4233,7 @@ public class DashboardFrame extends JFrame {
         JButton dashboard = new JButton("Return to Dashboard");
         for (JButton b : new JButton[]{playAgain, dashboard}) {
             b.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            b.setBackground(new Color(99,102,241));
+            b.setBackground(new Color(0x0ea5e9));
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
             b.setBorderPainted(false);
@@ -3737,7 +4282,7 @@ public class DashboardFrame extends JFrame {
     private void showGlossary() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout(0, 15));
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Tech Glossary");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -3745,13 +4290,13 @@ public class DashboardFrame extends JFrame {
         panel.add(title, BorderLayout.NORTH);
 
         JPanel center = new JPanel(new BorderLayout(0, 10));
-        center.setBackground(new Color(18, 18, 35));
+        center.setBackground(new Color(0x0a0a0a));
         JTextField searchField = new JTextField("Search terms...");
         searchField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        searchField.setBackground(new Color(30, 30, 55));
+        searchField.setBackground(new Color(0x0d1520));
         searchField.setForeground(new Color(150, 150, 180));
         searchField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         searchField.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
@@ -3765,23 +4310,23 @@ public class DashboardFrame extends JFrame {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (String term : GLOSSARY_TERMS) listModel.addElement(term);
         JList<String> termList = new JList<>(listModel);
-        termList.setBackground(new Color(25, 25, 45));
+        termList.setBackground(new Color(0x0d1520));
         termList.setForeground(Color.WHITE);
         termList.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        termList.setSelectionBackground(new Color(99, 102, 241));
+        termList.setSelectionBackground(new Color(0x0ea5e9));
         termList.setSelectionForeground(Color.WHITE);
         JScrollPane listScroll = new JScrollPane(termList);
         listScroll.setPreferredSize(new Dimension(0, 280));
-        listScroll.getViewport().setBackground(new Color(25, 25, 45));
-        listScroll.setBorder(BorderFactory.createLineBorder(new Color(99, 102, 241)));
+        listScroll.getViewport().setBackground(new Color(0x0d1520));
+        listScroll.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9)));
 
         JLabel defPanel = new JLabel("Select a term to view its definition.");
         defPanel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        defPanel.setForeground(new Color(200, 200, 220));
-        defPanel.setBackground(new Color(25, 25, 45));
+        defPanel.setForeground(new Color(0xb8c4cc));
+        defPanel.setBackground(new Color(0x0d1520));
         defPanel.setOpaque(true);
         defPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             BorderFactory.createEmptyBorder(15, 15, 15, 15)));
 
         termList.addListSelectionListener(e -> {
@@ -3818,7 +4363,7 @@ public class DashboardFrame extends JFrame {
     private void showMiniGames() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(15, 15, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -3836,16 +4381,16 @@ public class DashboardFrame extends JFrame {
         panel.add(Box.createVerticalStrut(24));
 
         JPanel grid = new JPanel(new GridLayout(2, 3, 20, 20));
-        grid.setBackground(new Color(15, 15, 35));
+        grid.setBackground(new Color(0x0a0a0a));
         grid.setAlignmentX(Component.LEFT_ALIGNMENT);
         grid.setMaximumSize(new Dimension(Integer.MAX_VALUE, 520));
-        grid.add(createMiniGameCard("Word Scramble", new Color(99, 102, 241),
+        grid.add(createMiniGameCard("Word Scramble", new Color(0x0ea5e9),
             "Unscramble coding terms", this::showWordScramble));
-        grid.add(createMiniGameCard("Rapid Fire", new Color(167,139,250),
+        grid.add(createMiniGameCard("Rapid Fire", new Color(0x0ea5e9),
             "True or False in 5 seconds", this::showRapidFire));
         grid.add(createMiniGameCard("Mystery Language", new Color(30, 144, 255),
             "Guess the language from code", this::showMysteryLanguage));
-        grid.add(createMiniGameCard("Boss Battle", new Color(99,102,241),
+        grid.add(createMiniGameCard("Boss Battle", new Color(0x0ea5e9),
             "20 questions survival mode", this::showBossBattle));
         grid.add(createMiniGameCard("Code Breaker", new Color(50, 200, 80),
             "Fix the broken code!", this::showCodeBreaker));
@@ -3858,7 +4403,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createMiniGameCard(String name, Color borderColor, String desc, Runnable onPlay) {
         JPanel card = new JPanel();
-        card.setBackground(new Color(25, 25, 50));
+        card.setBackground(new Color(0x0d1520));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createMatteBorder(4, 0, 0, 0, borderColor),
@@ -3893,10 +4438,10 @@ public class DashboardFrame extends JFrame {
     // â”€â”€ XP SHOP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private void showXPShop() {
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
-        Color cardBg = new Color(25, 25, 50);
+        Color bg = new Color(0x0a0a0a);
+        Color cardBg = new Color(0x0d1520);
         Color gold = new Color(255, 215, 0);
-        Color border = new Color(99, 102, 241);
+        Color border = new Color(0x0ea5e9);
 
         JPanel panel = new JPanel();
         panel.setBackground(bg);
@@ -3979,7 +4524,7 @@ public class DashboardFrame extends JFrame {
                 owned.setAlignmentX(Component.LEFT_ALIGNMENT);
                 card.add(owned);
             } else {
-                JButton buyBtn = styleGameBtn("Buy", new Color(99, 102, 241));
+                JButton buyBtn = styleGameBtn("Buy", new Color(0x0ea5e9));
                 buyBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
                 buyBtn.setMaximumSize(new Dimension(80, 30));
                 buyBtn.addActionListener(e -> {
@@ -4050,8 +4595,8 @@ public class DashboardFrame extends JFrame {
     private void showCodeBreaker() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
-        Color codeBg = new Color(20, 20, 40);
+        Color bg = new Color(0x0a0a0a);
+        Color codeBg = new Color(0x0d1117);
 
         JPanel main = new JPanel(new BorderLayout());
         main.setBackground(bg);
@@ -4088,13 +4633,13 @@ public class DashboardFrame extends JFrame {
         codeArea.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         codeArea.setAlignmentX(Component.LEFT_ALIGNMENT);
         JScrollPane codeScroll = new JScrollPane(codeArea);
-        codeScroll.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 90)));
+        codeScroll.setBorder(BorderFactory.createLineBorder(new Color(0x1e293b)));
         codeScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
         codeScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 220));
 
         JLabel timerLbl = new JLabel("60");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        timerLbl.setForeground(new Color(167,139,250));
+        timerLbl.setForeground(new Color(0xef4444));
         timerLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel progressLbl = new JLabel("Challenge 1 of 10");
         progressLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
@@ -4113,7 +4658,7 @@ public class DashboardFrame extends JFrame {
         hintLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         JButton hintBtn = styleGameBtn("Hint", new Color(245, 158, 11));
-        JButton checkBtn = styleGameBtn("Check Answer", new Color(99, 102, 241));
+        JButton checkBtn = styleGameBtn("Check Answer", new Color(0x0ea5e9));
         JButton skipBtn = styleGameBtn("Skip", new Color(100, 100, 120));
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         btnRow.setBackground(bg);
@@ -4277,7 +4822,7 @@ public class DashboardFrame extends JFrame {
     private void showChallenge() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel setup = new JPanel();
         setup.setBackground(bg);
         setup.setLayout(new BoxLayout(setup, BoxLayout.Y_AXIS));
@@ -4292,7 +4837,7 @@ public class DashboardFrame extends JFrame {
 
         JTextField friendField = new JTextField();
         friendField.setMaximumSize(new Dimension(300, 36));
-        friendField.setBackground(new Color(30, 30, 55));
+        friendField.setBackground(new Color(0x0d1520));
         friendField.setForeground(Color.WHITE);
         friendField.setAlignmentX(Component.LEFT_ALIGNMENT);
         setup.add(createLabeledField("Enter friend's username:", friendField));
@@ -4313,7 +4858,7 @@ public class DashboardFrame extends JFrame {
         setup.add(createLabeledField("Number of Questions:", numBox));
         setup.add(Box.createVerticalStrut(24));
 
-        JButton startBtn = styleGameBtn("START CHALLENGE", new Color(99, 102, 241));
+        JButton startBtn = styleGameBtn("START CHALLENGE", new Color(0x0ea5e9));
         startBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
         startBtn.setMaximumSize(new Dimension(220, 44));
         startBtn.addActionListener(e -> {
@@ -4359,14 +4904,14 @@ public class DashboardFrame extends JFrame {
         final long startTime = System.currentTimeMillis();
 
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(bg);
         panel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
 
         JLabel banner = new JLabel("Your Turn!");
         banner.setFont(new Font("Segoe UI", Font.BOLD, 28));
-        banner.setForeground(new Color(99, 102, 241));
+        banner.setForeground(new Color(0x0ea5e9));
         panel.add(banner, BorderLayout.NORTH);
 
         JPanel center = new JPanel();
@@ -4410,7 +4955,7 @@ public class DashboardFrame extends JFrame {
                 for (int i = 0; i < 4; i++) {
                     JButton optBtn = new JButton(labels[i] + ". " + opts[i]);
                     optBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-                    optBtn.setBackground(new Color(25,25,55));
+                    optBtn.setBackground(new Color(0x0d1520));
                     optBtn.setForeground(Color.WHITE);
                     optBtn.setFocusPainted(false);
                     optBtn.setBorderPainted(false);
@@ -4434,7 +4979,7 @@ public class DashboardFrame extends JFrame {
     private void showChallengeResults(String friendName, int friendId, int yourScore, int total, int timeSec) {
         int friendScore = getFriendRecentQuizScore(friendId);
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel results = new JPanel();
         results.setBackground(bg);
         results.setLayout(new BoxLayout(results, BoxLayout.Y_AXIS));
@@ -4466,7 +5011,7 @@ public class DashboardFrame extends JFrame {
             awardXP(10);
         }
 
-        JButton againBtn = styleGameBtn("Challenge Again", new Color(99, 102, 241));
+        JButton againBtn = styleGameBtn("Challenge Again", new Color(0x0ea5e9));
         JButton dashBtn = styleGameBtn("Dashboard", new Color(100, 100, 120));
         againBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         dashBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -4506,7 +5051,7 @@ public class DashboardFrame extends JFrame {
 
     private void showWordScramble() {
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel mainContent = new JPanel(new BorderLayout());
         mainContent.setBackground(bg);
 
@@ -4534,7 +5079,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel scrambledLbl = new JLabel(SCRAMBLE_WORDS_DATA[0][0]);
         scrambledLbl.setFont(new Font("Courier New", Font.BOLD, 40));
-        scrambledLbl.setForeground(new Color(99, 102, 241));
+        scrambledLbl.setForeground(new Color(0x0ea5e9));
         scrambledLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel hintLbl = new JLabel(SCRAMBLE_WORDS_DATA[0][2]);
         hintLbl.setFont(new Font("Segoe UI", Font.ITALIC, 14));
@@ -4542,7 +5087,7 @@ public class DashboardFrame extends JFrame {
         hintLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JTextField answerField = new JTextField();
         answerField.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-        answerField.setBackground(new Color(30, 30, 55));
+        answerField.setBackground(new Color(0x0d1520));
         answerField.setForeground(Color.WHITE);
         answerField.setMaximumSize(new Dimension(300, 44));
         answerField.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -4558,7 +5103,7 @@ public class DashboardFrame extends JFrame {
         progressLbl.setForeground(new Color(150, 150, 180));
         progressLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JButton submitBtn = styleGameBtn("Submit", new Color(99, 102, 241));
+        JButton submitBtn = styleGameBtn("Submit", new Color(0x0ea5e9));
         JButton skipBtn = styleGameBtn("Skip", new Color(100, 100, 120));
         JButton hintBtn = styleGameBtn("Hint -2 XP", new Color(245, 158, 11));
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 12, 0));
@@ -4604,7 +5149,7 @@ public class DashboardFrame extends JFrame {
             overScore.setFont(new Font("Segoe UI", Font.PLAIN, 18));
             overScore.setForeground(new Color(150, 150, 180));
             overScore.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JButton playAgain = styleGameBtn("Play Again", new Color(99, 102, 241));
+            JButton playAgain = styleGameBtn("Play Again", new Color(0x0ea5e9));
             playAgain.setAlignmentX(Component.CENTER_ALIGNMENT);
             playAgain.setMaximumSize(new Dimension(180, 44));
             playAgain.addActionListener(e -> showWordScramble());
@@ -4742,7 +5287,7 @@ public class DashboardFrame extends JFrame {
     private void showRapidFire() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel intro = new JPanel();
         intro.setBackground(bg);
         intro.setLayout(new BoxLayout(intro, BoxLayout.Y_AXIS));
@@ -4750,7 +5295,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel title = new JLabel("RAPID FIRE");
         title.setFont(new Font("Segoe UI", Font.BOLD, 40));
-        title.setForeground(new Color(167,139,250));
+        title.setForeground(new Color(0xef4444));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel subtitle = new JLabel("10 questions. 5 seconds each. How fast are you?");
         subtitle.setFont(new Font("Segoe UI", Font.PLAIN, 16));
@@ -4758,7 +5303,6 @@ public class DashboardFrame extends JFrame {
         subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton startBtn = new JButton("START");
         startBtn.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        startBtn.setBackground(new Color(99, 102, 241));
         startBtn.setForeground(Color.WHITE);
         startBtn.setFocusPainted(false);
         startBtn.setBorderPainted(false);
@@ -4791,7 +5335,7 @@ public class DashboardFrame extends JFrame {
         final boolean[] answered = {false};
 
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
+        Color bg = new Color(0x0a0a0a);
         JPanel gamePanel = new JPanel(new BorderLayout());
         gamePanel.setBackground(bg);
         gamePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 30, 30));
@@ -4810,7 +5354,7 @@ public class DashboardFrame extends JFrame {
 
         JLabel timerLbl = new JLabel("5");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 80));
-        timerLbl.setForeground(new Color(167,139,250));
+        timerLbl.setForeground(new Color(0xef4444));
         timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel qTextLbl = new JLabel();
         qTextLbl.setFont(new Font("Segoe UI", Font.PLAIN, 20));
@@ -4885,7 +5429,7 @@ public class DashboardFrame extends JFrame {
             resGrade.setFont(new Font("Segoe UI", Font.BOLD, 22));
             resGrade.setForeground(new Color(255, 215, 0));
             resGrade.setAlignmentX(Component.CENTER_ALIGNMENT);
-            JButton playAgain = styleGameBtn("Play Again", new Color(99, 102, 241));
+            JButton playAgain = styleGameBtn("Play Again", new Color(0x0ea5e9));
             JButton dashboard = styleGameBtn("Dashboard", new Color(100, 100, 120));
             playAgain.setAlignmentX(Component.CENTER_ALIGNMENT);
             dashboard.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -4993,8 +5537,8 @@ public class DashboardFrame extends JFrame {
     private void showMysteryLanguage() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(15, 15, 35);
-        Color codeBg = new Color(20, 20, 40);
+        Color bg = new Color(0x0a0a0a);
+        Color codeBg = new Color(0x0d1117);
 
         JPanel main = new JPanel(new BorderLayout());
         main.setBackground(bg);
@@ -5031,7 +5575,7 @@ public class DashboardFrame extends JFrame {
         codeArea.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         codeArea.setAlignmentX(Component.CENTER_ALIGNMENT);
         JScrollPane codeScroll = new JScrollPane(codeArea);
-        codeScroll.setBorder(BorderFactory.createLineBorder(new Color(60, 60, 90)));
+        codeScroll.setBorder(BorderFactory.createLineBorder(new Color(0x1e293b)));
         codeScroll.setAlignmentX(Component.CENTER_ALIGNMENT);
         codeScroll.setMaximumSize(new Dimension(650, 200));
 
@@ -5053,7 +5597,7 @@ public class DashboardFrame extends JFrame {
         scoreLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel timerLbl = new JLabel("20");
         timerLbl.setFont(new Font("Segoe UI", Font.BOLD, 36));
-        timerLbl.setForeground(new Color(167,139,250));
+        timerLbl.setForeground(new Color(0xef4444));
         timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         center.add(timerLbl);
@@ -5136,7 +5680,7 @@ public class DashboardFrame extends JFrame {
                 for (String choice : choices) {
                     JButton optBtn = new JButton(choice);
                     optBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-                    optBtn.setBackground(new Color(25,25,55));
+                    optBtn.setBackground(new Color(0x0d1520));
                     optBtn.setForeground(Color.WHITE);
                     optBtn.setFocusPainted(false);
                     optBtn.setBorderPainted(false);
@@ -5214,7 +5758,7 @@ public class DashboardFrame extends JFrame {
     private void showTypingTest() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(18, 18, 35));
+        panel.setBackground(new Color(0x0a0a0a));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -5230,10 +5774,10 @@ public class DashboardFrame extends JFrame {
 
         JLabel snippetLabel = new JLabel("<html><pre style='font-family:monospace;color:#c8dcf8;'>" + currentSnippet[0] + "</pre></html>");
         snippetLabel.setFont(new Font("Monospaced", Font.PLAIN, 13));
-        snippetLabel.setBackground(new Color(15, 15, 30));
+        snippetLabel.setBackground(new Color(0x0a0a0a));
         snippetLabel.setOpaque(true);
         snippetLabel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             BorderFactory.createEmptyBorder(12, 12, 12, 12)));
         snippetLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         snippetLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80));
@@ -5242,10 +5786,10 @@ public class DashboardFrame extends JFrame {
 
         JTextField typeField = new JTextField();
         typeField.setFont(new Font("Monospaced", Font.PLAIN, 13));
-        typeField.setBackground(new Color(30, 30, 55));
+        typeField.setBackground(new Color(0x0d1520));
         typeField.setForeground(Color.WHITE);
         typeField.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(99, 102, 241)),
+            BorderFactory.createLineBorder(new Color(0x0ea5e9)),
             BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         typeField.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         typeField.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -5264,7 +5808,7 @@ public class DashboardFrame extends JFrame {
         JButton tryAgainBtn = new JButton("Try Again");
         for (JButton b : new JButton[]{startBtn, submitBtn, tryAgainBtn}) {
             b.setFont(new Font("Segoe UI", Font.BOLD, 13));
-            b.setBackground(new Color(99, 102, 241));
+            b.setBackground(new Color(0x0ea5e9));
             b.setForeground(Color.WHITE);
             b.setFocusPainted(false);
             b.setBorderPainted(false);
@@ -5275,7 +5819,7 @@ public class DashboardFrame extends JFrame {
             typeField.setText("");
             typeField.requestFocus();
             resultLabel.setText("Timer started! Type the code and click Submit.");
-            resultLabel.setForeground(new Color(200, 200, 220));
+            resultLabel.setForeground(new Color(0xb8c4cc));
         });
 
         submitBtn.addActionListener(e -> {
@@ -5312,7 +5856,7 @@ public class DashboardFrame extends JFrame {
         });
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        btnRow.setBackground(new Color(18, 18, 35));
+        btnRow.setBackground(new Color(0x0a0a0a));
         btnRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnRow.add(startBtn);
         btnRow.add(submitBtn);
@@ -5323,4 +5867,711 @@ public class DashboardFrame extends JFrame {
         contentPanel.revalidate();
         contentPanel.repaint();
     }
+    // ========== BUG SQUASH ==========
+    private void showBugSquash() {
+        contentPanel.removeAll();
+        JPanel main = new JPanel(new BorderLayout());
+        main.setBackground(new Color(0x0a0a0a));
+        main.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
+
+        JLabel title = new JLabel("🐛 Bug Squash");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(new Color(0x22c55e));
+        JLabel sub = new JLabel("  Click the bugs before they escape! Miss 3 = Game Over!");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+
+        JLabel scoreLabel = new JLabel("Score: 0  |  Misses: 0/3  |  Press START!");
+        scoreLabel.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        scoreLabel.setForeground(new Color(0x22c55e));
+
+        JPanel gameArea = new JPanel();
+        gameArea.setLayout(null);
+        gameArea.setBackground(new Color(0x0d1117));
+        gameArea.setBorder(BorderFactory.createLineBorder(new Color(0x22c55e), 1));
+
+        String[] bugEmojis = {"🐛 BUG","💥 ERR","⚠ NULL","🔥 CRASH","❌ BRK"};
+        String[] errorMsgs = {"NullPointerException!","StackOverflow!","OutOfMemory!","Segfault!","404 Bug!"};
+        int[] score = {0};
+        int[] misses = {0};
+        boolean[] running = {false};
+        java.util.List<JLabel> activeBugs = new java.util.ArrayList<>();
+        javax.swing.Timer[] gameTimer = {null};
+
+        JButton startBtn = new JButton("▶ START SQUASHING!");
+        startBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        startBtn.setBackground(new Color(0x22c55e));
+        startBtn.setForeground(Color.WHITE);
+        startBtn.setFocusPainted(false);
+        startBtn.setBorderPainted(false);
+        startBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        startBtn.addActionListener(e -> {
+            if (running[0]) return;
+            running[0] = true;
+            score[0] = 0; misses[0] = 0;
+            gameArea.removeAll();
+            gameArea.revalidate(); gameArea.repaint();
+            startBtn.setEnabled(false);
+            startBtn.setText("🎮 Playing...");
+
+            gameTimer[0] = new javax.swing.Timer(900, evt -> {
+                if (misses[0] >= 3) {
+                    gameTimer[0].stop();
+                    running[0] = false;
+                    gameArea.removeAll();
+                    JLabel over = new JLabel("<html><center>💀 GAME OVER!<br>Score: " + score[0] + "<br><font size='3'>Bugs won this time!</font></center></html>", SwingConstants.CENTER);
+                    over.setFont(new Font("Segoe UI", Font.BOLD, 20));
+                    over.setForeground(new Color(0xef4444));
+                    over.setBounds(0, 0, gameArea.getWidth(), gameArea.getHeight());
+                    gameArea.add(over);
+                    gameArea.revalidate(); gameArea.repaint();
+                    startBtn.setEnabled(true);
+                    startBtn.setText("▶ PLAY AGAIN!");
+                    return;
+                }
+                int w = gameArea.getWidth() > 60 ? gameArea.getWidth() - 60 : 300;
+                int h = gameArea.getHeight() > 60 ? gameArea.getHeight() - 60 : 200;
+                int bx = (int)(Math.random() * w);
+                int by = (int)(Math.random() * h);
+                int ri = (int)(Math.random() * bugEmojis.length);
+                JLabel bug = new JLabel(bugEmojis[ri], SwingConstants.CENTER);
+                bug.setFont(new Font("Segoe UI", Font.BOLD, 13)); bug.setForeground(Color.WHITE); bug.setOpaque(true); bug.setBackground(new Color(0xef4444));
+                bug.setBounds(bx, by, 80, 40);
+                bug.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                bug.setToolTipText(errorMsgs[ri]);
+                activeBugs.add(bug);
+                gameArea.add(bug);
+                gameArea.revalidate(); gameArea.repaint();
+
+                bug.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent me) {
+                        if (activeBugs.contains(bug)) {
+                            score[0]++;
+                            scoreLabel.setText("Score: " + score[0] + "  |  Misses: " + misses[0] + "/3  |  " + errorMsgs[ri]);
+                            activeBugs.remove(bug);
+                            gameArea.remove(bug);
+                            gameArea.revalidate(); gameArea.repaint();
+                        }
+                    }
+                });
+
+                javax.swing.Timer disappear = new javax.swing.Timer(2200, de -> {
+                    if (activeBugs.contains(bug)) {
+                        misses[0]++;
+                        scoreLabel.setText("Score: " + score[0] + "  |  Misses: " + misses[0] + "/3  |  Bug escaped!");
+                        activeBugs.remove(bug);
+                        gameArea.remove(bug);
+                        gameArea.revalidate(); gameArea.repaint();
+                    }
+                });
+                disappear.setRepeats(false);
+                disappear.start();
+            });
+            gameTimer[0].start();
+        });
+
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        south.setOpaque(false);
+        south.add(startBtn);
+        south.add(scoreLabel);
+
+        main.add(hdr, BorderLayout.NORTH);
+        main.add(gameArea, BorderLayout.CENTER);
+        main.add(south, BorderLayout.SOUTH);
+        contentPanel.add(main);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ========== BINARY BLITZ ==========
+    private void showBinaryBlitz() {
+        contentPanel.removeAll();
+        JPanel main = new JPanel(new BorderLayout());
+        main.setBackground(new Color(0x0a0a0a));
+        main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("💻 Binary Blitz");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(new Color(0x0ea5e9));
+        JLabel sub = new JLabel("  Convert decimal to binary before time runs out!");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+
+        int[] number = {(int)(Math.random() * 128) + 1};
+        int[] score = {0};
+        int[] timeLeft = {15};
+
+        JLabel numLabel = new JLabel(String.valueOf(number[0]));
+        numLabel.setFont(new Font("Monospaced", Font.BOLD, 72));
+        numLabel.setForeground(new Color(0x0ea5e9));
+        numLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel timerLabel = new JLabel("⏱ 15s");
+        timerLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        timerLabel.setForeground(new Color(0xf59e0b));
+        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel scoreLabel = new JLabel("Score: 0");
+        scoreLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        scoreLabel.setForeground(new Color(0x22c55e));
+        scoreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JLabel feedback = new JLabel(" ");
+        feedback.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        feedback.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JTextField answerField = new JTextField();
+        answerField.setFont(new Font("Monospaced", Font.BOLD, 20));
+        answerField.setBackground(new Color(0x0d1520));
+        answerField.setForeground(Color.WHITE);
+        answerField.setCaretColor(Color.WHITE);
+        answerField.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0x0ea5e9), 1),
+            BorderFactory.createEmptyBorder(8, 12, 8, 12)));
+        answerField.setHorizontalAlignment(SwingConstants.CENTER);
+        answerField.setMaximumSize(new Dimension(300, 45));
+
+        javax.swing.Timer[] countdown = {null};
+
+        Runnable nextQuestion = () -> {
+            number[0] = (int)(Math.random() * 128) + 1;
+            numLabel.setText(String.valueOf(number[0]));
+            answerField.setText("");
+            timeLeft[0] = 15;
+            timerLabel.setText("⏱ 15s");
+            timerLabel.setForeground(new Color(0xf59e0b));
+        };
+
+        countdown[0] = new javax.swing.Timer(1000, e -> {
+            timeLeft[0]--;
+            timerLabel.setText("⏱ " + timeLeft[0] + "s");
+            if (timeLeft[0] <= 5) timerLabel.setForeground(new Color(0xef4444));
+            if (timeLeft[0] <= 0) {
+                feedback.setText("❌ Time's up! Answer was: " + Integer.toBinaryString(number[0]));
+                feedback.setForeground(new Color(0xef4444));
+                nextQuestion.run();
+            }
+        });
+        countdown[0].start();
+
+        answerField.addActionListener(e -> {
+            String ans = answerField.getText().trim();
+            String correct = Integer.toBinaryString(number[0]);
+            if (ans.equals(correct)) {
+                score[0]++;
+                scoreLabel.setText("Score: " + score[0]);
+                feedback.setText("✅ Correct! You're a binary beast!");
+                feedback.setForeground(new Color(0x22c55e));
+            } else {
+                feedback.setText("❌ Wrong! Correct: " + correct);
+                feedback.setForeground(new Color(0xef4444));
+            }
+            nextQuestion.run();
+        });
+
+        JPanel center = new JPanel();
+        center.setOpaque(false);
+        center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
+        center.add(Box.createVerticalStrut(30));
+        numLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        timerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        feedback.setAlignmentX(Component.CENTER_ALIGNMENT);
+        answerField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        center.add(numLabel);
+        center.add(Box.createVerticalStrut(10));
+        center.add(timerLabel);
+        center.add(Box.createVerticalStrut(20));
+        center.add(answerField);
+        center.add(Box.createVerticalStrut(10));
+        center.add(feedback);
+        center.add(Box.createVerticalStrut(10));
+        center.add(scoreLabel);
+
+        main.add(hdr, BorderLayout.NORTH);
+        main.add(center, BorderLayout.CENTER);
+        contentPanel.add(main);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
+    // ========== DEBUG DHAMAAL ==========
+    private void showDebugDhamaal() {
+        contentPanel.removeAll();
+        JPanel main = new JPanel(new BorderLayout());
+        main.setBackground(new Color(0x0a0a0a));
+        main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("🔥 Debug Dhamaal");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(new Color(0xf59e0b));
+        JLabel sub = new JLabel("  Spot the bug in the code! Funny errors guaranteed 😂");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+
+        String[][] bugs = {
+            {"int x = 5;\nif (x = 5) {\n  System.out.println(\"Hello\");\n}", "= should be ==", "Rookie mistake! = assigns, == compares. Your compiler is judging you 👀"},
+            {"for (int i=0; i<10; i--) {\n  System.out.println(i);\n}", "i-- should be i++", "Congratulations! You invented an infinite loop 🎉 Your PC hates you now"},
+            {"String s = null;\nSystem.out.println(s.length());", "s is null - NullPointerException", "NULL pointer?! Java's way of saying 'you played yourself' 🤦"},
+            {"int[] arr = new int[5];\narr[5] = 10;", "Index 5 out of bounds (0-4)", "Array index 5 on size 5 array? Bold move. ArrayIndexOutOfBounds says hi! 💥"},
+            {"while (true);\n{\n  doWork();\n}", "Semicolon after while kills the loop", "That semicolon after while() is your worst enemy. Empty loop goes brrr 🔁"}
+        };
+
+        int[] qi = {0};
+        int[] score = {0};
+
+        JTextArea codeArea = new JTextArea(bugs[0][0]);
+        codeArea.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        codeArea.setBackground(new Color(0x0d1117));
+        codeArea.setForeground(new Color(0x22c55e));
+        codeArea.setEditable(false);
+        codeArea.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+
+        JLabel bugHint = new JLabel("What's the bug?");
+        bugHint.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        bugHint.setForeground(Color.WHITE);
+
+        JLabel explanation = new JLabel(" ");
+        explanation.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        explanation.setForeground(new Color(0xf59e0b));
+
+        JLabel scoreLabel = new JLabel("Score: 0 / " + bugs.length);
+        scoreLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        scoreLabel.setForeground(new Color(0x0ea5e9));
+
+        JTextField ansField = new JTextField();
+        ansField.setBackground(new Color(0x0d1520));
+        ansField.setForeground(Color.WHITE);
+        ansField.setCaretColor(Color.WHITE);
+        ansField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        ansField.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0xf59e0b), 1),
+            BorderFactory.createEmptyBorder(6, 10, 6, 10)));
+
+        JButton submitBtn = new JButton("Submit Fix 🔧");
+        submitBtn.setBackground(new Color(0xf59e0b));
+        submitBtn.setForeground(Color.BLACK);
+        submitBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        submitBtn.setFocusPainted(false);
+        submitBtn.setBorderPainted(false);
+        submitBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        submitBtn.addActionListener(e -> {
+            String ans = ansField.getText().trim().toLowerCase();
+            String correct = bugs[qi[0]][1].toLowerCase();
+            if (ans.contains(correct.split(" ")[0]) || correct.contains(ans.split(" ")[0])) {
+                score[0]++;
+                explanation.setText("✅ " + bugs[qi[0]][2]);
+                explanation.setForeground(new Color(0x22c55e));
+            } else {
+                explanation.setText("❌ Answer: " + bugs[qi[0]][1] + " | " + bugs[qi[0]][2]);
+                explanation.setForeground(new Color(0xef4444));
+            }
+            scoreLabel.setText("Score: " + score[0] + " / " + bugs.length);
+            qi[0]++;
+            if (qi[0] < bugs.length) {
+                javax.swing.Timer t = new javax.swing.Timer(2000, ev -> {
+                    codeArea.setText(bugs[qi[0]][0]);
+                    ansField.setText("");
+                    explanation.setText(" ");
+                });
+                t.setRepeats(false); t.start();
+            } else {
+                javax.swing.Timer t = new javax.swing.Timer(2000, ev -> {
+                    explanation.setText("🎉 Done! Final Score: " + score[0] + "/" + bugs.length + " | " + (score[0] >= 4 ? "Bug Slayer! 🏆" : "Keep practicing! 💪"));
+                    explanation.setForeground(new Color(0xf59e0b));
+                    submitBtn.setEnabled(false);
+                });
+                t.setRepeats(false); t.start();
+            }
+        });
+
+        JPanel inputRow = new JPanel(new BorderLayout(10, 0));
+        inputRow.setOpaque(false);
+        inputRow.add(ansField, BorderLayout.CENTER);
+        inputRow.add(submitBtn, BorderLayout.EAST);
+
+        JPanel south = new JPanel();
+        south.setOpaque(false);
+        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
+        south.add(bugHint);
+        south.add(Box.createVerticalStrut(8));
+        south.add(inputRow);
+        south.add(Box.createVerticalStrut(8));
+        south.add(explanation);
+        south.add(Box.createVerticalStrut(8));
+        south.add(scoreLabel);
+
+        main.add(hdr, BorderLayout.NORTH);
+        main.add(new JScrollPane(codeArea), BorderLayout.CENTER);
+        main.add(south, BorderLayout.SOUTH);
+        contentPanel.add(main);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
+    // ========== STACK OVERFLOW ==========
+    private void showStackOverflow() {
+        contentPanel.removeAll();
+        JPanel main = new JPanel(new BorderLayout());
+        main.setBackground(new Color(0x0a0a0a));
+        main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("💀 Stack Overflow");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(new Color(0xef4444));
+        JLabel sub = new JLabel("  Answer correctly to stack blocks! Wrong answer = CRASH! 💥");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+
+        String[][] qs = {
+            {"What does HTML stand for?", "HyperText Markup Language", "HyperText Making Language", "HighText Machine Language"},
+            {"Which symbol ends Java statement?", ";", ":", "."},
+            {"What is Git used for?", "Version Control", "Database", "Gaming"},
+            {"Which is NOT a data type?", "String", "Boolean", "Float", "Fruit"},
+            {"What does CPU stand for?", "Central Processing Unit", "Computer Personal Unit", "Control Program Utility"},
+            {"Which tag is for heading in HTML?", "<h1>", "<head>", "<header>"},
+            {"What is 2+2 in binary?", "100", "010", "110"},
+            {"What does API stand for?", "Application Programming Interface", "App Process Integration", "Automated Program Input"}
+        };
+        String[] memes = {"🔥 Stack growing!", "💪 You're unstoppable!", "🚀 To the moon!", "😤 Keep going!", "🤖 Robot mode activated!", "⚡ Lightning fast!", "🧠 Big brain energy!", "👑 Stack Master!"};
+        String[] crashMsgs = {"💥 SEGFAULT! Your stack imploded!", "🔥 StackOverflowException thrown!", "😱 Stack crashed harder than prod on Friday!", "💀 RIP Stack. Gone too soon."};
+
+        int[] score = {0};
+        int[] qi = {0};
+
+        JPanel towerPanel = new JPanel();
+        towerPanel.setLayout(new BoxLayout(towerPanel, BoxLayout.Y_AXIS));
+        towerPanel.setBackground(new Color(0x0d1117));
+        towerPanel.setPreferredSize(new Dimension(200, 400));
+
+        JLabel questionLabel = new JLabel("<html><div style='width:400px'>" + qs[0][0] + "</div></html>");
+        questionLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        questionLabel.setForeground(Color.WHITE);
+
+        JLabel memeLabel = new JLabel(" ");
+        memeLabel.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        memeLabel.setForeground(new Color(0xf59e0b));
+
+        JPanel optPanel = new JPanel(new GridLayout(1, 3, 8, 0)); optPanel.setMaximumSize(new Dimension(600, 45));
+        optPanel.setOpaque(false);
+
+        Color[] btnColors = {new Color(0x0ea5e9), new Color(0x22c55e), new Color(0x8b5cf6)};
+
+        Runnable[] loadQ = {null};
+        loadQ[0] = () -> {
+            optPanel.removeAll();
+            if (qi[0] >= qs.length) {
+                questionLabel.setText("🏆 LEGENDARY! Stack height: " + score[0] + "! You're a Stack God!");
+                questionLabel.setForeground(new Color(0xf59e0b));
+                return;
+            }
+            questionLabel.setText("<html><div style='width:400px'>" + qs[qi[0]][0] + "</div></html>");
+            for (int i = 1; i <= 3 && i < qs[qi[0]].length; i++) {
+                final String opt = qs[qi[0]][i];
+                final boolean isCorrect = (i == 1);
+                JButton ob = new JButton(opt);
+                ob.setBackground(btnColors[i-1]); ob.setPreferredSize(new Dimension(180, 40));
+                ob.setForeground(Color.WHITE);
+                ob.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                ob.setFocusPainted(false);
+                ob.setBorderPainted(false);
+                ob.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                ob.addActionListener(e -> {
+                    if (isCorrect) {
+                        score[0]++;
+                        JLabel block = new JLabel("  Block #" + score[0] + " ✅", SwingConstants.CENTER);
+                        block.setFont(new Font("Monospaced", Font.BOLD, 12));
+                        block.setForeground(Color.WHITE);
+                        block.setBackground(btnColors[(score[0]-1) % 3]);
+                        block.setOpaque(true);
+                        block.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                        block.setMaximumSize(new Dimension(180, 28));
+                        towerPanel.add(block, 0);
+                        towerPanel.revalidate(); towerPanel.repaint();
+                        memeLabel.setText(score[0] <= memes.length ? memes[score[0]-1] : "🔥 UNSTOPPABLE!");
+                        qi[0]++;
+                        loadQ[0].run();
+                    } else {
+                        int ri = (int)(Math.random() * crashMsgs.length);
+                        questionLabel.setText("<html>" + crashMsgs[ri] + "<br>Final Stack: " + score[0] + " blocks</html>");
+                        questionLabel.setForeground(new Color(0xef4444));
+                        optPanel.removeAll();
+                        optPanel.revalidate(); optPanel.repaint();
+                    }
+                });
+                optPanel.add(ob);
+            }
+            optPanel.revalidate(); optPanel.repaint();
+        };
+        loadQ[0].run();
+
+        JPanel right = new JPanel();
+        right.setOpaque(false);
+        right.setLayout(new BoxLayout(right, BoxLayout.Y_AXIS));
+        right.add(questionLabel);
+        right.add(Box.createVerticalStrut(15));
+        right.add(optPanel);
+        right.add(Box.createVerticalStrut(10));
+        right.add(memeLabel);
+
+        main.add(hdr, BorderLayout.NORTH);
+        main.add(towerPanel, BorderLayout.WEST);
+        main.add(right, BorderLayout.CENTER);
+        contentPanel.add(main);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
+    // ========== DEPLOY OR DIE ==========
+    private void showDeployOrDie() {
+        contentPanel.removeAll();
+        JPanel main = new JPanel(new BorderLayout());
+        main.setBackground(new Color(0x0a0a0a));
+        main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("🚀 Deploy or Die");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        title.setForeground(new Color(0xec4899));
+        JLabel sub = new JLabel("  60 seconds to deploy! Disasters incoming — make quick decisions! 😱");
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x475569));
+        JPanel hdr = new JPanel(); hdr.setOpaque(false);
+        hdr.setLayout(new BoxLayout(hdr, BoxLayout.Y_AXIS));
+        hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
+
+        String[][] scenarios = {
+            {"🔥 Server is on fire!", "Call DevOps", "Restart server", "Pray to the cloud gods", "Call DevOps", "+20 XP! DevOps saves the day!", "-10 XP! Restart caused data loss!", "-5 XP! Cloud gods are AFK!"},
+            {"💀 Merge conflict detected!", "Fix manually", "Force push", "Delete repo", "Fix manually", "+20 XP! Conflict resolved like a pro!", "-15 XP! Force push destroyed prod!", "-50 XP! You deleted the repo???"},
+            {"😱 Boss wants demo in 5 mins!", "Show what works", "Fake a demo", "Call in sick", "Show what works", "+20 XP! Honest wins respect!", "-5 XP! Boss noticed the fake!", "-10 XP! Unprofessional move!"},
+            {"🐛 Critical bug in production!", "Hotfix immediately", "Rollback", "Blame intern", "Hotfix immediately", "+25 XP! Hero move!", "+15 XP! Safe rollback!", "-20 XP! Intern quits, you're fired!"},
+            {"📧 Client wants feature by tomorrow!", "Negotiate deadline", "Work all night", "Say it's done (lie)", "Negotiate deadline", "+20 XP! Smart negotiation!", "+10 XP! Coffee fueled success!", "-25 XP! Client found out the truth!"}
+        };
+
+        int[] score = {0};
+        int[] si = {0};
+        int[] timeLeft = {60};
+
+        JLabel timerLabel = new JLabel("⏱ 60s");
+        timerLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        timerLabel.setForeground(new Color(0xef4444));
+
+        JLabel scoreLabel = new JLabel("Score: 0");
+        scoreLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        scoreLabel.setForeground(new Color(0xec4899));
+
+        JLabel scenarioLabel = new JLabel("<html><div style='width:500px;font-size:16px'>" + scenarios[0][0] + "</div></html>");
+        scenarioLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        scenarioLabel.setForeground(Color.WHITE);
+
+        JLabel resultLabel = new JLabel(" ");
+        resultLabel.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+        resultLabel.setForeground(new Color(0xf59e0b));
+
+        JPanel btnPanel = new JPanel(new GridLayout(1, 3, 10, 0)); btnPanel.setMaximumSize(new Dimension(650, 50));
+        btnPanel.setOpaque(false);
+
+        Color[] cols = {new Color(0x0ea5e9), new Color(0x22c55e), new Color(0xef4444)};
+        Runnable[] loadS = {null};
+        javax.swing.Timer[] timer = {null};
+
+        loadS[0] = () -> {
+            btnPanel.removeAll();
+            if (si[0] >= scenarios.length) {
+                scenarioLabel.setText("<html>🎉 All scenarios survived!<br>Final Score: " + score[0] + " | " + (score[0] >= 80 ? "DevOps God! 🏆" : "Junior Dev 💪") + "</html>");
+                if (timer[0] != null) timer[0].stop();
+                return;
+            }
+            scenarioLabel.setText("<html><div style='width:500px'>" + scenarios[si[0]][0] + "</div></html>");
+            for (int i = 1; i <= 3; i++) {
+                final int idx = i;
+                JButton ob = new JButton(scenarios[si[0]][i]);
+                ob.setBackground(cols[i-1]); ob.setPreferredSize(new Dimension(180, 45));
+                ob.setForeground(Color.WHITE);
+                ob.setFont(new Font("Segoe UI", Font.BOLD, 12));
+                ob.setFocusPainted(false);
+                ob.setBorderPainted(false);
+                ob.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                ob.addActionListener(e -> {
+                    int resIdx = 4 + (idx-1); String result = (resIdx < scenarios[si[0]].length) ? scenarios[si[0]][resIdx] : "No result";
+                    int xp = idx == 1 ? 20 : (idx == 2 ? 10 : -10);
+                    if (result.contains("+25")) xp = 25;
+                    else if (result.contains("-50")) xp = -50;
+                    else if (result.contains("-25")) xp = -25;
+                    else if (result.contains("-20")) xp = -20;
+                    else if (result.contains("-15")) xp = -15;
+                    score[0] += xp;
+                    scoreLabel.setText("Score: " + score[0]);
+                    resultLabel.setText(result);
+                    resultLabel.setForeground(xp > 0 ? new Color(0x22c55e) : new Color(0xef4444));
+                    si[0]++;
+                    javax.swing.Timer t = new javax.swing.Timer(2000, ev -> loadS[0].run());
+                    t.setRepeats(false); t.start();
+                });
+                btnPanel.add(ob);
+            }
+            btnPanel.revalidate(); btnPanel.repaint();
+        };
+
+        timer[0] = new javax.swing.Timer(1000, e -> {
+            timeLeft[0]--;
+            timerLabel.setText("⏱ " + timeLeft[0] + "s");
+            if (timeLeft[0] <= 0) {
+                timer[0].stop();
+                scenarioLabel.setText("<html>⏰ TIME'S UP!<br>Final Score: " + score[0] + "<br>" + (score[0] >= 50 ? "Not bad, junior dev! 🚀" : "Back to bootcamp! 😂") + "</html>");
+                btnPanel.removeAll();
+                btnPanel.revalidate(); btnPanel.repaint();
+            }
+        });
+        timer[0].start();
+        loadS[0].run();
+
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        topBar.setOpaque(false);
+        topBar.add(timerLabel);
+        topBar.add(Box.createHorizontalStrut(20));
+        topBar.add(scoreLabel);
+
+        JPanel center = new JPanel();
+        center.setOpaque(false);
+        center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
+        center.add(Box.createVerticalStrut(30));
+        scenarioLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        center.add(scenarioLabel);
+        center.add(Box.createVerticalStrut(20));
+        center.add(btnPanel);
+        center.add(Box.createVerticalStrut(15));
+        resultLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        center.add(resultLabel);
+
+        JPanel north = new JPanel(new BorderLayout());
+        north.setOpaque(false);
+        north.add(hdr, BorderLayout.NORTH);
+        north.add(topBar, BorderLayout.SOUTH);
+
+        main.add(north, BorderLayout.NORTH);
+        main.add(center, BorderLayout.CENTER);
+        contentPanel.add(main);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
 }

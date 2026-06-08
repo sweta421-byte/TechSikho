@@ -1,626 +1,384 @@
 package com.techsikho.ui;
 
-import com.techsikho.services.AuthService;
-
+import com.techsikho.dao.UserDAO;
+import com.techsikho.models.User;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class RegisterFrame extends JFrame {
 
-    // ── Fields ───────────────────────────────────────────────────────────────
-    private UTextField      fullNameField;
-    private UTextField      usernameField;
-    private UTextField      emailField;
-    private UPasswordField  passwordField;
-    private UPasswordField  confirmPassField;
-    private JButton         registerBtn;
-    private JLabel          statusLabel;
-    private Point           dragOrigin;
+    private JTextField nameField, usernameField, emailField;
+    private JPasswordField passField, confirmField;
+    private JLabel errorLabel;
+    private MatrixPanel matrix;
 
-    // ── Palette (identical to LoginFrame) ────────────────────────────────────
-    private static final Color C_LEFT_TOP    = new Color( 30,  15,  60);
-    private static final Color C_LEFT_BOT    = new Color( 10,   5,  30);
-    private static final Color C_PURPLE      = new Color(139,  92, 246);
-    private static final Color C_RIGHT_BG    = new Color( 13,  13,  30);
-    private static final Color C_FIELD_BG    = new Color( 22,  22,  45);
-    private static final Color C_SUBTITLE    = new Color(148, 163, 184);
-    private static final Color C_BORDER_IDLE = new Color( 99, 102, 241);
-    private static final Color C_BTN_NORMAL  = new Color(124,  58, 237);
-    private static final Color C_BTN_HOVER   = new Color(109,  40, 217);
-    private static final Color C_ERROR       = new Color(239,  68,  68);
-    private static final Color C_SUCCESS     = new Color( 52, 211, 153);
+    static class MatrixPanel extends JPanel {
+        private static final int FS = 15;
+        private int cols;
+        private int[] drops;
+        private Color[] colColor;
+        private Timer timer;
+        private Random rand = new Random();
+        private int W, H;
+        private BufferedImage buffer;
+        private Graphics2D bg2;
 
-    // ── Constructor ──────────────────────────────────────────────────────────
+        MatrixPanel(int w, int h) {
+            this.W = w; this.H = h;
+            setOpaque(true);
+            buffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+            bg2 = buffer.createGraphics();
+            bg2.setColor(new Color(0x0a0a0a));
+            bg2.fillRect(0, 0, w, h);
+            cols = w / FS;
+            drops = new int[cols];
+            colColor = new Color[cols];
+            for (int i = 0; i < cols; i++) {
+                drops[i] = -(rand.nextInt(h / FS));
+                float t = (float)i / cols;
+                colColor[i] = new Color(
+                    Math.min(255,(int)(45+t*140)),
+                    Math.min(255,(int)(210-t*30)),
+                    Math.min(255,(int)(185+t*25)));
+            }
+            String pool = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            timer = new Timer(45, e -> {
+                bg2.setColor(new Color(10,10,10,55));
+                bg2.fillRect(0,0,W,H);
+                bg2.setFont(new Font("Monospaced",Font.BOLD,FS));
+                for (int i = 0; i < cols; i++) {
+                    char ch = pool.charAt(rand.nextInt(pool.length()));
+                    int x = i*FS, y = drops[i]*FS;
+                    bg2.setColor(colColor[i]);
+                    if (y > 0 && y < H) bg2.drawString(String.valueOf(ch), x, y);
+                    drops[i]++;
+                    if (drops[i]*FS > H && rand.nextFloat() > 0.97f)
+                        drops[i] = -(rand.nextInt(15));
+                }
+                repaint();
+            });
+            timer.start();
+        }
+
+        void stop() { timer.stop(); bg2.dispose(); }
+
+        protected void paintComponent(Graphics g) {
+            g.drawImage(buffer, 0, 0, null);
+        }
+    }
+
     public RegisterFrame() {
         setUndecorated(true);
-        setSize(1000, 620);
+        setSize(980, 680);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        initUI();
-    }
 
-    // ── UI Assembly ──────────────────────────────────────────────────────────
-    private void initUI() {
+        JLayeredPane lp = new JLayeredPane();
+        lp.setBackground(new Color(0x0a0a0a));
+        lp.setOpaque(true);
+        setContentPane(lp);
 
-        // Root panel
-        JPanel root = new JPanel(new BorderLayout()) {
-            @Override protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setColor(C_PURPLE.darker());
-                g2.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-                g2.dispose();
+        matrix = new MatrixPanel(980, 680);
+        matrix.setBounds(0, 0, 980, 680);
+        lp.add(matrix, Integer.valueOf(0));
+
+        JPanel root = new JPanel(null);
+        root.setOpaque(false);
+        root.setBounds(0, 0, 980, 680);
+        lp.add(root, Integer.valueOf(1));
+
+        // Title bar
+        JPanel tb = new JPanel(null);
+        tb.setOpaque(false);
+        tb.setBounds(0, 0, 980, 38);
+        JLabel appLbl = new JLabel("   TechSikho");
+        appLbl.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        appLbl.setForeground(new Color(0x0ea5e9));
+        appLbl.setBounds(0, 0, 180, 38);
+        JButton xBtn = new JButton("X");
+        xBtn.setBounds(944, 6, 28, 26);
+        xBtn.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        xBtn.setForeground(new Color(0x94a3b8));
+        xBtn.setBackground(new Color(0x1a1a1a));
+        xBtn.setBorderPainted(false);
+        xBtn.setFocusPainted(false);
+        xBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        xBtn.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) { xBtn.setBackground(new Color(0xef4444)); xBtn.setForeground(Color.WHITE); }
+            public void mouseExited(MouseEvent e) { xBtn.setBackground(new Color(0x1a1a1a)); xBtn.setForeground(new Color(0x94a3b8)); }
+        });
+        xBtn.addActionListener(e -> System.exit(0));
+        tb.add(appLbl); tb.add(xBtn);
+        root.add(tb);
+
+        final Point[] dp = {null};
+        tb.addMouseListener(new MouseAdapter() { public void mousePressed(MouseEvent e) { dp[0] = e.getPoint(); } });
+        tb.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                Point l = getLocation();
+                setLocation(l.x + e.getX() - dp[0].x, l.y + e.getY() - dp[0].y);
+            }
+        });
+
+        // LEFT PANEL
+        JPanel left = new JPanel(null) {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setColor(new Color(5, 5, 5, 200));
+                g2.fillRect(0, 0, getWidth(), getHeight());
             }
         };
-        root.setBackground(C_RIGHT_BG);
-        setContentPane(root);
+        left.setOpaque(false);
+        left.setBounds(0, 38, 400, 642);
 
-        // ── LEFT PANEL ───────────────────────────────────────────────────────
-        LeftPanel left = new LeftPanel();
-        left.setPreferredSize(new Dimension(400, 620));
+        JLabel logo = new JLabel("TS", SwingConstants.CENTER);
+        logo.setFont(new Font("Segoe UI", Font.BOLD, 72));
+        logo.setForeground(new Color(0x0ea5e9));
+        logo.setBounds(100, 60, 200, 90);
+        left.add(logo);
 
-        // Drag-to-move on left panel
-        left.addMouseListener(new MouseAdapter() {
-            @Override public void mousePressed(MouseEvent e) { dragOrigin = e.getPoint(); }
-        });
-        left.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override public void mouseDragged(MouseEvent e) {
-                Point loc = getLocation();
-                setLocation(loc.x + e.getX() - dragOrigin.x,
-                            loc.y + e.getY() - dragOrigin.y);
+        JLabel brand = new JLabel("TechSikho", SwingConstants.CENTER);
+        brand.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        brand.setForeground(Color.WHITE);
+        brand.setBounds(60, 158, 280, 36);
+        left.add(brand);
+
+        JLabel tag = new JLabel("Join thousands of learners!", SwingConstants.CENTER);
+        tag.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        tag.setForeground(new Color(0x64748b));
+        tag.setBounds(60, 198, 280, 24);
+        left.add(tag);
+
+        JSeparator sep = new JSeparator();
+        sep.setForeground(new Color(0x0ea5e9));
+        sep.setBounds(150, 232, 100, 2);
+        left.add(sep);
+
+        String[] feats = {"  Gamified Learning", "  Boss Battles", "  XP & Levels", "  Mini Games"};
+        Color[] fc = {new Color(0x0ea5e9), new Color(0x06b6d4), new Color(0x0284c7), new Color(0x0369a1)};
+        for (int i = 0; i < feats.length; i++) {
+            JLabel fl = new JLabel("> " + feats[i].trim());
+            fl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            fl.setForeground(fc[i]);
+            fl.setBounds(80, 255 + i * 38, 240, 26);
+            left.add(fl);
+        }
+
+        JLabel ver = new JLabel("v1.0 | Java Swing", SwingConstants.CENTER);
+        ver.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+        ver.setForeground(new Color(0x1e293b));
+        ver.setBounds(100, 615, 200, 18);
+        left.add(ver);
+
+        JPanel vdiv = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(0x0ea5e9));
+                g.fillRect(0, 0, 1, getHeight());
             }
-        });
-        root.add(left, BorderLayout.WEST);
+        };
+        vdiv.setOpaque(false);
+        vdiv.setBounds(400, 38, 1, 642);
+        root.add(vdiv);
+        root.add(left);
 
-        // ── RIGHT PANEL ──────────────────────────────────────────────────────
-        root.add(buildRightPanel(), BorderLayout.CENTER);
-    }
+        // RIGHT PANEL
+        JPanel right = new JPanel(null);
+        right.setOpaque(false);
+        right.setBounds(401, 38, 579, 642);
 
-    // ── RIGHT PANEL ──────────────────────────────────────────────────────────
-    private JPanel buildRightPanel() {
-        JPanel right = new JPanel(new BorderLayout());
-        right.setBackground(C_RIGHT_BG);
+        JLabel title = new JLabel("Create Account", SwingConstants.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 32));
+        title.setForeground(Color.WHITE);
+        title.setBounds(60, 28, 460, 44);
+        right.add(title);
 
-        // Top-right close button
-        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
-        topBar.setOpaque(false);
-        JButton closeBtn = new JButton("X");
-        closeBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        closeBtn.setForeground(new Color(100, 100, 130));
-        closeBtn.setContentAreaFilled(false);
-        closeBtn.setBorderPainted(false);
-        closeBtn.setFocusPainted(false);
-        closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        closeBtn.addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { closeBtn.setForeground(C_ERROR); }
-            @Override public void mouseExited (MouseEvent e) { closeBtn.setForeground(new Color(100, 100, 130)); }
-        });
-        closeBtn.addActionListener(e -> System.exit(0));
-        topBar.add(closeBtn);
-        right.add(topBar, BorderLayout.NORTH);
+        JPanel acc = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                g.setColor(new Color(0x0ea5e9));
+                g.fillRoundRect(0, 0, getWidth(), getHeight(), 3, 3);
+            }
+        };
+        acc.setOpaque(false);
+        acc.setBounds(200, 76, 180, 3);
+        right.add(acc);
 
-        // ── Scrollable center form ────────────────────────────────────────
-        JPanel form = new JPanel();
-        form.setOpaque(false);
-        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
+        JLabel sub = new JLabel("Fill in your details to get started", SwingConstants.CENTER);
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        sub.setForeground(new Color(0x64748b));
+        sub.setBounds(60, 86, 460, 22);
+        right.add(sub);
 
-        // Vertical centering wrapper using GridBagLayout
-        JPanel vWrap = new JPanel(new GridBagLayout());
-        vWrap.setOpaque(false);
-        vWrap.add(form);
-        right.add(vWrap, BorderLayout.CENTER);
+        // Fields
+        nameField = createField(right, "FULL NAME", false, 60, 122, 460, 44);
+        usernameField = createField(right, "USERNAME", false, 60, 180, 460, 44);
+        emailField = createField(right, "EMAIL", false, 60, 238, 460, 44);
+        passField = (JPasswordField) createField(right, "PASSWORD", true, 60, 296, 460, 44);
+        confirmField = (JPasswordField) createField(right, "CONFIRM PASSWORD", true, 60, 354, 460, 44);
 
-        // ── "Create Account" heading ──────────────────────────────────────
-        JLabel heading = new JLabel("Create Account");
-        heading.setFont(new Font("Segoe UI", Font.BOLD, 30));
-        heading.setForeground(Color.WHITE);
-        heading.setAlignmentX(Component.CENTER_ALIGNMENT);
-        form.add(heading);
+        errorLabel = new JLabel("", SwingConstants.CENTER);
+        errorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        errorLabel.setForeground(new Color(0xef4444));
+        errorLabel.setBounds(60, 408, 460, 18);
+        right.add(errorLabel);
 
-        // ── Purple underline accent ───────────────────────────────────────
-        form.add(Box.createVerticalStrut(6));
-        JPanel accent = new JPanel() {
-            @Override protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g.create();
+        JButton regBtn = new JButton("CREATE ACCOUNT") {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                GradientPaint gp = new GradientPaint(0, 0, new Color(139, 92, 246, 0), 40, 0, C_PURPLE);
-                g2.setPaint(gp);
-                g2.fillRoundRect(0, 0, 40, 3, 3, 3);
-                g2.dispose();
+                g2.setColor(getModel().isRollover() ? new Color(0x0284c7) : new Color(0x0ea5e9));
+                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
+                g2.setColor(Color.WHITE);
+                g2.setFont(new Font("Segoe UI", Font.BOLD, 15));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2,
+                    (getHeight()+fm.getAscent()-fm.getDescent())/2);
             }
         };
-        accent.setOpaque(false);
-        accent.setPreferredSize(new Dimension(40, 3));
-        accent.setMaximumSize(new Dimension(40, 3));
-        accent.setAlignmentX(Component.CENTER_ALIGNMENT);
-        form.add(accent);
+        regBtn.setBounds(60, 435, 460, 50);
+        regBtn.setContentAreaFilled(false);
+        regBtn.setBorderPainted(false);
+        regBtn.setFocusPainted(false);
+        regBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        regBtn.addActionListener(e -> doRegister());
+        right.add(regBtn);
 
-        // ── Subtitle ─────────────────────────────────────────────────────
-        form.add(Box.createVerticalStrut(8));
-        JLabel sub = new JLabel("Join thousands of learners!");
-        sub.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        sub.setForeground(C_SUBTITLE);
-        sub.setAlignmentX(Component.CENTER_ALIGNMENT);
-        form.add(sub);
+        JButton loginBtn = new JButton("Already have an account? Login") {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+                g2.setColor(getModel().isRollover() ? new Color(0x0ea5e9) : new Color(0x475569));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2,
+                    (getHeight()+fm.getAscent()-fm.getDescent())/2);
+            }
+        };
+        loginBtn.setBounds(60, 496, 460, 28);
+        loginBtn.setContentAreaFilled(false);
+        loginBtn.setBorderPainted(false);
+        loginBtn.setFocusPainted(false);
+        loginBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        loginBtn.addActionListener(e -> { matrix.stop(); dispose(); new LoginFrame().setVisible(true); });
 
-        // ── Fields ───────────────────────────────────────────────────────
-        form.add(Box.createVerticalStrut(20));
-        fullNameField    = makeTextField("FULL NAME",        "Enter full name",     false);
-        usernameField    = makeTextField("USERNAME",         "Enter username",      false);
-        emailField       = makeTextField("EMAIL",            "Enter email",         false);
-        passwordField    = makePasswordField("PASSWORD",     "Enter password");
-        confirmPassField = makePasswordField("CONFIRM PASSWORD", "Re-enter password");
+        JLabel orLabel = new JLabel("------- OR -------", SwingConstants.CENTER);
+        orLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+        orLabel.setForeground(new Color(0x334155));
+        orLabel.setBounds(60, 532, 460, 20);
+        right.add(orLabel);
 
-        // Arrange fields in two columns: (fullname) / (username) on row1
-        //                                (email)    / (password) on row2
-        //                                (confirm)              on row3
-        // For simplicity and clean alignment: single column, compact spacing
-        int fieldGap = 12;
-        addFormRow(form, fullNameField,    "FULL NAME");
-        form.add(Box.createVerticalStrut(fieldGap));
-        addFormRow(form, usernameField,   "USERNAME");
-        form.add(Box.createVerticalStrut(fieldGap));
-        addFormRow(form, emailField,      "EMAIL");
-        form.add(Box.createVerticalStrut(fieldGap));
-        addFormRow(form, passwordField,   "PASSWORD");
-        form.add(Box.createVerticalStrut(fieldGap));
-        addFormRow(form, confirmPassField,"CONFIRM PASSWORD");
+        JButton googleBtn = new JButton("Continue with Google") {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(getModel().isRollover() ? new Color(0x1e293b) : new Color(0x0d1520));
+                g2.fillRoundRect(0,0,getWidth(),getHeight(),10,10);
+                g2.setColor(new Color(0x334155));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,10,10);
+                g2.setColor(new Color(0xcbd5e1));
+                g2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2, (getHeight()+fm.getAscent()-fm.getDescent())/2);
+            }
+        };
+        googleBtn.setBounds(60, 558, 220, 42);
+        googleBtn.setContentAreaFilled(false);
+        googleBtn.setBorderPainted(false);
+        googleBtn.setFocusPainted(false);
+        googleBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        googleBtn.addActionListener(e -> JOptionPane.showMessageDialog(null, "Google OAuth coming soon!", "Info", JOptionPane.INFORMATION_MESSAGE));
+        right.add(googleBtn);
 
-        // ── Status label ─────────────────────────────────────────────────
-        form.add(Box.createVerticalStrut(8));
-        statusLabel = new JLabel(" ");
-        statusLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        statusLabel.setForeground(C_ERROR);
-        statusLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        statusLabel.setVisible(false);
-        form.add(statusLabel);
+        JButton githubBtn = new JButton("Continue with GitHub") {
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2.setColor(getModel().isRollover() ? new Color(0x1e293b) : new Color(0x0d1520));
+                g2.fillRoundRect(0,0,getWidth(),getHeight(),10,10);
+                g2.setColor(new Color(0x334155));
+                g2.setStroke(new BasicStroke(1f));
+                g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,10,10);
+                g2.setColor(new Color(0xcbd5e1));
+                g2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                FontMetrics fm = g2.getFontMetrics();
+                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2, (getHeight()+fm.getAscent()-fm.getDescent())/2);
+            }
+        };
+        githubBtn.setBounds(290, 558, 230, 42);
+        githubBtn.setContentAreaFilled(false);
+        githubBtn.setBorderPainted(false);
+        githubBtn.setFocusPainted(false);
+        githubBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        githubBtn.addActionListener(e -> JOptionPane.showMessageDialog(null, "GitHub OAuth coming soon!", "Info", JOptionPane.INFORMATION_MESSAGE));
+        right.add(githubBtn);
+        right.add(loginBtn);
 
-        // ── REGISTER button ───────────────────────────────────────────────
-        form.add(Box.createVerticalStrut(14));
-        registerBtn = new PurpleButton("REGISTER");
-        registerBtn.setMaximumSize(new Dimension(380, 50));
-        registerBtn.setPreferredSize(new Dimension(380, 50));
-        registerBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        form.add(registerBtn);
-
-        // ── Back-to-login link ────────────────────────────────────────────
-        form.add(Box.createVerticalStrut(12));
-        JButton backBtn = new JButton("Already have an account? Login");
-        backBtn.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        backBtn.setForeground(C_PURPLE);
-        backBtn.setContentAreaFilled(false);
-        backBtn.setBorderPainted(false);
-        backBtn.setFocusPainted(false);
-        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backBtn.addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { backBtn.setForeground(Color.WHITE); }
-            @Override public void mouseExited (MouseEvent e) { backBtn.setForeground(C_PURPLE); }
-        });
-        backBtn.addActionListener(e -> {
-            new LoginFrame().setVisible(true);
-            dispose();
-        });
-        form.add(backBtn);
-
-        // ── Wire actions ─────────────────────────────────────────────────
-        registerBtn.addActionListener(e -> handleRegister());
-
-        return right;
+        root.add(right);
+        setVisible(true);
     }
 
-    // Adds a label + field row to the form
-    private void addFormRow(JPanel form, JComponent field, String labelText) {
-        JPanel group = new JPanel();
-        group.setOpaque(false);
-        group.setLayout(new BoxLayout(group, BoxLayout.Y_AXIS));
-        group.setMaximumSize(new Dimension(380, 68));
-        group.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private JTextField createField(JPanel parent, String label, boolean isPass, int x, int y, int w, int h) {
+        JTextField field = isPass ? new JPasswordField() : new JTextField();
+        field.setBackground(new Color(0x0d1520));
+        field.setForeground(Color.WHITE);
+        field.setCaretColor(new Color(0x0ea5e9));
+        field.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        field.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0x1e3a5f), 1),
+            BorderFactory.createEmptyBorder(0, 12, 0, 12)));
+        field.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                field.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(0x0ea5e9), 1),
+                    BorderFactory.createEmptyBorder(0, 12, 0, 12)));
+            }
+            public void focusLost(FocusEvent e) {
+                field.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(0x1e3a5f), 1),
+                    BorderFactory.createEmptyBorder(0, 12, 0, 12)));
+            }
+        });
 
-        JLabel lbl = new JLabel(labelText);
+        JLabel lbl = new JLabel(label);
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 10));
-        lbl.setForeground(C_PURPLE);
-        lbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        group.add(lbl);
-        group.add(Box.createVerticalStrut(4));
+        lbl.setForeground(new Color(0x0ea5e9));
+        lbl.setBounds(x, y - 16, 300, 14);
+        parent.add(lbl);
 
-        field.setAlignmentX(Component.LEFT_ALIGNMENT);
-        group.add(field);
-
-        form.add(group);
+        field.setBounds(x, y, w, h);
+        parent.add(field);
+        return field;
     }
 
-    // ── Field factories (matching LoginFrame style) ───────────────────────────
-    private UTextField makeTextField(String label, String placeholder, boolean dummy) {
-        UTextField f = new UTextField(placeholder);
-        f.setPreferredSize(new Dimension(380, 42));
-        f.setMaximumSize(new Dimension(380, 42));
-        return f;
-    }
-
-    private UPasswordField makePasswordField(String label, String placeholder) {
-        UPasswordField f = new UPasswordField(placeholder);
-        f.setPreferredSize(new Dimension(380, 42));
-        f.setMaximumSize(new Dimension(380, 42));
-        return f;
-    }
-
-    // ── Auth Logic (unchanged from original) ────────────────────────────────
-    private void handleRegister() {
-        String fullName = fullNameField.getText().trim();
+    private void doRegister() {
+        String name = nameField.getText().trim();
         String username = usernameField.getText().trim();
-        String email    = emailField.getText().trim();
-        String password = new String(passwordField.getPassword()).trim();
-        String confirm  = new String(confirmPassField.getPassword()).trim();
-
-        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            showStatus("All fields are required!", false);
-            return;
+        String email = emailField.getText().trim();
+        String pass = new String(passField.getPassword());
+        String confirm = new String(confirmField.getPassword());
+        if (name.isEmpty() || username.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+            errorLabel.setText("All fields are required!"); return;
         }
-        if (!password.equals(confirm)) {
-            showStatus("Passwords do not match!", false);
-            return;
+        if (!pass.equals(confirm)) {
+            errorLabel.setText("Passwords do not match!"); return;
         }
-        if (password.length() < 6) {
-            showStatus("Password must be at least 6 characters!", false);
-            return;
+        if (pass.length() < 6) {
+            errorLabel.setText("Password must be at least 6 characters!"); return;
         }
-
-        registerBtn.setEnabled(false);
-        registerBtn.setText("CREATING...");
-
-        SwingWorker<Boolean, Void> worker = new SwingWorker<>() {
-            @Override protected Boolean doInBackground() {
-                return AuthService.register(username, email, password, fullName);
-            }
-            @Override protected void done() {
-                try {
-                    boolean success = get();
-                    if (success) {
-                        JOptionPane.showMessageDialog(RegisterFrame.this,
-                            "Account created! You can now login.",
-                            "Success", JOptionPane.INFORMATION_MESSAGE);
-                        new LoginFrame().setVisible(true);
-                        dispose();
-                    } else {
-                        showStatus("Username already exists or error!", false);
-                        registerBtn.setEnabled(true);
-                        registerBtn.setText("REGISTER");
-                    }
-                } catch (Exception ex) {
-                    showStatus("Error: " + ex.getMessage(), false);
-                    registerBtn.setEnabled(true);
-                    registerBtn.setText("REGISTER");
-                }
-            }
-        };
-        worker.execute();
-    }
-
-    private void showStatus(String msg, boolean success) {
-        statusLabel.setText(msg);
-        statusLabel.setForeground(success ? C_SUCCESS : C_ERROR);
-        statusLabel.setVisible(true);
-        statusLabel.revalidate();
-        statusLabel.repaint();
-    }
-
-    // ════════════════════════════════════════════════════════════════════════
-    //  LEFT PANEL — identical to LoginFrame.LeftPanel
-    // ════════════════════════════════════════════════════════════════════════
-    private static class LeftPanel extends JPanel {
-
-        LeftPanel() {
-            setOpaque(false);
-            setLayout(new GridBagLayout());
-
-            GridBagConstraints g = new GridBagConstraints();
-            g.gridx   = 0;
-            g.fill    = GridBagConstraints.HORIZONTAL;
-            g.anchor  = GridBagConstraints.CENTER;
-            g.weightx = 1.0;
-
-            // Glowing "TS" logo
-            g.gridy  = 0;
-            g.insets = new Insets(70, 40, 0, 40);
-            JPanel tsPanel = new JPanel() {
-                @Override protected void paintComponent(Graphics g0) {
-                    super.paintComponent(g0);
-                    Graphics2D g2 = (Graphics2D) g0.create();
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,      RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-                    Font f  = new Font("Segoe UI", Font.BOLD, 80);
-                    g2.setFont(f);
-                    FontMetrics fm  = g2.getFontMetrics();
-                    String txt = "TS";
-                    int tx = (getWidth()  - fm.stringWidth(txt)) / 2;
-                    int ty = (getHeight() + fm.getAscent() - fm.getDescent()) / 2;
-
-                    int[] alphas  = {20, 35, 55, 80};
-                    int[] offsets = { 8,  5,  3,  1};
-                    for (int i = 0; i < alphas.length; i++) {
-                        g2.setColor(new Color(139, 92, 246, alphas[i]));
-                        g2.drawString(txt, tx - offsets[i], ty);
-                        g2.drawString(txt, tx + offsets[i], ty);
-                        g2.drawString(txt, tx, ty - offsets[i]);
-                        g2.drawString(txt, tx, ty + offsets[i]);
-                    }
-                    g2.setColor(new Color(0, 0, 0, 120));
-                    g2.drawString(txt, tx + 3, ty + 4);
-                    g2.setColor(new Color(139, 92, 246));
-                    g2.drawString(txt, tx, ty);
-                    g2.dispose();
-                }
-            };
-            tsPanel.setOpaque(false);
-            tsPanel.setPreferredSize(new Dimension(320, 110));
-            add(tsPanel, g);
-
-            // TechSikho
-            g.gridy  = 1;
-            g.insets = new Insets(4, 40, 0, 40);
-            JLabel brand = new JLabel("TechSikho", SwingConstants.CENTER);
-            brand.setFont(new Font("Segoe UI", Font.BOLD, 28));
-            brand.setForeground(Color.WHITE);
-            add(brand, g);
-
-            // Slogan
-            g.gridy  = 2;
-            g.insets = new Insets(6, 40, 0, 40);
-            JLabel slogan = new JLabel("Learn. Code. Level Up.", SwingConstants.CENTER);
-            slogan.setFont(new Font("Segoe UI", Font.ITALIC, 13));
-            slogan.setForeground(new Color(167, 139, 250));
-            add(slogan, g);
-
-            // Separator
-            g.gridy  = 3;
-            g.insets = new Insets(18, 0, 18, 0);
-            add(buildSeparator(), g);
-
-            // Feature rows
-            String[] icons  = {"\u25B6", "\u2694", "\u2605", "\u25CE"};
-            String[] labels = {" Gamified Learning", " Boss Battles", " XP & Levels", " Mini Games"};
-            Color[]  iColors = {
-                new Color(251, 191,  36),
-                new Color(239,  68,  68),
-                new Color(250, 204,  21),
-                new Color( 52, 211, 153)
-            };
-
-            JPanel featureBox = new JPanel();
-            featureBox.setOpaque(false);
-            featureBox.setLayout(new BoxLayout(featureBox, BoxLayout.Y_AXIS));
-            for (int i = 0; i < labels.length; i++) {
-                featureBox.add(buildRow(icons[i], labels[i], iColors[i]));
-                if (i < labels.length - 1) featureBox.add(Box.createVerticalStrut(10));
-            }
-
-            g.gridy  = 4;
-            g.insets = new Insets(0, 40, 0, 40);
-            add(featureBox, g);
-
-            // Glue
-            g.gridy   = 5;
-            g.weighty = 1.0;
-            g.fill    = GridBagConstraints.BOTH;
-            g.insets  = new Insets(0, 0, 0, 0);
-            add(Box.createGlue(), g);
-
-            // Version
-            g.gridy   = 6;
-            g.weighty = 0;
-            g.fill    = GridBagConstraints.HORIZONTAL;
-            g.insets  = new Insets(0, 40, 20, 40);
-            JLabel version = new JLabel("v1.0", SwingConstants.CENTER);
-            version.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-            version.setForeground(new Color(100, 100, 130));
-            add(version, g);
-        }
-
-        @Override protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            GradientPaint gp = new GradientPaint(0, 0, C_LEFT_TOP, 0, getHeight(), C_LEFT_BOT);
-            g2.setPaint(gp);
-            g2.fillRect(0, 0, getWidth(), getHeight());
-            GradientPaint vLine = new GradientPaint(
-                0, 0,           new Color(139, 92, 246, 0),
-                0, getHeight(), new Color(139, 92, 246, 200));
-            g2.setPaint(vLine);
-            g2.fillRect(getWidth() - 2, 0, 2, getHeight());
-            g2.dispose();
-            super.paintComponent(g);
-        }
-
-        private static JPanel buildSeparator() {
-            JPanel sep = new JPanel() {
-                @Override protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    Graphics2D g2 = (Graphics2D) g.create();
-                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    int cx = getWidth() / 2;
-                    g2.setPaint(new GradientPaint(cx - 30, 0, new Color(139, 92, 246, 0), cx, 0, new Color(139, 92, 246)));
-                    g2.fillRect(cx - 30, 0, 30, 2);
-                    g2.setPaint(new GradientPaint(cx, 0, new Color(139, 92, 246), cx + 30, 0, new Color(139, 92, 246, 0)));
-                    g2.fillRect(cx, 0, 30, 2);
-                    g2.dispose();
-                }
-            };
-            sep.setOpaque(false);
-            sep.setPreferredSize(new Dimension(320, 2));
-            return sep;
-        }
-
-        private static JPanel buildRow(String icon, String label, Color iconColor) {
-            JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-            row.setOpaque(false);
-            JLabel ico = new JLabel(icon);
-            ico.setFont(new Font("Segoe UI Symbol", Font.BOLD, 13));
-            ico.setForeground(iconColor);
-            JLabel txt = new JLabel(label);
-            txt.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-            txt.setForeground(new Color(220, 220, 255));
-            row.add(ico);
-            row.add(txt);
-            return row;
-        }
-    }
-
-    // ════════════════════════════════════════════════════════════════════════
-    //  SHARED CUSTOM COMPONENTS (self-contained, no dependency on LoginFrame)
-    // ════════════════════════════════════════════════════════════════════════
-
-    // Bottom-underline text field
-    static class UTextField extends JTextField implements FocusListener {
-        private final String placeholder;
-        private boolean      placeholderActive = true;
-        private boolean      focused           = false;
-
-        UTextField(String placeholder) {
-            this.placeholder = placeholder;
-            setOpaque(false);
-            setForeground(new Color(150, 150, 180));
-            setCaretColor(Color.WHITE);
-            setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            setBorder(BorderFactory.createEmptyBorder(6, 2, 6, 2));
-            setText(placeholder);
-            addFocusListener(this);
-        }
-
-        @Override public String getText() { return placeholderActive ? "" : super.getText(); }
-
-        @Override protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(new Color(22, 22, 45));
-            g2.fillRect(0, 0, getWidth(), getHeight());
-            int ly = getHeight() - 1;
-            if (focused) {
-                g2.setColor(new Color(139, 92, 246, 60));
-                g2.fillRect(0, ly - 1, getWidth(), 3);
-                g2.setColor(new Color(139, 92, 246));
-                g2.setStroke(new BasicStroke(2f));
-            } else {
-                g2.setColor(new Color(99, 102, 241));
-                g2.setStroke(new BasicStroke(1f));
-            }
-            g2.drawLine(0, ly, getWidth(), ly);
-            g2.dispose();
-            super.paintComponent(g);
-        }
-
-        @Override public void focusGained(FocusEvent e) {
-            focused = true;
-            if (placeholderActive) { placeholderActive = false; setText(""); setForeground(Color.WHITE); }
-            repaint();
-        }
-        @Override public void focusLost(FocusEvent e) {
-            focused = false;
-            if (super.getText().trim().isEmpty()) {
-                placeholderActive = true; setText(placeholder); setForeground(new Color(150, 150, 180));
-            }
-            repaint();
-        }
-    }
-
-    // Bottom-underline password field
-    static class UPasswordField extends JPasswordField implements FocusListener {
-        private final String placeholder;
-        private boolean      placeholderActive = true;
-        private boolean      focused           = false;
-        private final char   realEcho;
-
-        UPasswordField(String placeholder) {
-            this.placeholder = placeholder;
-            realEcho = getEchoChar();
-            setEchoChar((char) 0);
-            setOpaque(false);
-            setForeground(new Color(150, 150, 180));
-            setCaretColor(Color.WHITE);
-            setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            setBorder(BorderFactory.createEmptyBorder(6, 2, 6, 2));
-            setText(placeholder);
-            addFocusListener(this);
-        }
-
-        @Override public char[] getPassword() { return placeholderActive ? new char[0] : super.getPassword(); }
-
-        @Override protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2.setColor(new Color(22, 22, 45));
-            g2.fillRect(0, 0, getWidth(), getHeight());
-            int ly = getHeight() - 1;
-            if (focused) {
-                g2.setColor(new Color(139, 92, 246, 60));
-                g2.fillRect(0, ly - 1, getWidth(), 3);
-                g2.setColor(new Color(139, 92, 246));
-                g2.setStroke(new BasicStroke(2f));
-            } else {
-                g2.setColor(new Color(99, 102, 241));
-                g2.setStroke(new BasicStroke(1f));
-            }
-            g2.drawLine(0, ly, getWidth(), ly);
-            g2.dispose();
-            super.paintComponent(g);
-        }
-
-        @Override public void focusGained(FocusEvent e) {
-            focused = true;
-            if (placeholderActive) {
-                placeholderActive = false; setText(""); setEchoChar(realEcho); setForeground(Color.WHITE);
-            }
-            repaint();
-        }
-        @Override public void focusLost(FocusEvent e) {
-            focused = false;
-            if (new String(super.getPassword()).trim().isEmpty()) {
-                placeholderActive = true; setText(placeholder); setEchoChar((char) 0); setForeground(new Color(150, 150, 180));
-            }
-            repaint();
-        }
-    }
-
-    // Filled purple gradient button
-    static class PurpleButton extends JButton {
-        private boolean hovered = false;
-        private String  label;
-
-        PurpleButton(String text) {
-            super(text);
-            this.label = text;
-            setFont(new Font("Segoe UI", Font.BOLD, 15));
-            setForeground(Color.WHITE);
-            setContentAreaFilled(false);
-            setBorderPainted(false);
-            setFocusPainted(false);
-            setOpaque(false);
-            setCursor(new Cursor(Cursor.HAND_CURSOR));
-            addMouseListener(new MouseAdapter() {
-                @Override public void mouseEntered(MouseEvent e) { hovered = true;  repaint(); }
-                @Override public void mouseExited (MouseEvent e) { hovered = false; repaint(); }
-            });
-        }
-
-        @Override public void setText(String t) { this.label = t; super.setText(t); }
-
-        @Override protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            Color base = hovered ? C_BTN_HOVER : C_BTN_NORMAL;
-            g2.setPaint(new GradientPaint(0, 0, base.brighter(), 0, getHeight(), base));
-            g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
-            g2.setColor(new Color(255, 255, 255, 30));
-            g2.fillRoundRect(0, 0, getWidth(), getHeight() / 3, 8, 8);
-            g2.setFont(getFont());
-            g2.setColor(Color.WHITE);
-            FontMetrics fm = g2.getFontMetrics();
-            g2.drawString(label, (getWidth() - fm.stringWidth(label)) / 2,
-                          (getHeight() + fm.getAscent() - fm.getDescent()) / 2);
-            g2.dispose();
+        User user = new User();
+        user.setFullName(name); user.setUsername(username);
+        user.setEmail(email); user.setPasswordHash(pass);
+        boolean success = UserDAO.registerUser(user);
+        if (success) {
+            errorLabel.setForeground(new Color(0x22c55e));
+            errorLabel.setText("Account created! Redirecting to login...");
+            Timer t = new Timer(1500, ev -> { matrix.stop(); dispose(); new LoginFrame().setVisible(true); });
+            t.setRepeats(false); t.start();
+        } else {
+            errorLabel.setForeground(new Color(0xef4444));
+            errorLabel.setText("Registration failed. Username may already exist.");
         }
     }
 }
