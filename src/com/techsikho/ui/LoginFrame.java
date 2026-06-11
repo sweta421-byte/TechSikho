@@ -252,7 +252,7 @@ public class LoginFrame extends JFrame {
         right.add(passLbl);
 
         passwordField = new JPasswordField();
-        passwordField.setBounds(90, 276, 400, 44);
+        passwordField.setBounds(90, 276, 360, 44);
         passwordField.setBackground(new Color(0x0d1520));
         passwordField.setForeground(Color.WHITE);
         passwordField.setCaretColor(new Color(0x0ea5e9));
@@ -273,6 +273,22 @@ public class LoginFrame extends JFrame {
             }
         });
         right.add(passwordField);
+        JButton eyeBtn = new JButton("👁");
+        eyeBtn.setBounds(455, 276, 44, 44);
+        eyeBtn.setBackground(new Color(0x0d1520));
+        eyeBtn.setForeground(new Color(0x0ea5e9));
+        eyeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        eyeBtn.setFocusPainted(false);
+        eyeBtn.setBorderPainted(false);
+        eyeBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        eyeBtn.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9), 1));
+        final boolean[] showing = {false};
+        eyeBtn.addActionListener(e -> {
+            showing[0] = !showing[0];
+            passwordField.setEchoChar(showing[0] ? (char)0 : (char)0x2022);
+            eyeBtn.setText(showing[0] ? "🙈" : "👁");
+        });
+        right.add(eyeBtn);
 
         errorLabel = new JLabel("", SwingConstants.CENTER);
         errorLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -364,6 +380,10 @@ public class LoginFrame extends JFrame {
             return;
         }
         User user = UserDAO.loginUser(username, password);
+        if (user == null) {
+            try { Thread.sleep(500); } catch (Exception ex) {}
+            user = UserDAO.loginUser(username, password);
+        }
         if (user != null) {
             matrix.stop();
             dispose();

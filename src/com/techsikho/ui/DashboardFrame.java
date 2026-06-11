@@ -146,46 +146,77 @@ public class DashboardFrame extends JFrame {
         logoPanel.add(themeToggle);
         logoPanel.add(Box.createVerticalStrut(8));
 
-        JLabel logo = new JLabel("TechSikho");
-        logo.setFont(new Font("Segoe UI", Font.BOLD, 20));
-        logo.setForeground(new Color(0x0ea5e9));
+        JPanel logo = new JPanel() {
+            protected void paintComponent(java.awt.Graphics g) {
+                super.paintComponent(g);
+                java.awt.Graphics2D g2 = (java.awt.Graphics2D)g;
+                g2.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING,java.awt.RenderingHints.VALUE_ANTIALIAS_ON);
+                int cx=getWidth()/2, cy=0;
+                // crown
+                int[]crx={cx-12,cx-8,cx-4,cx,cx+4,cx+8,cx+12};
+                int[]cry={cy+10,cy+4,cy+8,cy+2,cy+8,cy+4,cy+10};
+                g2.setColor(new Color(0x0ea5e9));g2.fillPolygon(crx,cry,7);
+                g2.setColor(new Color(0x2dd4bf));g2.setStroke(new java.awt.BasicStroke(0.8f));g2.drawPolygon(crx,cry,7);
+                // head
+                g2.setColor(new Color(0x0d1520));g2.fillRoundRect(cx-18,cy+10,36,26,8,8);
+                g2.setColor(new Color(0x0ea5e9));g2.setStroke(new java.awt.BasicStroke(1.5f));g2.drawRoundRect(cx-18,cy+10,36,26,8,8);
+                // eyes glow
+                g2.setColor(new Color(0x2dd4bf));g2.fillRoundRect(cx-13,cy+16,10,7,3,3);g2.fillRoundRect(cx+3,cy+16,10,7,3,3);
+                g2.setColor(new Color(0xffffff));g2.fillOval(cx-10,cy+18,4,3);g2.fillOval(cx+6,cy+18,4,3);
+                // mouth
+                g2.setColor(new Color(0x0ea5e9));g2.fillRoundRect(cx-8,cy+27,16,4,3,3);
+                g2.setColor(new Color(0x2dd4bf));g2.fillRect(cx-5,cy+28,3,2);g2.fillRect(cx,cy+28,3,2);
+                // neck
+                g2.setColor(new Color(0x0d1520));g2.fillRect(cx-5,cy+36,10,6);
+                g2.setColor(new Color(0x0ea5e9));g2.setStroke(new java.awt.BasicStroke(0.8f));g2.drawRect(cx-5,cy+36,10,6);
+                // body
+                g2.setColor(new Color(0x071520));g2.fillRoundRect(cx-22,cy+42,44,30,6,6);
+                g2.setColor(new Color(0x0ea5e9));g2.setStroke(new java.awt.BasicStroke(1.2f));g2.drawRoundRect(cx-22,cy+42,44,30,6,6);
+                // chest screen
+                g2.setColor(new Color(0x040c14));g2.fillRoundRect(cx-14,cy+46,28,18,4,4);
+                g2.setColor(new Color(0x2dd4bf));g2.setStroke(new java.awt.BasicStroke(0.8f));g2.drawRoundRect(cx-14,cy+46,28,18,4,4);
+                // TS on chest
+                g2.setFont(new Font("Segoe UI",Font.BOLD,11));
+                g2.setColor(new Color(0x0ea5e9));g2.drawString("T",cx-10,cy+59);
+                g2.setColor(new Color(0x2dd4bf));g2.drawString("S",cx,cy+59);
+                // arms
+                g2.setColor(new Color(0x0d1520));g2.fillRoundRect(cx-36,cy+42,13,22,4,4);g2.fillRoundRect(cx+23,cy+42,13,22,4,4);
+                g2.setColor(new Color(0x0ea5e9));g2.setStroke(new java.awt.BasicStroke(0.8f));g2.drawRoundRect(cx-36,cy+42,13,22,4,4);g2.drawRoundRect(cx+23,cy+42,13,22,4,4);
+                // hands - both symmetric
+                g2.setColor(new Color(0x050d0d));
+                g2.fillRoundRect(cx-36,cy+64,13,10,2,2);
+                g2.fillRoundRect(cx+23,cy+64,13,10,2,2);
+                g2.setColor(new Color(0x0ea5e9));g2.setStroke(new java.awt.BasicStroke(0.7f));
+                g2.drawRoundRect(cx-36,cy+64,13,10,2,2);
+                g2.drawRoundRect(cx+23,cy+64,13,10,2,2);
+                g2.drawRoundRect(cx+23,cy+64,13,10,2,2);
+                // legs
+                g2.setColor(new Color(0x0d1520));g2.fillRoundRect(cx-16,cy+74,12,14,4,4);g2.fillRoundRect(cx+4,cy+74,12,14,4,4);
+                g2.setColor(new Color(0x0ea5e9));g2.setStroke(new java.awt.BasicStroke(0.8f));g2.drawRoundRect(cx-16,cy+74,12,14,4,4);g2.drawRoundRect(cx+4,cy+74,12,14,4,4);
+                // amber dots
+                g2.setColor(new Color(0xf59e0b));g2.fillOval(cx-30,cy+5,5,5);g2.fillOval(cx+25,cy+5,5,5);
+                g2.setColor(new Color(0x2dd4bf));g2.fillOval(cx-24,cy+2,3,3);g2.fillOval(cx+21,cy+2,3,3);
+                // TECHSIKHO text
+                g2.setFont(new Font("Segoe UI",Font.BOLD,11));
+                g2.setColor(new Color(0x0ea5e9));
+                java.awt.FontMetrics fm=g2.getFontMetrics();
+                int tw=fm.stringWidth("TECHSIKHO");
+                g2.drawString("TECH",cx-tw/2,cy+103);
+                g2.setColor(new Color(0x2dd4bf));g2.drawString("SIKHO",cx-tw/2+fm.stringWidth("TECH"),cy+103);
+            }
+            public java.awt.Dimension getPreferredSize(){return new java.awt.Dimension(120,130);}
+            public java.awt.Dimension getMinimumSize(){return new java.awt.Dimension(120,130);}
+        };
+        logo.setBackground(new java.awt.Color(0x0d1117));logo.setOpaque(true);
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         logoPanel.add(logo);
         logoPanel.add(Box.createVerticalStrut(12));
         sidebar.add(logoPanel, BorderLayout.NORTH);
 
-        // Nav buttons
         JPanel navButtons = new JPanel();
         navButtonsPanel = navButtons;
         navButtons.setBackground(new Color(0x0d1117));
         navButtons.setLayout(new BoxLayout(navButtons, BoxLayout.Y_AXIS));
-
-        navButtons.add(createSectionLabel("MAIN"));
-        notifBtn = new JButton("Alerts");
-        notifBtn.setVisible(false);
-        notifBtn.setBackground(new Color(0x0d1520));
-        notifBtn.setForeground(Color.WHITE);
-        notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        notifBtn.setBorderPainted(false);
-        notifBtn.setFocusPainted(false);
-        notifBtn.setMaximumSize(new Dimension(160, 30));
-        notifBtn.setBackground(new Color(0x0d1520));
-        notifBtn.setForeground(Color.WHITE);
-        notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        notifBtn.setBorderPainted(false);
-        notifBtn.setFocusPainted(false);
-        notifBtn.setMaximumSize(new Dimension(160, 30)); notifBtn.setOpaque(true); notifBtn.setBorderPainted(false);
-        notifBtn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        notifBtn.setBackground(new Color(0x0d1520));
-        notifBtn.setForeground(Color.WHITE);
-        notifBtn.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
-        notifBtn.setFocusPainted(false);
-        notifBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        notifBtn.addActionListener(e -> showNotifications());
-        notifBtn.setAlignmentX(Component.LEFT_ALIGNMENT);
-        notifBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
-        navButtons.add(notifBtn);
-        navButtons.add(Box.createVerticalStrut(6));
         navButtons.add(createNavBtn("Dashboard", () -> showDashboard()));
         navButtons.add(Box.createVerticalStrut(6));
 
@@ -203,6 +234,9 @@ public class DashboardFrame extends JFrame {
         navButtons.add(createNavBtn("Boss Battle", () -> showBossBattle()));
         navButtons.add(Box.createVerticalStrut(4));
         navButtons.add(createNavBtn("Mini Games", () -> showMiniGames()));
+        navButtons.add(createNavBtn("Escape Hacker", () -> showEscapeHacker()));
+        navButtons.add(createNavBtn("Guess Output", () -> showGuessOutput()));
+        navButtons.add(createNavBtn("AI Prompt", () -> showAIPrompt()));
         navButtons.add(Box.createVerticalStrut(4));
         navButtons.add(createNavBtn("Typing Test", () -> showTypingTest()));
         navButtons.add(Box.createVerticalStrut(4));
@@ -422,86 +456,86 @@ public class DashboardFrame extends JFrame {
         "for(int i=0; i<10; i++) { System.out.println(i); }",
         "if(condition) { doSomething(); } else { doOther(); }"
     };
-    private static JButton notifBtn = null;
+
 
     private void addNotification(String message) {
         java.time.LocalTime t = java.time.LocalTime.now();
         String time = String.format("%02d:%02d", t.getHour(), t.getMinute());
         notifications.add(0, "[" + time + "] " + message);
         unreadCount++;
-        if (notifBtn != null) {
-            notifBtn.setText("Notif [" + unreadCount + "]");
-            notifBtn.setBackground(new Color(0x0ea5e9));
-        }
+
+
+
+
     }
 
-    private void showNotifications() {
-        unreadCount = 0;
-        if (notifBtn != null) {
-            notifBtn.setText("Alerts");
-            notifBtn.setBackground(new Color(0x0d1520));
-        }
-        JDialog dialog = new JDialog(this, "Notifications", true);
-        dialog.setSize(380, 420);
-        dialog.setLocationRelativeTo(this);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
-        JLabel title = new JLabel("  Notifications");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        title.setForeground(Color.WHITE);
-        title.setOpaque(true);
-        title.setBackground(new Color(0x0a0a0a));
-        title.setBorder(BorderFactory.createEmptyBorder(12, 10, 12, 10));
-        panel.add(title, BorderLayout.NORTH);
-        JPanel listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-        listPanel.setBackground(new Color(0x0a0a0a));
-        if (notifications.isEmpty()) {
-            JLabel empty = new JLabel("No notifications yet");
-            empty.setForeground(new Color(150, 150, 180));
-            empty.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            empty.setAlignmentX(Component.CENTER_ALIGNMENT);
-            empty.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-            listPanel.add(empty);
-        } else {
-            for (String n : notifications) {
-                JPanel row = new JPanel(new BorderLayout());
-                row.setBackground(new Color(0x0a0a0a));
-                row.setBorder(BorderFactory.createCompoundBorder(
-                    BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(0x0d1520)),
-                    BorderFactory.createEmptyBorder(10, 12, 10, 12)));
-                row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-                JLabel msg = new JLabel(n);
-                msg.setForeground(Color.WHITE);
-                msg.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-                row.add(msg, BorderLayout.CENTER);
-                listPanel.add(row);
-            }
-        }
-        JScrollPane scroll = new JScrollPane(listPanel);
-        scroll.setBorder(null);
-        scroll.getViewport().setBackground(new Color(0x0a0a0a));
-        panel.add(scroll, BorderLayout.CENTER);
-        JButton clearBtn = new JButton("Clear All");
-        clearBtn.setForeground(Color.WHITE);
-        clearBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        clearBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        clearBtn.addActionListener(e -> {
-            notifications.clear();
-            unreadCount = 0;
-            if (notifBtn != null) {
-                notifBtn.setText("Alerts");
-                notifBtn.setBackground(new Color(0x0d1520));
-            }
-            dialog.dispose();
-        });
-        JPanel bottom = new JPanel();
-        bottom.setBackground(new Color(0x0a0a0a));
-        bottom.add(clearBtn);
-        panel.add(bottom, BorderLayout.SOUTH);
-        dialog.add(panel);
-        dialog.setVisible(true);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private void showLearningPath() {
         contentPanel.removeAll();
@@ -553,7 +587,7 @@ public class DashboardFrame extends JFrame {
                 boolean current   = (c == 0 && userLevel == i+1) || (c == 1 && userLevel == 4+i+1) || (c == 2 && userLevel == 8+i+1);
                 Color nodeBg     = completed ? new Color(0x052e16) : current ? new Color(0x0d1f3c) : new Color(0x0d1117);
                 Color nodeAccent = completed ? new Color(0x22c55e) : current ? new Color(0x0ea5e9) : new Color(0x1e293b);
-                String statusTxt = completed ? "✓ Completed" : current ? "→ In Progress" : "🔒 Locked";
+                String statusTxt = completed ? "âœ“ Completed" : current ? "â†’ In Progress" : "ðŸ”’ Locked";
                 Color statusColor = completed ? new Color(0x22c55e) : current ? new Color(0xf59e0b) : new Color(0x334155);
 
                 JPanel node = new JPanel();
@@ -581,7 +615,7 @@ public class DashboardFrame extends JFrame {
                 col.add(node);
 
                 if (i < nodes.length - 1) {
-                    JLabel arrow = new JLabel("↓");
+                    JLabel arrow = new JLabel("â†“");
                     arrow.setForeground(new Color(0x1e293b));
                     arrow.setFont(new Font("Segoe UI", Font.PLAIN, 16));
                     arrow.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -697,12 +731,31 @@ public class DashboardFrame extends JFrame {
         return lbl;
     }
     private JButton createNavBtn(String text, Runnable action) {
-        JButton btn = new JButton(text);
+        JButton btn = new JButton(text) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                if (getModel().isRollover()) {
+                    g2.setColor(new Color(0x0ea5e9, true));
+                    g2.setColor(new Color(14, 165, 233, 30));
+                    g2.fillRoundRect(0,0,getWidth(),getHeight(),8,8);
+                    g2.setColor(new Color(14, 165, 233, 80));
+                    g2.setStroke(new BasicStroke(1f));
+                    g2.drawRoundRect(0,0,getWidth()-1,getHeight()-1,8,8);
+                } else {
+                    g2.setColor(new Color(0x0d1520));
+                    g2.fillRoundRect(0,0,getWidth(),getHeight(),8,8);
+                }
+                super.paintComponent(g);
+            }
+        };
         btn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         btn.setBackground(new Color(0x0d1520));
         btn.setForeground(new Color(0xb8c4cc));
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
+        btn.setContentAreaFilled(false);
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn.setMaximumSize(new Dimension(180, 40));
         btn.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -711,28 +764,9 @@ public class DashboardFrame extends JFrame {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void showDashboard() {
-
-
-
-
-
         if (!notificationsShown) {
             notificationsShown = true;
-            showNotifications();
         }
         boolean bonusGiven = com.techsikho.dao.UserDAO.checkAndUpdateDailyBonus(currentUser.getUserId());
         if (bonusGiven) {
@@ -770,7 +804,7 @@ public class DashboardFrame extends JFrame {
         main.setBackground(bgMain);
         main.setBorder(BorderFactory.createEmptyBorder(24, 28, 24, 28));
 
-        // ── BANNER ──────────────────────────────────────────────────
+        // â”€â”€ BANNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         JPanel banner = new JPanel(null) {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D)g;
@@ -811,7 +845,7 @@ public class DashboardFrame extends JFrame {
         banner.add(xpBar);
 
         if (isWeeklyChampion()) {
-            JLabel champ = new JLabel("★ Weekly Champion!");
+            JLabel champ = new JLabel("\u2605 Weekly Champion!");
             champ.setFont(new Font("Segoe UI", Font.BOLD, 13));
             champ.setForeground(new Color(255, 215, 0));
             champ.setBounds(540, 72, 200, 20);
@@ -820,7 +854,7 @@ public class DashboardFrame extends JFrame {
 
         main.add(banner, BorderLayout.NORTH);
 
-        // ── CENTER: two columns ──────────────────────────────────────
+        // â”€â”€ CENTER: two columns â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         JPanel leftCol = new JPanel();
         leftCol.setLayout(new BoxLayout(leftCol, BoxLayout.Y_AXIS));
         leftCol.setOpaque(false);
@@ -888,7 +922,7 @@ public class DashboardFrame extends JFrame {
         leftCol.add(factCard);
 
 
-        // ── RIGHT COLUMN ─────────────────────────────────────────────
+        // â”€â”€ RIGHT COLUMN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
         JPanel rightCol = new JPanel();
         rightCol.setLayout(new BoxLayout(rightCol, BoxLayout.Y_AXIS));
         rightCol.setOpaque(false);
@@ -910,7 +944,7 @@ public class DashboardFrame extends JFrame {
         // Recent Activity
         JPanel actCard = createPolishedCard("Recent Activity", cardBg, teal);
         if (dp.recentProgress.isEmpty()) {
-            JLabel empty = new JLabel("No activity yet — start a quiz!");
+            JLabel empty = new JLabel("No activity yet â€” start a quiz!");
             empty.setFont(new Font("Segoe UI", Font.PLAIN, 13));
             empty.setForeground(dimText);
             empty.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -923,7 +957,7 @@ public class DashboardFrame extends JFrame {
                 JPanel actRow = new JPanel(new BorderLayout());
                 actRow.setOpaque(false);
                 actRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 24));
-                JLabel actLbl = new JLabel(date + "  —  " + row[1] + " › " + row[2]);
+                JLabel actLbl = new JLabel(date + "  \u2014  " + row[1] + " \u203a " + row[2]);
                 actLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
                 actLbl.setForeground(silver);
                 JLabel xpBadge = new JLabel("+" + row[3] + " XP");
@@ -992,17 +1026,22 @@ public class DashboardFrame extends JFrame {
     private JPanel createPolishedStatCard(String title, String value, Color accent, Color cardBg) {
         JPanel card = new JPanel() {
             protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D)g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                for (int gi=6; gi>=1; gi--) {
+                    g2.setColor(new Color(accent.getRed(),accent.getGreen(),accent.getBlue(), gi*8));
+                    g2.setStroke(new BasicStroke(gi*1.2f));
+                    g2.drawRoundRect(gi,gi,getWidth()-gi*2-1,getHeight()-gi*2-1,10,10);
+                }
                 g2.setColor(cardBg);
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);
-                g2.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 80));
-                g2.setStroke(new BasicStroke(1f));
-                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 10, 10);
-                // top accent line
+                g2.fillRoundRect(0,0,getWidth(),getHeight(),10,10);
+                g2.setColor(new Color(accent.getRed(),accent.getGreen(),accent.getBlue(),120));
+                g2.setStroke(new BasicStroke(1.5f));
+                g2.drawRoundRect(1,1,getWidth()-2,getHeight()-2,10,10);
                 g2.setColor(accent);
-                g2.setStroke(new BasicStroke(2f));
-                g2.drawLine(16, 0, getWidth()-16, 0);
+                g2.setStroke(new BasicStroke(2.5f));
+                g2.drawLine(16,0,getWidth()-16,0);
             }
         };
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
@@ -1013,12 +1052,11 @@ public class DashboardFrame extends JFrame {
         t.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         t.setForeground(new Color(0x64748b));
         t.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        t.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel v = new JLabel(value);
         v.setFont(new Font("Segoe UI", Font.BOLD, 22));
         v.setForeground(accent);
         v.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         card.add(Box.createVerticalStrut(4));
         card.add(t);
         card.add(Box.createVerticalStrut(4));
@@ -1030,8 +1068,8 @@ public class DashboardFrame extends JFrame {
         JPanel row = new JPanel(new BorderLayout());
         row.setOpaque(false);
         row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 26));
-
-        JLabel mLbl = new JLabel((done ? "✓ " : "○ ") + mission);
+        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 26));
+        JLabel mLbl = new JLabel((done ? "\u2713 " : "\u25cb ") + mission);
         mLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         mLbl.setForeground(done ? new Color(0x22c55e) : new Color(0xcbd5e1));
 
@@ -1045,7 +1083,6 @@ public class DashboardFrame extends JFrame {
         sLbl.setForeground(done ? new Color(0x22c55e) : new Color(0x475569));
         right.add(rLbl);
         right.add(sLbl);
-
         row.add(mLbl, BorderLayout.WEST);
         row.add(right, BorderLayout.EAST);
         return row;
@@ -1053,21 +1090,30 @@ public class DashboardFrame extends JFrame {
 
     private JButton createPolishedActionBtn(String text, Color accent, Runnable action) {
         JButton btn = new JButton(text) {
+            @Override
             protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
                 Graphics2D g2 = (Graphics2D)g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                Color bg = getModel().isRollover()
-                    ? new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 200)
-                    : new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 120);
-                g2.setColor(bg);
-                g2.fillRoundRect(0, 0, getWidth(), getHeight(), 8, 8);
-                g2.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 150));
-                g2.setStroke(new BasicStroke(1f));
-                g2.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 8, 8);
-                g2.setColor(getModel().isRollover() ? Color.WHITE : accent);
-                g2.setFont(new Font("Segoe UI", Font.BOLD, 13));
+                if (getModel().isRollover()) {
+                    for (int gi=5; gi>=1; gi--) {
+                        g2.setColor(new Color(accent.getRed(),accent.getGreen(),accent.getBlue(),gi*12));
+                        g2.setStroke(new BasicStroke(gi*1.5f));
+                        g2.drawRoundRect(gi,gi,getWidth()-gi*2-1,getHeight()-gi*2-1,14,14);
+                    }
+                }
+                Color bg2 = getModel().isRollover()
+                    ? new Color(accent.getRed(),accent.getGreen(),accent.getBlue(),210)
+                    : new Color(accent.getRed(),accent.getGreen(),accent.getBlue(),130);
+                g2.setColor(bg2);
+                g2.fillRoundRect(0,0,getWidth(),getHeight(),14,14);
+                g2.setColor(new Color(accent.getRed(),accent.getGreen(),accent.getBlue(),180));
+                g2.setStroke(new BasicStroke(1.5f));
+                g2.drawRoundRect(1,1,getWidth()-2,getHeight()-2,14,14);
+                g2.setColor(Color.WHITE);
+                g2.setFont(new Font("Segoe UI", Font.BOLD, 14));
                 FontMetrics fm = g2.getFontMetrics();
-                g2.drawString(getText(), (getWidth()-fm.stringWidth(getText()))/2,
+                g2.drawString(getText(),(getWidth()-fm.stringWidth(getText()))/2,
                     (getHeight()+fm.getAscent()-fm.getDescent())/2);
             }
         };
@@ -1078,10 +1124,12 @@ public class DashboardFrame extends JFrame {
         btn.addActionListener(e -> action.run());
         return btn;
     }
+
     private JPanel createDashboardStatCard(String title, String value, Color accent, Color cardBg) {
         JPanel card = new JPanel();
-        card.setBackground(cardBg);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBackground(cardBg);
+        card.setBackground(cardBg);
         card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         JLabel t = new JLabel(title);
         t.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -1097,24 +1145,6 @@ public class DashboardFrame extends JFrame {
         return card;
     }
 
-    private JPanel wrapDashboardCard(JPanel inner, Color cardBg) {
-        inner.setBackground(cardBg);
-        inner.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        inner.setAlignmentX(Component.LEFT_ALIGNMENT);
-        applyCardBackground(inner, cardBg);
-        return inner;
-    }
-
-    private void applyCardBackground(Container parent, Color cardBg) {
-        for (Component c : parent.getComponents()) {
-            if (c instanceof JPanel || c instanceof JLabel) {
-                c.setBackground(cardBg);
-            }
-            if (c instanceof Container) {
-                applyCardBackground((Container) c, cardBg);
-            }
-        }
-    }
 
     private JButton createQuickActionBtn(String text, Color bg, Runnable action) {
         JButton btn = new JButton(text);
@@ -1128,6 +1158,7 @@ public class DashboardFrame extends JFrame {
         btn.addActionListener(e -> action.run());
         return btn;
     }
+
 
     private void processStreakFreeze() {
         if (!streakFreezeActive) return;
@@ -1150,16 +1181,19 @@ public class DashboardFrame extends JFrame {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Streak freeze check error: " + e.getMessage());
+            System.err.println("Streak check error: " + e.getMessage());
         }
         return false;
     }
+
 
     private String getStreakDisplayText() {
         int streak = currentUser.getStreakCount();
         if (streakFreezeActive) return streak + " days [F]";
         return streak + " days";
     }
+
+
 
     private int awardXP(int baseXp) {
         int xp = baseXp;
@@ -1429,7 +1463,7 @@ public class DashboardFrame extends JFrame {
         topicsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         topicsLbl.setForeground(new Color(0x64748b));
         topicsLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        JButton open = new JButton("View Lessons →") {
+        JButton open = new JButton("View Lessons â†’") {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D)g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -1662,7 +1696,7 @@ public class DashboardFrame extends JFrame {
         return null;
     }
 
-    // â”€â”€ PROGRESS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ PROGRESS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showProgress() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
@@ -2164,7 +2198,7 @@ public class DashboardFrame extends JFrame {
         }
     }
 
-    // â”€â”€ FLASH CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ FLASH CARDS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private String[][] getFlashCardsForTopic(String topic) {
         switch (topic) {
             case "Java": return new String[][]{
@@ -2411,7 +2445,7 @@ public class DashboardFrame extends JFrame {
         }
     }
 
-    // â”€â”€ STUDY TIMER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ STUDY TIMER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void stopPomodoroTimer() {
         if (pomodoroTimer != null) { pomodoroTimer.stop(); pomodoroTimer = null; }
     }
@@ -2530,7 +2564,7 @@ public class DashboardFrame extends JFrame {
         }
     }
 
-    // â”€â”€ NOTES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ NOTES Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private File getNotesFile() { return new File("notes_" + currentUser.getUserId() + ".txt"); }
 
     private String loadNotesFromFile() {
@@ -2636,7 +2670,7 @@ public class DashboardFrame extends JFrame {
         return card;
     }
 
-    // â”€â”€ LANGUAGES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ LANGUAGES Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
     private void showLanguages() {
         contentPanel.removeAll();
@@ -2658,14 +2692,14 @@ public class DashboardFrame extends JFrame {
         JPanel grid = new JPanel(new GridLayout(2, 4, 16, 16));
         grid.setBackground(new Color(0x0a0a0a));
         grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
-        grid.add(createLangCard("Java",          "5 Levels · OOP, Collections", new Color(0xf59e0b), 1));
-        grid.add(createLangCard("Python",        "3 Levels · Basics, OOP",      new Color(0x22c55e), 2));
-        grid.add(createLangCard("C++",           "2 Levels · Pointers, STL",    new Color(0x0ea5e9), 3));
-        grid.add(createLangCard("Web Dev",       "3 Levels · HTML, CSS, JS",    new Color(0xef4444), 4));
-        grid.add(createLangCard("DSA",           "4 Levels · Arrays, Trees",    new Color(0x8b5cf6), 5));
-        grid.add(createLangCard("SQL",           "3 Levels · Queries, Joins",   new Color(0x06b6d4), 6));
-        grid.add(createLangCard("AI / ML",       "3 Levels · ML Basics",        new Color(0xec4899), 7));
-        grid.add(createLangCard("Git & DevOps",  "2 Levels · Git, CI/CD",       new Color(0xf97316), 8));
+        grid.add(createLangCard("Java",          "5 Levels Â· OOP, Collections", new Color(0xf59e0b), 1));
+        grid.add(createLangCard("Python",        "3 Levels Â· Basics, OOP",      new Color(0x22c55e), 2));
+        grid.add(createLangCard("C++",           "2 Levels Â· Pointers, STL",    new Color(0x0ea5e9), 3));
+        grid.add(createLangCard("Web Dev",       "3 Levels Â· HTML, CSS, JS",    new Color(0xef4444), 4));
+        grid.add(createLangCard("DSA",           "4 Levels Â· Arrays, Trees",    new Color(0x8b5cf6), 5));
+        grid.add(createLangCard("SQL",           "3 Levels Â· Queries, Joins",   new Color(0x06b6d4), 6));
+        grid.add(createLangCard("AI / ML",       "3 Levels Â· ML Basics",        new Color(0xec4899), 7));
+        grid.add(createLangCard("Git & DevOps",  "2 Levels Â· Git, CI/CD",       new Color(0xf97316), 8));
         panel.add(grid, BorderLayout.CENTER);
         contentPanel.add(panel);
         contentPanel.revalidate();
@@ -2718,7 +2752,7 @@ public class DashboardFrame extends JFrame {
         levelsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         levelsLbl.setForeground(new Color(0x64748b));
         levelsLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
-        JButton startBtn = new JButton("Start Learning →") {
+        JButton startBtn = new JButton("Start Learning â†’") {
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D)g;
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -2773,7 +2807,7 @@ public class DashboardFrame extends JFrame {
 
 
 
-    // â”€â”€ ANALYTICS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ ANALYTICS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showAnalytics() {
         AnalyticsData analytics = loadAnalyticsData();
         contentPanel.removeAll();
@@ -2876,7 +2910,7 @@ public class DashboardFrame extends JFrame {
         int streakCount = 0;
     }
 
-    // â”€â”€ ACHIEVEMENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ ACHIEVEMENTS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showAchievements() {
         AchievementData data = loadAchievementData();
         contentPanel.removeAll();
@@ -2902,7 +2936,7 @@ public class DashboardFrame extends JFrame {
         contentPanel.repaint();
     }
 
-    // â”€â”€ EXPORT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ EXPORT Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showExport() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
@@ -2961,7 +2995,7 @@ public class DashboardFrame extends JFrame {
         contentPanel.repaint();
     }
 
-    // â”€â”€ XP HISTORY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ XP HISTORY Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showXPHistory() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
@@ -3011,7 +3045,7 @@ public class DashboardFrame extends JFrame {
         contentPanel.repaint();
     }
 
-    // â”€â”€ SETTINGS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ SETTINGS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showSettings() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
@@ -3271,7 +3305,7 @@ public class DashboardFrame extends JFrame {
         }
     }
 
-    // â”€â”€ LEADERBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ LEADERBOARD Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showLeaderboard() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
@@ -3452,7 +3486,7 @@ public class DashboardFrame extends JFrame {
         table.setSelectionForeground(Color.WHITE);
     }
 
-    // â”€â”€ PROFILE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ PROFILE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showProfile() {
         contentPanel.removeAll();
         Color bg = new Color(0x0a0a0a);
@@ -3812,113 +3846,693 @@ private void showAdmin() {
         return users;
     }
 
-    // â”€â”€ CERTIFICATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    private void showCertificate() {
+    // Ã¢â€â‚¬Ã¢â€â‚¬ CERTIFICATE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
+    private void showCertificate() { System.out.println("DEBUG: showCertificate called, XP=" + currentUser.getTotalXp() + " Level=" + XPService.calculateLevel(currentUser.getTotalXp()));
         contentPanel.removeAll();
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(new Color(0x0a0a0a));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        JLabel title = new JLabel("Certificate of Achievement");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        JLabel title = new JLabel("ðŸ† Certificate of Achievement");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
         title.setForeground(Color.WHITE);
-        title.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(title);
-        panel.add(Box.createVerticalStrut(20));
 
-        int count = getCompletedLessonCount();
         int xp = currentUser.getTotalXp();
         int level = XPService.calculateLevel(xp);
+        int count = getCompletedLessonCount();
         int rank = LeaderboardDAO.getUserRank(currentUser.getUserId());
 
-        if (count < 3) {
-            JLabel locked = new JLabel("Complete 3 lessons to unlock your certificate!");
-            locked.setFont(new Font("Segoe UI", Font.BOLD, 16));
-            locked.setForeground(new Color(239, 68, 68));
-            locked.setAlignmentX(Component.LEFT_ALIGNMENT);
-            panel.add(locked);
+        // Lock condition - Level 10+ OR 1000+ XP
+        boolean unlocked = (level >= 10 || xp >= 1000);
+
+        if (!unlocked) {
+            JPanel lockPanel = new JPanel();
+            lockPanel.setOpaque(false);
+            lockPanel.setLayout(new BoxLayout(lockPanel, BoxLayout.Y_AXIS));
+
+            JLabel lockIcon = new JLabel("ðŸ”’", SwingConstants.CENTER);
+            lockIcon.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 64));
+            lockIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel lockMsg = new JLabel("Certificate Locked!", SwingConstants.CENTER);
+            lockMsg.setFont(new Font("Segoe UI", Font.BOLD, 24));
+            lockMsg.setForeground(new Color(0xef4444));
+            lockMsg.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel req1 = new JLabel("Reach Level 10 OR earn 1000+ XP to unlock", SwingConstants.CENTER);
+            req1.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+            req1.setForeground(new Color(0x475569));
+            req1.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel progress = new JLabel("Your Progress: Level " + level + " | " + xp + " XP", SwingConstants.CENTER);
+            progress.setFont(new Font("Segoe UI", Font.BOLD, 14));
+            progress.setForeground(new Color(0x0ea5e9));
+            progress.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JProgressBar xpBar = new JProgressBar(0, 1000);
+            xpBar.setValue(Math.min(xp, 1000));
+            xpBar.setStringPainted(true);
+            xpBar.setString(xp + " / 1000 XP");
+            xpBar.setForeground(new Color(0x0ea5e9));
+            xpBar.setBackground(new Color(0x0d1520));
+            xpBar.setMaximumSize(new Dimension(400, 20));
+            xpBar.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            lockPanel.add(Box.createVerticalStrut(60));
+            lockPanel.add(lockIcon);
+            lockPanel.add(Box.createVerticalStrut(20));
+            lockPanel.add(lockMsg);
+            lockPanel.add(Box.createVerticalStrut(10));
+            lockPanel.add(req1);
+            lockPanel.add(Box.createVerticalStrut(20));
+            lockPanel.add(progress);
+            lockPanel.add(Box.createVerticalStrut(10));
+            lockPanel.add(xpBar);
+
+            panel.add(title, BorderLayout.NORTH);
+            panel.add(lockPanel, BorderLayout.CENTER);
         } else {
-            String funMessage = level <= 3 ? "Keep going!" : level <= 6 ? "Impressive coder!" : "You are a Legend!";
+            String badge = level >= 20 ? "ðŸ† LEGEND" : level >= 15 ? "â­ EXPERT" : level >= 10 ? "ðŸŽ– ADVANCED" : "ðŸŽ“ CERTIFIED";
+            String funMessage = xp >= 5000 ? "You are an absolute LEGEND! ðŸ”¥" : xp >= 2000 ? "Elite Coder Status! ðŸ’Ž" : xp >= 1000 ? "Impressive Coder! â­" : "Keep Going! ðŸ’ª";
             String dateStr = LocalDate.now().toString();
             String statsLine = "XP: " + xp + " | Level: " + level + " | Lessons: " + count + " | Rank: #" + rank;
 
-            CertificatePanel certPanel = new CertificatePanel(currentUser.getFullName(), statsLine, dateStr, funMessage);
-            certPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            panel.add(certPanel);
-            panel.add(Box.createVerticalStrut(20));
-
-            JButton saveBtn = new JButton("Save Certificate");
-            saveBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
-            saveBtn.setForeground(Color.WHITE);
-            saveBtn.setFocusPainted(false);
-            saveBtn.setBorderPainted(false);
-            saveBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-            saveBtn.setMaximumSize(new Dimension(200, 42));
-            saveBtn.addActionListener(e -> {
-                String desktopPath = System.getProperty("user.home") + "\\OneDrive\\Desktop\\";
-                File desktopDir = new File(desktopPath);
-                if (!desktopDir.exists()) desktopPath = System.getProperty("user.home") + "\\Desktop\\";
-                String filePath = desktopPath + "TechSikho_Certificate.txt";
-                try (FileWriter writer = new FileWriter(filePath)) {
-                    writer.write("CERTIFICATE OF ACHIEVEMENT\r\n\r\n");
-                    writer.write("This is to certify that\r\n");
-                    writer.write(currentUser.getFullName() + "\r\n");
-                    writer.write("has successfully completed the TechSikho Learning Program\r\n\r\n");
-                    writer.write(statsLine + "\r\n");
-                    writer.write(dateStr + "\r\n");
-                    writer.write("TechSikho Academy\r\n");
-                    writer.write(funMessage);
-                    JOptionPane.showMessageDialog(this, "Certificate saved to Desktop!", "Save Complete", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Unable to save: " + ex.getMessage(), "Save Error", JOptionPane.ERROR_MESSAGE);
+            JPanel certBg = new JPanel() {
+                protected void paintComponent(Graphics g) {
+                    Graphics2D g2 = (Graphics2D)g;
+                    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                    g2.setColor(new Color(0x0a0f1a));
+                    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+                    g2.setStroke(new BasicStroke(3f));
+                    g2.setColor(new Color(0xf59e0b));
+                    g2.drawRoundRect(2, 2, getWidth()-4, getHeight()-4, 18, 18);
+                    g2.setStroke(new BasicStroke(1f));
+                    g2.setColor(new Color(0xf59e0b, true));
+                    g2.drawRoundRect(8, 8, getWidth()-16, getHeight()-16, 12, 12);
                 }
-            });
-            panel.add(saveBtn);
+            };
+            certBg.setLayout(new BoxLayout(certBg, BoxLayout.Y_AXIS));
+
+            JLabel badgeLbl = new JLabel(badge, SwingConstants.CENTER);
+            badgeLbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 36));
+            badgeLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel nameLbl = new JLabel("This certifies that", SwingConstants.CENTER);
+            nameLbl.setFont(new Font("Segoe UI", Font.ITALIC, 16));
+            nameLbl.setForeground(new Color(0x94a3b8));
+            nameLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel userName = new JLabel(currentUser.getUsername().toUpperCase(), SwingConstants.CENTER);
+            userName.setFont(new Font("Segoe UI", Font.BOLD, 32));
+            userName.setForeground(new Color(0xf59e0b));
+            userName.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel courseLbl = new JLabel("has successfully completed TechSikho Learning Path", SwingConstants.CENTER);
+            courseLbl.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+            courseLbl.setForeground(Color.WHITE);
+            courseLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel funLbl = new JLabel(funMessage, SwingConstants.CENTER);
+            funLbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
+            funLbl.setForeground(new Color(0x22c55e));
+            funLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel statsLbl = new JLabel(statsLine, SwingConstants.CENTER);
+            statsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+            statsLbl.setForeground(new Color(0x64748b));
+            statsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            JLabel dateLbl = new JLabel("Date: " + dateStr, SwingConstants.CENTER);
+            dateLbl.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+            dateLbl.setForeground(new Color(0x475569));
+            dateLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            certBg.add(Box.createVerticalStrut(30));
+            certBg.add(badgeLbl);
+            certBg.add(Box.createVerticalStrut(15));
+            certBg.add(nameLbl);
+            certBg.add(Box.createVerticalStrut(8));
+            certBg.add(userName);
+            certBg.add(Box.createVerticalStrut(12));
+            certBg.add(courseLbl);
+            certBg.add(Box.createVerticalStrut(15));
+            certBg.add(funLbl);
+            certBg.add(Box.createVerticalStrut(10));
+            certBg.add(statsLbl);
+            certBg.add(Box.createVerticalStrut(8));
+            certBg.add(dateLbl);
+            certBg.add(Box.createVerticalStrut(30));
+
+            JScrollPane scroll = new JScrollPane(certBg);
+            scroll.setBorder(null);
+            scroll.getViewport().setBackground(new Color(0x0a0a0a));
+
+            panel.add(title, BorderLayout.NORTH);
+            panel.add(scroll, BorderLayout.CENTER);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            panel.add(title, BorderLayout.NORTH);
+            panel.add(scroll, BorderLayout.CENTER);
         }
+        contentPanel.removeAll();
         contentPanel.add(panel);
         contentPanel.revalidate();
         contentPanel.repaint();
     }
 
-    private class CertificatePanel extends JPanel {
-        private final String fullName, statsLine, dateStr, funMessage;
-        CertificatePanel(String fullName, String statsLine, String dateStr, String funMessage) {
-            this.fullName = fullName; this.statsLine = statsLine;
-            this.dateStr = dateStr; this.funMessage = funMessage;
-            setPreferredSize(new Dimension(620, 420));
-            setBackground(new Color(0x0d1520));
-        }
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            int w = getWidth(); int h = getHeight();
-            g2.setColor(new Color(0x0d1520)); g2.fillRect(0, 0, w, h);
-            g2.setColor(new Color(255, 215, 0));
-            g2.drawRect(20, 20, w - 40, h - 40);
-            g2.drawRect(30, 30, w - 60, h - 60);
-            g2.setColor(new Color(255, 215, 0)); g2.setFont(new Font("Segoe UI", Font.BOLD, 26));
-            drawCenteredString(g2, "CERTIFICATE OF ACHIEVEMENT", w, 80);
-            g2.setColor(Color.WHITE); g2.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-            drawCenteredString(g2, "This is to certify that", w, 130);
-            g2.setColor(new Color(0x0ea5e9)); g2.setFont(new Font("Segoe UI", Font.BOLD, 30));
-            drawCenteredString(g2, fullName, w, 180);
-            g2.setColor(Color.WHITE); g2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-            drawCenteredString(g2, "has successfully completed the TechSikho Learning Program", w, 220);
-            g2.setColor(new Color(16, 185, 129)); g2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-            drawCenteredString(g2, statsLine, w, 260);
-            g2.setColor(Color.WHITE); g2.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-            drawCenteredString(g2, dateStr, w, 300);
-            g2.setColor(new Color(255, 215, 0)); g2.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-            drawCenteredString(g2, "TechSikho Academy", w, 340);
-            g2.setColor(new Color(245, 158, 11)); g2.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-            drawCenteredString(g2, funMessage, w, 380);
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void showEscapeHacker() {
+        contentPanel.removeAll();
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("ðŸ” Escape the Hacker Room");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setForeground(new Color(0x0ea5e9));
+        panel.add(title, BorderLayout.NORTH);
+
+        String[][] puzzles = {
+            {"Binary Decode", "01001000 01101001 = ?", "Ha", "Hi", "Ho", "He", "1"},
+            {"Password Clue", "I have keys but no locks. I have space but no room. What am I?", "Map", "Keyboard", "Phone", "Clock", "1"},
+            {"Network Puzzle", "Which port does HTTPS use?", "80", "443", "22", "21", "1"},
+            {"Hex Decode", "0x48 0x61 0x63 0x6B = ?", "Back", "Hack", "Pack", "Rack", "1"}
+        };
+
+        int[] current = {0};
+        int[] score = {0};
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(new Color(0x0a0a0a));
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+        JLabel roomLbl = new JLabel("ðŸšï¸ You are trapped! Solve puzzles to escape...");
+        roomLbl.setFont(new Font("Segoe UI", Font.ITALIC, 14));
+        roomLbl.setForeground(new Color(0xef4444));
+        roomLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel puzzleTypeLbl = new JLabel("Lock 1: " + puzzles[0][0]);
+        puzzleTypeLbl.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        puzzleTypeLbl.setForeground(new Color(0xf59e0b));
+        puzzleTypeLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel questionLbl = new JLabel("<html><center>" + puzzles[0][1] + "</center></html>");
+        questionLbl.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        questionLbl.setForeground(Color.WHITE);
+        questionLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel feedbackLbl = new JLabel(" ");
+        feedbackLbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        feedbackLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel scoreLbl = new JLabel("Score: 0 / " + puzzles.length);
+        scoreLbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        scoreLbl.setForeground(new Color(0x22c55e));
+        scoreLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel optPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        optPanel.setBackground(new Color(0x0a0a0a));
+        optPanel.setMaximumSize(new Dimension(500, 120));
+
+        Runnable[] loadPuzzle = {null};
+        loadPuzzle[0] = () -> {
+            optPanel.removeAll();
+            int idx = current[0];
+            if (idx >= puzzles.length) {
+                puzzleTypeLbl.setText("ðŸŽ‰ ESCAPED! You solved all locks!");
+                questionLbl.setText("Congratulations! You are a true hacker!");
+                feedbackLbl.setForeground(new Color(0x22c55e));
+                feedbackLbl.setText("Final Score: " + score[0] + "/" + puzzles.length);
+                optPanel.repaint();
+                return;
+            }
+            puzzleTypeLbl.setText("Lock " + (idx+1) + ": " + puzzles[idx][0]);
+            questionLbl.setText("<html><center>" + puzzles[idx][1] + "</center></html>");
+            feedbackLbl.setText(" ");
+            for (int i = 2; i <= 5; i++) {
+                final String opt = puzzles[idx][i];
+                final boolean correct = (i-2) == Integer.parseInt(puzzles[idx][6]);
+                JButton btn = new JButton(opt);
+                btn.setBackground(new Color(0x0d1520));
+                btn.setForeground(Color.WHITE);
+                btn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                btn.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9)));
+                btn.addActionListener(e -> {
+                    if (correct) {
+                        score[0]++;
+                        feedbackLbl.setForeground(new Color(0x22c55e));
+                        feedbackLbl.setText("âœ… Correct! Lock opened!");
+                    } else {
+                        feedbackLbl.setForeground(new Color(0xef4444));
+                        feedbackLbl.setText("âŒ Wrong! The lock holds...");
+                    }
+                    scoreLbl.setText("Score: " + score[0] + " / " + puzzles.length);
+                    current[0]++;
+                    javax.swing.Timer t = new javax.swing.Timer(1000, ev -> { loadPuzzle[0].run(); optPanel.revalidate(); optPanel.repaint(); });
+                    t.setRepeats(false); t.start();
+                });
+                optPanel.add(btn);
+            }
+            optPanel.revalidate(); optPanel.repaint();
+        };
+        loadPuzzle[0].run();
+
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(roomLbl);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(puzzleTypeLbl);
+        centerPanel.add(Box.createVerticalStrut(15));
+        centerPanel.add(questionLbl);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(optPanel);
+        centerPanel.add(Box.createVerticalStrut(15));
+        centerPanel.add(feedbackLbl);
+        centerPanel.add(Box.createVerticalStrut(10));
+        centerPanel.add(scoreLbl);
+
+        panel.add(centerPanel, BorderLayout.CENTER);
+        contentPanel.removeAll();
+        contentPanel.add(panel);
+        contentPanel.revalidate();
+        contentPanel.repaint();
     }
 
-    // â”€â”€ CONFETTI / THEME / HEATMAP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    private void showGuessOutput() {
+        contentPanel.removeAll();
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("ðŸ’» Guess the Output");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setForeground(new Color(0x0ea5e9));
+        panel.add(title, BorderLayout.NORTH);
+
+        String[][] questions = {
+            {"int x=5,y=3;\nSystem.out.println(x%y);", "2", "1", "3", "0", "0"},
+            {"System.out.println(\"5\"+3+2);", "532", "10", "55", "523", "0"},
+            {"int a=10;\nSystem.out.println(a++);", "10", "11", "9", "Error", "0"},
+            {"System.out.println(1+2+\"3\");", "33", "123", "6", "Error", "0"},
+            {"boolean b=true;\nSystem.out.println(!b||b);", "true", "false", "Error", "null", "0"}
+        };
+
+        int[] current = {0};
+        int[] score = {0};
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(new Color(0x0a0a0a));
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+        JLabel scoreLbl = new JLabel("Score: 0 / " + questions.length);
+        scoreLbl.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        scoreLbl.setForeground(new Color(0x22c55e));
+        scoreLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JTextArea codeArea = new JTextArea(questions[0][0]);
+        codeArea.setFont(new Font("Consolas", Font.BOLD, 16));
+        codeArea.setBackground(new Color(0x0d1520));
+        codeArea.setForeground(new Color(0x0ea5e9));
+        codeArea.setEditable(false);
+        codeArea.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9)));
+        codeArea.setMaximumSize(new Dimension(500, 80));
+        codeArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel feedbackLbl = new JLabel(" ");
+        feedbackLbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        feedbackLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JPanel optPanel = new JPanel(new GridLayout(2, 2, 10, 10));
+        optPanel.setBackground(new Color(0x0a0a0a));
+        optPanel.setMaximumSize(new Dimension(500, 120));
+
+        Runnable[] loadQ = {null};
+        loadQ[0] = () -> {
+            optPanel.removeAll();
+            int idx = current[0];
+            if (idx >= questions.length) {
+                codeArea.setText("ðŸŽ‰ Quiz Complete!");
+                feedbackLbl.setForeground(new Color(0x22c55e));
+                feedbackLbl.setText("Final Score: " + score[0] + "/" + questions.length);
+                if (score[0] >= 4) { XPService.addXP(currentUser.getUserId(), currentUser.getTotalXp(), 50); feedbackLbl.setText(feedbackLbl.getText() + " | +50 XP Earned!"); }
+                return;
+            }
+            codeArea.setText(questions[idx][0]);
+            feedbackLbl.setText(" ");
+            for (int i = 1; i <= 4; i++) {
+                final String opt = questions[idx][i];
+                final boolean correct = (i-1) == Integer.parseInt(questions[idx][5]);
+                JButton btn = new JButton(opt);
+                btn.setBackground(new Color(0x0d1520));
+                btn.setForeground(Color.WHITE);
+                btn.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                btn.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9)));
+                btn.addActionListener(e -> {
+                    if (correct) {
+                        score[0]++;
+                        feedbackLbl.setForeground(new Color(0x22c55e));
+                        feedbackLbl.setText("âœ… Correct!");
+                    } else {
+                        feedbackLbl.setForeground(new Color(0xef4444));
+                        feedbackLbl.setText("âŒ Wrong! Answer was: " + questions[idx][1]);
+                    }
+                    scoreLbl.setText("Score: " + score[0] + " / " + questions.length);
+                    current[0]++;
+                    javax.swing.Timer t = new javax.swing.Timer(1000, ev -> { loadQ[0].run(); optPanel.revalidate(); optPanel.repaint(); });
+                    t.setRepeats(false); t.start();
+                });
+                optPanel.add(btn);
+            }
+            optPanel.revalidate(); optPanel.repaint();
+        };
+        loadQ[0].run();
+
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(scoreLbl);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(codeArea);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(optPanel);
+        centerPanel.add(Box.createVerticalStrut(15));
+        centerPanel.add(feedbackLbl);
+
+        panel.add(centerPanel, BorderLayout.CENTER);
+        contentPanel.removeAll();
+        contentPanel.add(panel);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
+    private void showAIPrompt() {
+        contentPanel.removeAll();
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
+
+        JLabel title = new JLabel("ðŸ¤– AI Prompt Challenge");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        title.setForeground(new Color(0x0ea5e9));
+        panel.add(title, BorderLayout.NORTH);
+
+        String[] tasks = {
+            "Write a prompt to make AI explain recursion to a 10-year-old",
+            "Write a prompt to make AI generate a secure password policy",
+            "Write a prompt to make AI debug a Java NullPointerException",
+            "Write a prompt to make AI create a REST API design for a todo app"
+        };
+
+        int[] current = {0};
+        int[] totalScore = {0};
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setBackground(new Color(0x0a0a0a));
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+        JLabel taskLbl = new JLabel("<html><center><b>Task:</b> " + tasks[0] + "</center></html>");
+        taskLbl.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        taskLbl.setForeground(new Color(0xf59e0b));
+        taskLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel hintLbl = new JLabel("Tips: Be specific, add context, define output format");
+        hintLbl.setFont(new Font("Segoe UI", Font.ITALIC, 12));
+        hintLbl.setForeground(new Color(0x475569));
+        hintLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JTextArea promptArea = new JTextArea(4, 40);
+        promptArea.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        promptArea.setBackground(new Color(0x0d1520));
+        promptArea.setForeground(Color.WHITE);
+        promptArea.setCaretColor(Color.WHITE);
+        promptArea.setBorder(BorderFactory.createLineBorder(new Color(0x0ea5e9)));
+        promptArea.setLineWrap(true);
+        promptArea.setWrapStyleWord(true);
+        promptArea.setMaximumSize(new Dimension(600, 100));
+        promptArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel scoreLbl = new JLabel("Creativity Score: 0");
+        scoreLbl.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        scoreLbl.setForeground(new Color(0x22c55e));
+        scoreLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel feedbackLbl = new JLabel(" ");
+        feedbackLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        feedbackLbl.setForeground(new Color(0x94a3b8));
+        feedbackLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton submitBtn = new JButton("Submit Prompt âž¤");
+        submitBtn.setBackground(new Color(0x0ea5e9));
+        submitBtn.setForeground(Color.WHITE);
+        submitBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        submitBtn.setBorderPainted(false);
+        submitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        submitBtn.addActionListener(e -> {
+            String prompt = promptArea.getText().trim();
+            if (prompt.isEmpty()) { feedbackLbl.setText("Please write a prompt first!"); return; }
+            int pts = 0;
+            if (prompt.length() > 30) pts += 20;
+            if (prompt.toLowerCase().contains("explain") || prompt.toLowerCase().contains("generate") || prompt.toLowerCase().contains("create") || prompt.toLowerCase().contains("write")) pts += 20;
+            if (prompt.toLowerCase().contains("format") || prompt.toLowerCase().contains("example") || prompt.toLowerCase().contains("step")) pts += 20;
+            if (prompt.toLowerCase().contains("context") || prompt.toLowerCase().contains("audience") || prompt.toLowerCase().contains("tone")) pts += 20;
+            if (prompt.split(" ").length > 15) pts += 20;
+            totalScore[0] += pts;
+            scoreLbl.setText("Creativity Score: " + pts + "/100");
+            String fb = pts >= 80 ? "ðŸ”¥ Excellent prompt! Very specific and detailed!" :
+                        pts >= 60 ? "ðŸ‘ Good prompt! Add more context for higher score." :
+                        pts >= 40 ? "ðŸ“ Decent. Try adding output format or audience." :
+                                    "ðŸ’¡ Too short. Be more specific and detailed!";
+            feedbackLbl.setText(fb);
+            promptArea.setText("");
+            current[0]++;
+            if (current[0] < tasks.length) {
+                taskLbl.setText("<html><center><b>Task:</b> " + tasks[current[0]] + "</center></html>");
+            } else {
+                taskLbl.setText("ðŸŽ‰ All tasks complete! Total: " + totalScore[0] + "/" + (tasks.length*100));
+                if (totalScore[0] >= 300) { XPService.addXP(currentUser.getUserId(), currentUser.getTotalXp(), 60); feedbackLbl.setText("Brilliant! +60 XP Earned!"); }
+                submitBtn.setEnabled(false);
+            }
+        });
+
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(taskLbl);
+        centerPanel.add(Box.createVerticalStrut(10));
+        centerPanel.add(hintLbl);
+        centerPanel.add(Box.createVerticalStrut(15));
+        centerPanel.add(promptArea);
+        centerPanel.add(Box.createVerticalStrut(15));
+        centerPanel.add(submitBtn);
+        centerPanel.add(Box.createVerticalStrut(10));
+        centerPanel.add(scoreLbl);
+        centerPanel.add(Box.createVerticalStrut(8));
+        centerPanel.add(feedbackLbl);
+
+        panel.add(centerPanel, BorderLayout.CENTER);
+        contentPanel.removeAll();
+        contentPanel.add(panel);
+        contentPanel.revalidate();
+        contentPanel.repaint();
+    }
+
     private void showConfetti(int level) {
         JDialog dlg = new JDialog(this);
         dlg.setUndecorated(true);
@@ -4045,7 +4659,7 @@ private void showAdmin() {
         }
     }
 
-    // â”€â”€ BOSS BATTLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ BOSS BATTLE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private List<Question> fetchBossQuestions() {
         List<Question> questions = new ArrayList<>();
         String sql = "SELECT * FROM questions ORDER BY RAND() LIMIT 20";
@@ -4253,7 +4867,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ CSV IMPORT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ CSV IMPORT Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private int importQuestionsFromCsv(File file) {
         int imported = 0;
         String sql = "INSERT INTO questions (level_id, question_text, option_a, option_b, option_c, option_d, correct_ans, explanation, difficulty) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -4278,7 +4892,7 @@ private void showAdmin() {
         return imported;
     }
 
-    // â”€â”€ GLOSSARY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ GLOSSARY Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showGlossary() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout(0, 15));
@@ -4359,7 +4973,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ MINI GAMES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ MINI GAMES Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showMiniGames() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
@@ -4435,7 +5049,7 @@ private void showAdmin() {
         return card;
     }
 
-    // â”€â”€ XP SHOP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ XP SHOP Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showXPShop() {
         contentPanel.removeAll();
         Color bg = new Color(0x0a0a0a);
@@ -4568,7 +5182,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ CODE BREAKER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ CODE BREAKER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private static final String[][] CODE_BREAKER_CHALLENGES = {
         {"public class Hello {\n    public static void main(String[] args) {\n        System.out.println(Hello World)\n    }\n}",
             "Add semicolon and quotes around Hello World", "Hello World"},
@@ -4818,7 +5432,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ CHALLENGE A FRIEND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ CHALLENGE A FRIEND Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showChallenge() {
         stopBossTimer();
         contentPanel.removeAll();
@@ -5035,7 +5649,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ WORD SCRAMBLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ WORD SCRAMBLE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private static final String[][] SCRAMBLE_WORDS_DATA = {
         {"NOITPECXE", "EXCEPTION", "Error in program execution"},
         {"ELBAIRAIV", "VARIABLE", "Stores data in memory"},
@@ -5237,12 +5851,12 @@ private void showAdmin() {
             if (hintsRemaining > 0) {
                 hintsRemaining--;
                 hintLbl.setText(SCRAMBLE_WORDS_DATA[wordIndex[0]][2] + " (Free hint)");
-                feedbackLbl.setText("Free hint used â€” answer still worth 8 XP");
+                feedbackLbl.setText("Free hint used Ã¢â‚¬â€ answer still worth 8 XP");
                 feedbackLbl.setForeground(new Color(245, 158, 11));
             } else {
                 hintUsed[0] = true;
                 hintLbl.setText(SCRAMBLE_WORDS_DATA[wordIndex[0]][2] + " (Hint used -2 XP)");
-                feedbackLbl.setText("Hint revealed â€” correct answer worth 6 XP");
+                feedbackLbl.setText("Hint revealed Ã¢â‚¬â€ correct answer worth 6 XP");
                 feedbackLbl.setForeground(new Color(245, 158, 11));
             }
         });
@@ -5265,7 +5879,7 @@ private void showAdmin() {
         return btn;
     }
 
-    // â”€â”€ RAPID FIRE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ RAPID FIRE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private static final Object[][] RAPID_FIRE_POOL = {
         {"Java is platform independent", true},
         {"Python uses curly braces for blocks", false},
@@ -5523,7 +6137,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ MYSTERY LANGUAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ MYSTERY LANGUAGE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private static final String[][] MYSTERY_SNIPPETS = {
         {"print(Hello)\nfor i in range(5):\n    print(i)", "Python", "Java,C++,JavaScript"},
         {"System.out.println(Hello);\nfor(int i=0;i<5;i++)\n    System.out.println(i);", "Java", "Python,C#,C++"},
@@ -5754,7 +6368,7 @@ private void showAdmin() {
         contentPanel.repaint();
     }
 
-    // â”€â”€ TYPING TEST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // Ã¢â€â‚¬Ã¢â€â‚¬ TYPING TEST Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showTypingTest() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
@@ -5874,7 +6488,7 @@ private void showAdmin() {
         main.setBackground(new Color(0x0a0a0a));
         main.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
 
-        JLabel title = new JLabel("🐛 Bug Squash");
+        JLabel title = new JLabel("ðŸ› Bug Squash");
         title.setFont(new Font("Segoe UI", Font.BOLD, 28));
         title.setForeground(new Color(0x22c55e));
         JLabel sub = new JLabel("  Click the bugs before they escape! Miss 3 = Game Over!");
@@ -5893,7 +6507,7 @@ private void showAdmin() {
         gameArea.setBackground(new Color(0x0d1117));
         gameArea.setBorder(BorderFactory.createLineBorder(new Color(0x22c55e), 1));
 
-        String[] bugEmojis = {"🐛 BUG","💥 ERR","⚠ NULL","🔥 CRASH","❌ BRK"};
+        String[] bugEmojis = {"ðŸ› BUG","ðŸ’¥ ERR","âš  NULL","ðŸ”¥ CRASH","âŒ BRK"};
         String[] errorMsgs = {"NullPointerException!","StackOverflow!","OutOfMemory!","Segfault!","404 Bug!"};
         int[] score = {0};
         int[] misses = {0};
@@ -5901,7 +6515,7 @@ private void showAdmin() {
         java.util.List<JLabel> activeBugs = new java.util.ArrayList<>();
         javax.swing.Timer[] gameTimer = {null};
 
-        JButton startBtn = new JButton("▶ START SQUASHING!");
+        JButton startBtn = new JButton("â–¶ START SQUASHING!");
         startBtn.setFont(new Font("Segoe UI", Font.BOLD, 14));
         startBtn.setBackground(new Color(0x22c55e));
         startBtn.setForeground(Color.WHITE);
@@ -5916,21 +6530,21 @@ private void showAdmin() {
             gameArea.removeAll();
             gameArea.revalidate(); gameArea.repaint();
             startBtn.setEnabled(false);
-            startBtn.setText("🎮 Playing...");
+            startBtn.setText("ðŸŽ® Playing...");
 
             gameTimer[0] = new javax.swing.Timer(900, evt -> {
                 if (misses[0] >= 3) {
                     gameTimer[0].stop();
                     running[0] = false;
                     gameArea.removeAll();
-                    JLabel over = new JLabel("<html><center>💀 GAME OVER!<br>Score: " + score[0] + "<br><font size='3'>Bugs won this time!</font></center></html>", SwingConstants.CENTER);
+                    JLabel over = new JLabel("<html><center>ðŸ’€ GAME OVER!<br>Score: " + score[0] + "<br><font size='3'>Bugs won this time!</font></center></html>", SwingConstants.CENTER);
                     over.setFont(new Font("Segoe UI", Font.BOLD, 20));
                     over.setForeground(new Color(0xef4444));
                     over.setBounds(0, 0, gameArea.getWidth(), gameArea.getHeight());
                     gameArea.add(over);
                     gameArea.revalidate(); gameArea.repaint();
                     startBtn.setEnabled(true);
-                    startBtn.setText("▶ PLAY AGAIN!");
+                    startBtn.setText("â–¶ PLAY AGAIN!");
                     return;
                 }
                 int w = gameArea.getWidth() > 60 ? gameArea.getWidth() - 60 : 300;
@@ -6099,7 +6713,7 @@ private void showAdmin() {
         main.setBackground(new Color(0x0a0a0a));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        JLabel title = new JLabel("💻 Binary Blitz");
+        JLabel title = new JLabel("ðŸ’» Binary Blitz");
         title.setFont(new Font("Segoe UI", Font.BOLD, 28));
         title.setForeground(new Color(0x0ea5e9));
         JLabel sub = new JLabel("  Convert decimal to binary before time runs out!");
@@ -6118,7 +6732,7 @@ private void showAdmin() {
         numLabel.setForeground(new Color(0x0ea5e9));
         numLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel timerLabel = new JLabel("⏱ 15s");
+        JLabel timerLabel = new JLabel("â± 15s");
         timerLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
         timerLabel.setForeground(new Color(0xf59e0b));
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -6150,16 +6764,16 @@ private void showAdmin() {
             numLabel.setText(String.valueOf(number[0]));
             answerField.setText("");
             timeLeft[0] = 15;
-            timerLabel.setText("⏱ 15s");
+            timerLabel.setText("â± 15s");
             timerLabel.setForeground(new Color(0xf59e0b));
         };
 
         countdown[0] = new javax.swing.Timer(1000, e -> {
             timeLeft[0]--;
-            timerLabel.setText("⏱ " + timeLeft[0] + "s");
+            timerLabel.setText("â± " + timeLeft[0] + "s");
             if (timeLeft[0] <= 5) timerLabel.setForeground(new Color(0xef4444));
             if (timeLeft[0] <= 0) {
-                feedback.setText("❌ Time's up! Answer was: " + Integer.toBinaryString(number[0]));
+                feedback.setText("âŒ Time's up! Answer was: " + Integer.toBinaryString(number[0]));
                 feedback.setForeground(new Color(0xef4444));
                 nextQuestion.run();
             }
@@ -6172,10 +6786,10 @@ private void showAdmin() {
             if (ans.equals(correct)) {
                 score[0]++;
                 scoreLabel.setText("Score: " + score[0]);
-                feedback.setText("✅ Correct! You're a binary beast!");
+                feedback.setText("âœ… Correct! You're a binary beast!");
                 feedback.setForeground(new Color(0x22c55e));
             } else {
-                feedback.setText("❌ Wrong! Correct: " + correct);
+                feedback.setText("âŒ Wrong! Correct: " + correct);
                 feedback.setForeground(new Color(0xef4444));
             }
             nextQuestion.run();
@@ -6214,10 +6828,10 @@ private void showAdmin() {
         main.setBackground(new Color(0x0a0a0a));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        JLabel title = new JLabel("🔥 Debug Dhamaal");
+        JLabel title = new JLabel("ðŸ”¥ Debug Dhamaal");
         title.setFont(new Font("Segoe UI", Font.BOLD, 28));
         title.setForeground(new Color(0xf59e0b));
-        JLabel sub = new JLabel("  Spot the bug in the code! Funny errors guaranteed 😂");
+        JLabel sub = new JLabel("  Spot the bug in the code! Funny errors guaranteed ðŸ˜‚");
         sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         sub.setForeground(new Color(0x475569));
         JPanel hdr = new JPanel(); hdr.setOpaque(false);
@@ -6225,11 +6839,11 @@ private void showAdmin() {
         hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
 
         String[][] bugs = {
-            {"int x = 5;\nif (x = 5) {\n  System.out.println(\"Hello\");\n}", "= should be ==", "Rookie mistake! = assigns, == compares. Your compiler is judging you 👀"},
-            {"for (int i=0; i<10; i--) {\n  System.out.println(i);\n}", "i-- should be i++", "Congratulations! You invented an infinite loop 🎉 Your PC hates you now"},
-            {"String s = null;\nSystem.out.println(s.length());", "s is null - NullPointerException", "NULL pointer?! Java's way of saying 'you played yourself' 🤦"},
-            {"int[] arr = new int[5];\narr[5] = 10;", "Index 5 out of bounds (0-4)", "Array index 5 on size 5 array? Bold move. ArrayIndexOutOfBounds says hi! 💥"},
-            {"while (true);\n{\n  doWork();\n}", "Semicolon after while kills the loop", "That semicolon after while() is your worst enemy. Empty loop goes brrr 🔁"}
+            {"int x = 5;\nif (x = 5) {\n  System.out.println(\"Hello\");\n}", "= should be ==", "Rookie mistake! = assigns, == compares. Your compiler is judging you ðŸ‘€"},
+            {"for (int i=0; i<10; i--) {\n  System.out.println(i);\n}", "i-- should be i++", "Congratulations! You invented an infinite loop ðŸŽ‰ Your PC hates you now"},
+            {"String s = null;\nSystem.out.println(s.length());", "s is null - NullPointerException", "NULL pointer?! Java's way of saying 'you played yourself' ðŸ¤¦"},
+            {"int[] arr = new int[5];\narr[5] = 10;", "Index 5 out of bounds (0-4)", "Array index 5 on size 5 array? Bold move. ArrayIndexOutOfBounds says hi! ðŸ’¥"},
+            {"while (true);\n{\n  doWork();\n}", "Semicolon after while kills the loop", "That semicolon after while() is your worst enemy. Empty loop goes brrr ðŸ”"}
         };
 
         int[] qi = {0};
@@ -6263,7 +6877,7 @@ private void showAdmin() {
             BorderFactory.createLineBorder(new Color(0xf59e0b), 1),
             BorderFactory.createEmptyBorder(6, 10, 6, 10)));
 
-        JButton submitBtn = new JButton("Submit Fix 🔧");
+        JButton submitBtn = new JButton("Submit Fix ðŸ”§");
         submitBtn.setBackground(new Color(0xf59e0b));
         submitBtn.setForeground(Color.BLACK);
         submitBtn.setFont(new Font("Segoe UI", Font.BOLD, 13));
@@ -6276,10 +6890,10 @@ private void showAdmin() {
             String correct = bugs[qi[0]][1].toLowerCase();
             if (ans.contains(correct.split(" ")[0]) || correct.contains(ans.split(" ")[0])) {
                 score[0]++;
-                explanation.setText("✅ " + bugs[qi[0]][2]);
+                explanation.setText("âœ… " + bugs[qi[0]][2]);
                 explanation.setForeground(new Color(0x22c55e));
             } else {
-                explanation.setText("❌ Answer: " + bugs[qi[0]][1] + " | " + bugs[qi[0]][2]);
+                explanation.setText("âŒ Answer: " + bugs[qi[0]][1] + " | " + bugs[qi[0]][2]);
                 explanation.setForeground(new Color(0xef4444));
             }
             scoreLabel.setText("Score: " + score[0] + " / " + bugs.length);
@@ -6293,7 +6907,7 @@ private void showAdmin() {
                 t.setRepeats(false); t.start();
             } else {
                 javax.swing.Timer t = new javax.swing.Timer(2000, ev -> {
-                    explanation.setText("🎉 Done! Final Score: " + score[0] + "/" + bugs.length + " | " + (score[0] >= 4 ? "Bug Slayer! 🏆" : "Keep practicing! 💪"));
+                    explanation.setText("ðŸŽ‰ Done! Final Score: " + score[0] + "/" + bugs.length + " | " + (score[0] >= 4 ? "Bug Slayer! ðŸ†" : "Keep practicing! ðŸ’ª"));
                     explanation.setForeground(new Color(0xf59e0b));
                     submitBtn.setEnabled(false);
                 });
@@ -6332,10 +6946,10 @@ private void showAdmin() {
         main.setBackground(new Color(0x0a0a0a));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        JLabel title = new JLabel("💀 Stack Overflow");
+        JLabel title = new JLabel("ðŸ’€ Stack Overflow");
         title.setFont(new Font("Segoe UI", Font.BOLD, 28));
         title.setForeground(new Color(0xef4444));
-        JLabel sub = new JLabel("  Answer correctly to stack blocks! Wrong answer = CRASH! 💥");
+        JLabel sub = new JLabel("  Answer correctly to stack blocks! Wrong answer = CRASH! ðŸ’¥");
         sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         sub.setForeground(new Color(0x475569));
         JPanel hdr = new JPanel(); hdr.setOpaque(false);
@@ -6352,8 +6966,8 @@ private void showAdmin() {
             {"What is 2+2 in binary?", "100", "010", "110"},
             {"What does API stand for?", "Application Programming Interface", "App Process Integration", "Automated Program Input"}
         };
-        String[] memes = {"🔥 Stack growing!", "💪 You're unstoppable!", "🚀 To the moon!", "😤 Keep going!", "🤖 Robot mode activated!", "⚡ Lightning fast!", "🧠 Big brain energy!", "👑 Stack Master!"};
-        String[] crashMsgs = {"💥 SEGFAULT! Your stack imploded!", "🔥 StackOverflowException thrown!", "😱 Stack crashed harder than prod on Friday!", "💀 RIP Stack. Gone too soon."};
+        String[] memes = {"ðŸ”¥ Stack growing!", "ðŸ’ª You're unstoppable!", "ðŸš€ To the moon!", "ðŸ˜¤ Keep going!", "ðŸ¤– Robot mode activated!", "âš¡ Lightning fast!", "ðŸ§  Big brain energy!", "ðŸ‘‘ Stack Master!"};
+        String[] crashMsgs = {"ðŸ’¥ SEGFAULT! Your stack imploded!", "ðŸ”¥ StackOverflowException thrown!", "ðŸ˜± Stack crashed harder than prod on Friday!", "ðŸ’€ RIP Stack. Gone too soon."};
 
         int[] score = {0};
         int[] qi = {0};
@@ -6380,7 +6994,7 @@ private void showAdmin() {
         loadQ[0] = () -> {
             optPanel.removeAll();
             if (qi[0] >= qs.length) {
-                questionLabel.setText("🏆 LEGENDARY! Stack height: " + score[0] + "! You're a Stack God!");
+                questionLabel.setText("ðŸ† LEGENDARY! Stack height: " + score[0] + "! You're a Stack God!");
                 questionLabel.setForeground(new Color(0xf59e0b));
                 return;
             }
@@ -6398,7 +7012,7 @@ private void showAdmin() {
                 ob.addActionListener(e -> {
                     if (isCorrect) {
                         score[0]++;
-                        JLabel block = new JLabel("  Block #" + score[0] + " ✅", SwingConstants.CENTER);
+                        JLabel block = new JLabel("  Block #" + score[0] + " âœ…", SwingConstants.CENTER);
                         block.setFont(new Font("Monospaced", Font.BOLD, 12));
                         block.setForeground(Color.WHITE);
                         block.setBackground(btnColors[(score[0]-1) % 3]);
@@ -6407,7 +7021,7 @@ private void showAdmin() {
                         block.setMaximumSize(new Dimension(180, 28));
                         towerPanel.add(block, 0);
                         towerPanel.revalidate(); towerPanel.repaint();
-                        memeLabel.setText(score[0] <= memes.length ? memes[score[0]-1] : "🔥 UNSTOPPABLE!");
+                        memeLabel.setText(score[0] <= memes.length ? memes[score[0]-1] : "ðŸ”¥ UNSTOPPABLE!");
                         qi[0]++;
                         loadQ[0].run();
                     } else {
@@ -6448,10 +7062,10 @@ private void showAdmin() {
         main.setBackground(new Color(0x0a0a0a));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        JLabel title = new JLabel("🚀 Deploy or Die");
+        JLabel title = new JLabel("ðŸš€ Deploy or Die");
         title.setFont(new Font("Segoe UI", Font.BOLD, 28));
         title.setForeground(new Color(0xec4899));
-        JLabel sub = new JLabel("  60 seconds to deploy! Disasters incoming — make quick decisions! 😱");
+        JLabel sub = new JLabel("  60 seconds to deploy! Disasters incoming â€” make quick decisions! ðŸ˜±");
         sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         sub.setForeground(new Color(0x475569));
         JPanel hdr = new JPanel(); hdr.setOpaque(false);
@@ -6459,18 +7073,18 @@ private void showAdmin() {
         hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
 
         String[][] scenarios = {
-            {"🔥 Server is on fire!", "Call DevOps", "Restart server", "Pray to the cloud gods", "Call DevOps", "+20 XP! DevOps saves the day!", "-10 XP! Restart caused data loss!", "-5 XP! Cloud gods are AFK!"},
-            {"💀 Merge conflict detected!", "Fix manually", "Force push", "Delete repo", "Fix manually", "+20 XP! Conflict resolved like a pro!", "-15 XP! Force push destroyed prod!", "-50 XP! You deleted the repo???"},
-            {"😱 Boss wants demo in 5 mins!", "Show what works", "Fake a demo", "Call in sick", "Show what works", "+20 XP! Honest wins respect!", "-5 XP! Boss noticed the fake!", "-10 XP! Unprofessional move!"},
-            {"🐛 Critical bug in production!", "Hotfix immediately", "Rollback", "Blame intern", "Hotfix immediately", "+25 XP! Hero move!", "+15 XP! Safe rollback!", "-20 XP! Intern quits, you're fired!"},
-            {"📧 Client wants feature by tomorrow!", "Negotiate deadline", "Work all night", "Say it's done (lie)", "Negotiate deadline", "+20 XP! Smart negotiation!", "+10 XP! Coffee fueled success!", "-25 XP! Client found out the truth!"}
+            {"ðŸ”¥ Server is on fire!", "Call DevOps", "Restart server", "Pray to the cloud gods", "Call DevOps", "+20 XP! DevOps saves the day!", "-10 XP! Restart caused data loss!", "-5 XP! Cloud gods are AFK!"},
+            {"ðŸ’€ Merge conflict detected!", "Fix manually", "Force push", "Delete repo", "Fix manually", "+20 XP! Conflict resolved like a pro!", "-15 XP! Force push destroyed prod!", "-50 XP! You deleted the repo???"},
+            {"ðŸ˜± Boss wants demo in 5 mins!", "Show what works", "Fake a demo", "Call in sick", "Show what works", "+20 XP! Honest wins respect!", "-5 XP! Boss noticed the fake!", "-10 XP! Unprofessional move!"},
+            {"ðŸ› Critical bug in production!", "Hotfix immediately", "Rollback", "Blame intern", "Hotfix immediately", "+25 XP! Hero move!", "+15 XP! Safe rollback!", "-20 XP! Intern quits, you're fired!"},
+            {"ðŸ“§ Client wants feature by tomorrow!", "Negotiate deadline", "Work all night", "Say it's done (lie)", "Negotiate deadline", "+20 XP! Smart negotiation!", "+10 XP! Coffee fueled success!", "-25 XP! Client found out the truth!"}
         };
 
         int[] score = {0};
         int[] si = {0};
         int[] timeLeft = {60};
 
-        JLabel timerLabel = new JLabel("⏱ 60s");
+        JLabel timerLabel = new JLabel("â± 60s");
         timerLabel.setFont(new Font("Segoe UI", Font.BOLD, 20));
         timerLabel.setForeground(new Color(0xef4444));
 
@@ -6496,7 +7110,7 @@ private void showAdmin() {
         loadS[0] = () -> {
             btnPanel.removeAll();
             if (si[0] >= scenarios.length) {
-                scenarioLabel.setText("<html>🎉 All scenarios survived!<br>Final Score: " + score[0] + " | " + (score[0] >= 80 ? "DevOps God! 🏆" : "Junior Dev 💪") + "</html>");
+                scenarioLabel.setText("<html>ðŸŽ‰ All scenarios survived!<br>Final Score: " + score[0] + " | " + (score[0] >= 80 ? "DevOps God! ðŸ†" : "Junior Dev ðŸ’ª") + "</html>");
                 if (timer[0] != null) timer[0].stop();
                 return;
             }
@@ -6533,10 +7147,10 @@ private void showAdmin() {
 
         timer[0] = new javax.swing.Timer(1000, e -> {
             timeLeft[0]--;
-            timerLabel.setText("⏱ " + timeLeft[0] + "s");
+            timerLabel.setText("â± " + timeLeft[0] + "s");
             if (timeLeft[0] <= 0) {
                 timer[0].stop();
-                scenarioLabel.setText("<html>⏰ TIME'S UP!<br>Final Score: " + score[0] + "<br>" + (score[0] >= 50 ? "Not bad, junior dev! 🚀" : "Back to bootcamp! 😂") + "</html>");
+                scenarioLabel.setText("<html>â° TIME'S UP!<br>Final Score: " + score[0] + "<br>" + (score[0] >= 50 ? "Not bad, junior dev! ðŸš€" : "Back to bootcamp! ðŸ˜‚") + "</html>");
                 btnPanel.removeAll();
                 btnPanel.revalidate(); btnPanel.repaint();
             }

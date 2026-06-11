@@ -120,7 +120,7 @@ public class SplashScreen extends JFrame {
 
         // Click anywhere to skip
         logo.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) { if (e.getClickCount() < 1) return;
+            public void mousePressed(MouseEvent e) { if (e.getButton() != MouseEvent.BUTTON1) return;
                 fadeTimer.stop();
                 matrix.stop();
                 dispose();
