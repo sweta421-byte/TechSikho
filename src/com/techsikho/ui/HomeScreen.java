@@ -65,78 +65,115 @@ public class HomeScreen extends JFrame {
 
         void stop() { timer.stop(); bg2.dispose(); }
 
+        void resizeMatrix(int w, int h) {
+            this.W = w; this.H = h;
+            buffer = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+            bg2 = buffer.createGraphics();
+            bg2.setColor(new Color(0x0a0a0a));
+            bg2.fillRect(0, 0, w, h);
+            cols = w / FS;
+            drops = new int[cols];
+            colColor = new Color[cols];
+            for (int i = 0; i < cols; i++) {
+                drops[i] = -(rand.nextInt(h / FS));
+                float t = (float)i / cols;
+                colColor[i] = new Color(
+                    Math.min(255,(int)(45+t*140)),
+                    Math.min(255,(int)(210-t*30)),
+                    Math.min(255,(int)(185+t*25)));
+            }
+            repaint();
+        }
+
         protected void paintComponent(Graphics g) {
             g.drawImage(buffer, 0, 0, null);
         }
     }
 
     public HomeScreen() {
-        setUndecorated(true);
+        setUndecorated(false);
+        setTitle("TechSikho");
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setSize(1100, 680);
         setLocationRelativeTo(null);
 
-        JLayeredPane lp = new JLayeredPane();
+
+        final JLayeredPane lp = new JLayeredPane();
         lp.setBackground(new Color(0x0a0a0a));
         lp.setOpaque(true);
         setContentPane(lp);
 
-        matrix = new MatrixPanel(1100, 680);
+        final MatrixPanel matrixRef = new MatrixPanel(1100, 680);
+        matrix = matrixRef;
         matrix.setBounds(0, 0, 1100, 680);
         lp.add(matrix, Integer.valueOf(0));
 
-        JPanel center = new JPanel(null);
+        final JPanel center = new JPanel(null);
         center.setOpaque(false);
         center.setBounds(0, 0, 1100, 680);
         lp.add(center, Integer.valueOf(1));
 
-        JButton closeBtn = new JButton("X");
-        closeBtn.setBounds(1060, 10, 30, 28);
-        closeBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        closeBtn.setForeground(Color.WHITE);
-        closeBtn.setBackground(new Color(0x1a1a1a));
-        closeBtn.setBorderPainted(false);
-        closeBtn.setFocusPainted(false);
-        closeBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        closeBtn.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) { closeBtn.setBackground(new Color(0xef4444)); }
-            public void mouseExited(MouseEvent e) { closeBtn.setBackground(new Color(0x1a1a1a)); }
-        });
-        closeBtn.addActionListener(e -> System.exit(0));
-        center.add(closeBtn);
-
-        final Point[] drag = {null};
-        center.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) { drag[0] = e.getPoint(); }
-        });
-        center.addMouseMotionListener(new MouseMotionAdapter() {
-            public void mouseDragged(MouseEvent e) {
-                Point loc = getLocation();
-                setLocation(loc.x + e.getX() - drag[0].x, loc.y + e.getY() - drag[0].y);
+        // Center content on window open
+        final JLayeredPane lpRef = lp;
+        final JPanel centerRef = center;
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent e) {
+                int w = lpRef.getWidth(), h = lpRef.getHeight();
+                matrix.setBounds(0, 0, w, h);
+                matrix.resizeMatrix(w, h);
+                centerRef.setBounds(0, 0, w, h);
+                int cardW=240,cardH=110,gap=20,total=4;
+                int totalW=total*cardW+(total-1)*gap;
+                int startX=(w-totalW)/2;
+                int cc=0;
+                for(java.awt.Component c:centerRef.getComponents()){
+                    java.awt.Rectangle r=c.getBounds();
+                    if(c instanceof javax.swing.JLabel) c.setBounds(0,r.y,w,r.height);
+                    else if(c instanceof javax.swing.JButton) c.setBounds((w-r.width)/2,r.y,r.width,r.height);
+                    else if(c instanceof javax.swing.JPanel){c.setBounds(startX+cc*(cardW+gap),r.y,cardW,cardH);cc++;}
+                }
+                lpRef.revalidate(); lpRef.repaint();
             }
         });
+
+        lp.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent e) {
+                int w = lp.getWidth(), h = lp.getHeight();
+                matrix.setBounds(0, 0, w, h);
+                matrix.resizeMatrix(w, h);
+                center.setBounds(0, 0, w, h);
+
+                lp.revalidate();
+                lp.repaint();
+            }
+        });
+
+
+
+
 
         JLabel badge = new JLabel("GAMIFIED LEARNING PLATFORM", SwingConstants.CENTER);
         badge.setFont(new Font("Segoe UI", Font.BOLD, 11));
         badge.setForeground(new Color(0x0ea5e9));
-        badge.setBounds(350, 80, 400, 24);
+        badge.setBounds(0, 80, 1100, 24);
         center.add(badge);
 
         JLabel title1 = new JLabel("Master Coding", SwingConstants.CENTER);
         title1.setFont(new Font("Segoe UI", Font.BOLD, 58));
         title1.setForeground(Color.WHITE);
-        title1.setBounds(150, 110, 800, 70);
+        title1.setBounds(0, 110, 1100, 70);
         center.add(title1);
 
         JLabel title2 = new JLabel("The Fun Way", SwingConstants.CENTER);
         title2.setFont(new Font("Segoe UI", Font.BOLD, 58));
         title2.setForeground(new Color(0x0ea5e9));
-        title2.setBounds(150, 175, 800, 70);
+        title2.setBounds(0, 175, 1100, 70);
         center.add(title2);
 
         typingLabel = new JLabel("", SwingConstants.CENTER);
         typingLabel.setFont(new Font("Segoe UI", Font.PLAIN, 16));
         typingLabel.setForeground(new Color(0x94a3b8));
-        typingLabel.setBounds(150, 255, 800, 30);
+        typingLabel.setBounds(0, 255, 1100, 30);
         center.add(typingLabel);
 
         String[] cardTitles = {"Gamified", "Boss Battle", "XP & Levels", "Mini Games"};
@@ -160,7 +197,11 @@ public class HomeScreen extends JFrame {
                     g2.fillRoundRect(20, 0, 40, 3, 2, 2);
                 }
             };
-            card.setBounds(60 + i * 245, 310, 220, 110);
+            // Cards will be repositioned on resize; initial position
+            card.setBounds(i * (240+20), 310, 240, 110);
+            card.setPreferredSize(new Dimension(240, 110));
+            final int cardIdx = i;
+            card.putClientProperty("cardIdx", cardIdx);
             card.setOpaque(false);
 
             JLabel t = new JLabel(cardTitles[idx], SwingConstants.CENTER);

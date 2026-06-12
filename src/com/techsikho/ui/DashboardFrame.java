@@ -105,11 +105,11 @@ public class DashboardFrame extends JFrame {
     private void initUI() {
         
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(0x0a0a0a));
+        getContentPane().setBackground(new Color(0x0d1520));
         sidebarPanel = createSidebar();
         add(sidebarPanel, BorderLayout.WEST);
         contentPanel = new JPanel(new BorderLayout());
-        contentPanel.setBackground(new Color(0x0a0a0a));
+        contentPanel.setBackground(new Color(0x0d1520));
         add(contentPanel, BorderLayout.CENTER);
         applyTheme(isDarkMode);
         showDashboard();
@@ -364,7 +364,7 @@ public class DashboardFrame extends JFrame {
                 dialog.setSize(440, 360);
                 dialog.setLocationRelativeTo(this);
                 JPanel panel = new JPanel();
-                panel.setBackground(new Color(0x0a0a0a));
+                panel.setBackground(new Color(0x0d1520));
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
                 panel.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
                 JLabel titleLbl = new JLabel("Daily Login Reward!");
@@ -376,14 +376,14 @@ public class DashboardFrame extends JFrame {
                 subLbl.setForeground(Color.WHITE);
                 subLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
                 JPanel dayGrid = new JPanel(new GridLayout(1,7,4,0));
-                dayGrid.setBackground(new Color(0x0a0a0a));
+                dayGrid.setBackground(new Color(0x0d1520));
                 String[] dayXp = {"10","15","20","25","30","40","100"};
                 for (int i=1; i<=7; i++) {
                     JPanel card = new JPanel();
                     card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
                     if (i == day) card.setBackground(new Color(60,50,0));
                     else if (i < day) card.setBackground(new Color(0x0d1520));
-                    else card.setBackground(new Color(0x0a0a0a));
+                    else card.setBackground(new Color(0x0d1520));
                     card.setBorder(BorderFactory.createEmptyBorder(8,4,8,4));
                     JLabel dayL = new JLabel("Day "+i);
                     dayL.setFont(new Font("Segoe UI", Font.BOLD, 10));
@@ -540,7 +540,7 @@ public class DashboardFrame extends JFrame {
     private void showLearningPath() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(0x0a0a0a));
+        main.setBackground(new Color(0x0d1520));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("Learning Path");
@@ -777,7 +777,7 @@ public class DashboardFrame extends JFrame {
         contentPanel.removeAll();
 
         // Theme colors matching Matrix Rain
-        Color bgMain   = new Color(0x0a0a0a);
+        Color bgMain   = new Color(0x0d1520);
         Color cardBg   = new Color(0x0d1520);
         Color teal     = new Color(0x2dd4bf);
         Color cyan     = new Color(0x0ea5e9);
@@ -1348,7 +1348,7 @@ public class DashboardFrame extends JFrame {
     private void showLessons() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Lessons");
         title.setFont(new Font("Segoe UI", Font.BOLD, 26));
@@ -1361,7 +1361,7 @@ public class DashboardFrame extends JFrame {
         hdr.add(title); hdr.add(Box.createVerticalStrut(4)); hdr.add(sub);
         panel.add(hdr, BorderLayout.NORTH);
         JPanel grid = new JPanel(new GridLayout(2, 4, 16, 16));
-        grid.setBackground(new Color(0x0a0a0a));
+        grid.setBackground(new Color(0x0d1520));
         grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         grid.add(createLessonLangCard("Java",         "OOP, Collections, Exceptions",  new Color(0xf59e0b)));
         grid.add(createLessonLangCard("Python",       "Basics, OOP, Functions",        new Color(0x22c55e)));
@@ -1535,7 +1535,7 @@ public class DashboardFrame extends JFrame {
     private void showLessonsForLanguage(String langName) {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -1634,14 +1634,14 @@ public class DashboardFrame extends JFrame {
                 codeArea.setLineWrap(true);
                 codeArea.setWrapStyleWord(true);
                 codeArea.setFont(new Font("Courier New", Font.PLAIN, 13));
-                codeArea.setBackground(new Color(0x0a0a0a));
+                codeArea.setBackground(new Color(0x0d1520));
                 codeArea.setForeground(new Color(0xb8c4cc));
                 codeArea.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
                 JScrollPane codeScroll = new JScrollPane(codeArea);
                 codeScroll.setBorder(BorderFactory.createTitledBorder(
                     BorderFactory.createLineBorder(new Color(0x0ea5e9)),
                     "Code Example", 0, 0, new Font("Segoe UI", Font.BOLD, 12), Color.WHITE));
-                codeScroll.getViewport().setBackground(new Color(0x0a0a0a));
+                codeScroll.getViewport().setBackground(new Color(0x0d1520));
                 codeScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
                 codeScroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, 140));
                 card.add(codeScroll);
@@ -1666,7 +1666,7 @@ public class DashboardFrame extends JFrame {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.getVerticalScrollBar().setUnitIncrement(16);
         scroll.setBorder(null);
-        scroll.getViewport().setBackground(new Color(0x0a0a0a));
+        scroll.getViewport().setBackground(new Color(0x0d1520));
         contentPanel.add(scroll);
         contentPanel.revalidate();
         contentPanel.repaint();
@@ -1700,7 +1700,7 @@ public class DashboardFrame extends JFrame {
     private void showProgress() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("Progress Tracker");
@@ -1711,7 +1711,7 @@ public class DashboardFrame extends JFrame {
         ProgressData progress = loadProgressData();
 
         JPanel languagePanel = new JPanel(new GridLayout(1, 4, 15, 0));
-        languagePanel.setBackground(new Color(0x0a0a0a));
+        languagePanel.setBackground(new Color(0x0d1520));
         languagePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         languagePanel.add(createMiniProgressCard("Java", getCompletedLessonCount(1), 3, new Color(245, 158, 11)));
         languagePanel.add(createMiniProgressCard("Python", getCompletedLessonCount(2), 3, new Color(16, 185, 129)));
@@ -1720,7 +1720,7 @@ public class DashboardFrame extends JFrame {
         panel.add(languagePanel, BorderLayout.CENTER);
 
         JPanel topStats = new JPanel(new GridLayout(1, 3, 20, 0));
-        topStats.setBackground(new Color(0x0a0a0a));
+        topStats.setBackground(new Color(0x0d1520));
         topStats.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         topStats.add(createStatCard("Completed Lessons", String.valueOf(progress.completedLevels), new Color(0x0ea5e9)));
         topStats.add(createStatCard("Progress XP", String.valueOf(progress.totalXp), new Color(16, 185, 129)));
@@ -1728,7 +1728,7 @@ public class DashboardFrame extends JFrame {
 
         JPanel centerBlock = new JPanel();
         centerBlock.setLayout(new BoxLayout(centerBlock, BoxLayout.Y_AXIS));
-        centerBlock.setBackground(new Color(0x0a0a0a));
+        centerBlock.setBackground(new Color(0x0d1520));
         centerBlock.add(topStats);
 
         JProgressBar completionBar = new JProgressBar(0, 10);
@@ -1975,7 +1975,7 @@ public class DashboardFrame extends JFrame {
         wrapper.add(questionLabel);
 
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setBackground(new Color(0x0a0a0a));
+        optionsPanel.setBackground(new Color(0x0d1520));
         optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
         optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         optionsPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 10, 15));
@@ -2084,7 +2084,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createSpinWheelPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
@@ -2264,7 +2264,7 @@ public class DashboardFrame extends JFrame {
     private void showFlashCards() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("Flash Cards");
@@ -2284,7 +2284,7 @@ public class DashboardFrame extends JFrame {
             {"DSA","#8b5cf6"},{"SQL","#06b6d4"},{"AI / ML","#ec4899"},{"Git & DevOps","#f97316"}
         };
         JPanel cardArea = new JPanel();
-        cardArea.setBackground(new Color(0x0a0a0a));
+        cardArea.setBackground(new Color(0x0d1520));
         cardArea.setLayout(new BoxLayout(cardArea, BoxLayout.Y_AXIS));
 
         for (String[] t : topics) {
@@ -2402,7 +2402,7 @@ public class DashboardFrame extends JFrame {
         prevBtn.addActionListener(e -> { if (index[0] > 0) { index[0]--; showingAnswer[0] = false; updateCard.run(); } });
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        btnRow.setBackground(new Color(0x0a0a0a));
+        btnRow.setBackground(new Color(0x0d1520));
         btnRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnRow.add(flipBtn);
         btnRow.add(prevBtn);
@@ -2454,7 +2454,7 @@ public class DashboardFrame extends JFrame {
         stopPomodoroTimer();
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -2537,7 +2537,7 @@ public class DashboardFrame extends JFrame {
     }
 
     private class PomodoroPanel extends JPanel {
-        PomodoroPanel() { setPreferredSize(new Dimension(280, 280)); setBackground(new Color(0x0a0a0a)); }
+        PomodoroPanel() { setPreferredSize(new Dimension(280, 280)); setBackground(new Color(0x0d1520)); }
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -2585,7 +2585,7 @@ public class DashboardFrame extends JFrame {
         stopPomodoroTimer();
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -2632,7 +2632,7 @@ public class DashboardFrame extends JFrame {
         clearBtn.addActionListener(e -> notesArea.setText(""));
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        btnRow.setBackground(new Color(0x0a0a0a));
+        btnRow.setBackground(new Color(0x0d1520));
         btnRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnRow.add(saveBtn);
         btnRow.add(clearBtn);
@@ -2675,7 +2675,7 @@ public class DashboardFrame extends JFrame {
     private void showLanguages() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("Choose a Language");
@@ -2690,7 +2690,7 @@ public class DashboardFrame extends JFrame {
         panel.add(hdr, BorderLayout.NORTH);
 
         JPanel grid = new JPanel(new GridLayout(2, 4, 16, 16));
-        grid.setBackground(new Color(0x0a0a0a));
+        grid.setBackground(new Color(0x0d1520));
         grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         grid.add(createLangCard("Java",          "5 Levels Â· OOP, Collections", new Color(0xf59e0b), 1));
         grid.add(createLangCard("Python",        "3 Levels Â· Basics, OOP",      new Color(0x22c55e), 2));
@@ -2812,7 +2812,7 @@ public class DashboardFrame extends JFrame {
         AnalyticsData analytics = loadAnalyticsData();
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Analytics");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -2821,7 +2821,7 @@ public class DashboardFrame extends JFrame {
 
         JPanel centerContent = new JPanel();
         centerContent.setLayout(new BoxLayout(centerContent, BoxLayout.Y_AXIS));
-        centerContent.setBackground(new Color(0x0a0a0a));
+        centerContent.setBackground(new Color(0x0d1520));
 
         if (analytics.totalAttempts == 0) {
             JLabel empty = new JLabel("No quiz attempts yet. Complete lessons and quizzes to see analytics!");
@@ -2832,14 +2832,14 @@ public class DashboardFrame extends JFrame {
             centerContent.add(empty);
         } else {
             JPanel summary = new JPanel(new GridLayout(1, 2, 20, 0));
-            summary.setBackground(new Color(0x0a0a0a));
+            summary.setBackground(new Color(0x0d1520));
             summary.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
             summary.add(createStatCard("Quizzes Completed", String.valueOf(analytics.totalAttempts), new Color(0x0ea5e9)));
             summary.add(createStatCard("Total XP Earned", String.valueOf(analytics.totalXp), new Color(16, 185, 129)));
             centerContent.add(summary);
 
             JPanel charts = new JPanel(new GridLayout(1, 2, 20, 0));
-            charts.setBackground(new Color(0x0a0a0a));
+            charts.setBackground(new Color(0x0d1520));
             charts.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
             charts.setMaximumSize(new Dimension(Integer.MAX_VALUE, 280));
             charts.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -2915,14 +2915,14 @@ public class DashboardFrame extends JFrame {
         AchievementData data = loadAchievementData();
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Achievements");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setForeground(Color.WHITE);
         panel.add(title, BorderLayout.NORTH);
         JPanel grid = new JPanel(new GridLayout(2, 3, 20, 20));
-        grid.setBackground(new Color(0x0a0a0a));
+        grid.setBackground(new Color(0x0d1520));
         grid.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
         grid.add(createAchievementCard("First Quiz", data.totalAttempts > 0, "Complete 1 quiz"));
         grid.add(createAchievementCard("Quiz Veteran", data.totalAttempts >= 5, "Complete 5 quizzes"));
@@ -2940,7 +2940,7 @@ public class DashboardFrame extends JFrame {
     private void showExport() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Export Progress");
@@ -2999,7 +2999,7 @@ public class DashboardFrame extends JFrame {
     private void showXPHistory() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("XP History");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -3049,7 +3049,7 @@ public class DashboardFrame extends JFrame {
     private void showSettings() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -3309,11 +3309,11 @@ public class DashboardFrame extends JFrame {
     private void showLeaderboard() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JPanel northBlock = new JPanel();
-        northBlock.setBackground(new Color(0x0a0a0a));
+        northBlock.setBackground(new Color(0x0d1520));
         northBlock.setLayout(new BoxLayout(northBlock, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Leaderboard - Top Players");
@@ -3331,7 +3331,7 @@ public class DashboardFrame extends JFrame {
         northBlock.add(Box.createVerticalStrut(15));
 
         JPanel searchPanel = new JPanel(new BorderLayout(10, 0));
-        searchPanel.setBackground(new Color(0x0a0a0a));
+        searchPanel.setBackground(new Color(0x0d1520));
         searchPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         JLabel searchLabel = new JLabel("Search Leaderboard:");
         searchLabel.setForeground(Color.WHITE);
@@ -3403,7 +3403,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createHallOfFamePanel(java.util.List<String[]> topUsers) {
         JPanel section = new JPanel();
-        section.setBackground(new Color(0x0a0a0a));
+        section.setBackground(new Color(0x0d1520));
         section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
         section.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -3415,7 +3415,7 @@ public class DashboardFrame extends JFrame {
         section.add(Box.createVerticalStrut(10));
 
         JPanel cards = new JPanel(new GridLayout(1, 3, 15, 0));
-        cards.setBackground(new Color(0x0a0a0a));
+        cards.setBackground(new Color(0x0d1520));
         cards.setMaximumSize(new Dimension(Integer.MAX_VALUE, 130));
 
         Color[] bgColors = {new Color(180, 140, 20), new Color(160, 160, 170), new Color(160, 100, 50)};
@@ -3489,7 +3489,7 @@ public class DashboardFrame extends JFrame {
     // Ã¢â€â‚¬Ã¢â€â‚¬ PROFILE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showProfile() {
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel panel = new JPanel();
         panel.setBackground(bg);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -3733,7 +3733,7 @@ public class DashboardFrame extends JFrame {
 
     private JPanel createLabeledField(String labelText, JComponent field) {
         JPanel row = new JPanel();
-        row.setBackground(new Color(0x0a0a0a));
+        row.setBackground(new Color(0x0d1520));
         row.setLayout(new BoxLayout(row, BoxLayout.Y_AXIS));
         row.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel label = new JLabel(labelText);
@@ -3765,11 +3765,11 @@ public class DashboardFrame extends JFrame {
 private void showAdmin() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(new Color(0x0a0a0a));
+        headerPanel.setBackground(new Color(0x0d1520));
         JLabel title = new JLabel("Admin Panel");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
         title.setForeground(Color.WHITE);
@@ -3786,7 +3786,7 @@ private void showAdmin() {
         } catch (Exception e) { e.printStackTrace(); }
 
         JPanel statsPanel = new JPanel(new GridLayout(1, 3, 15, 0));
-        statsPanel.setBackground(new Color(0x0a0a0a));
+        statsPanel.setBackground(new Color(0x0d1520));
         statsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         statsPanel.setPreferredSize(new Dimension(800, 120));
         statsPanel.add(createStatCard("Total Users", String.valueOf(totalUsers), new Color(0x0ea5e9)));
@@ -3808,7 +3808,7 @@ private void showAdmin() {
             }
         });
         JPanel importPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        importPanel.setBackground(new Color(0x0a0a0a));
+        importPanel.setBackground(new Color(0x0d1520));
         importPanel.add(importCsvBtn);
         headerPanel.add(importPanel, BorderLayout.CENTER);
         panel.add(headerPanel, BorderLayout.NORTH);
@@ -3850,11 +3850,11 @@ private void showAdmin() {
     private void showCertificate() { System.out.println("DEBUG: showCertificate called, XP=" + currentUser.getTotalXp() + " Level=" + XPService.calculateLevel(currentUser.getTotalXp()));
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
-        JLabel title = new JLabel("ðŸ† Certificate of Achievement");
-        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        JLabel title = new JLabel("");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 1));
         title.setForeground(Color.WHITE);
 
         int xp = currentUser.getTotalXp();
@@ -3912,153 +3912,100 @@ private void showAdmin() {
             panel.add(title, BorderLayout.NORTH);
             panel.add(lockPanel, BorderLayout.CENTER);
         } else {
-            String badge = level >= 20 ? "ðŸ† LEGEND" : level >= 15 ? "â­ EXPERT" : level >= 10 ? "ðŸŽ– ADVANCED" : "ðŸŽ“ CERTIFIED";
-            String funMessage = xp >= 5000 ? "You are an absolute LEGEND! ðŸ”¥" : xp >= 2000 ? "Elite Coder Status! ðŸ’Ž" : xp >= 1000 ? "Impressive Coder! â­" : "Keep Going! ðŸ’ª";
+            String badge = level >= 20 ? "LEGEND" : level >= 15 ? "MASTER" : level >= 10 ? "EXPERT" : level >= 5 ? "CODER" : "BEGINNER";
+            String funMessage = xp >= 5000 ? "You are an absolute LEGEND!" : xp >= 2000 ? "Elite Coder Status!" : xp >= 1000 ? "Impressive Coder!" : "Keep Learning!";
             String dateStr = LocalDate.now().toString();
             String statsLine = "XP: " + xp + " | Level: " + level + " | Lessons: " + count + " | Rank: #" + rank;
+
+
+
+
+
 
             JPanel certBg = new JPanel() {
                 protected void paintComponent(Graphics g) {
                     Graphics2D g2 = (Graphics2D)g;
                     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                    g2.setColor(new Color(0x0a0f1a));
-                    g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
-                    g2.setStroke(new BasicStroke(3f));
-                    g2.setColor(new Color(0xf59e0b));
-                    g2.drawRoundRect(2, 2, getWidth()-4, getHeight()-4, 18, 18);
-                    g2.setStroke(new BasicStroke(1f));
-                    g2.setColor(new Color(0xf59e0b, true));
-                    g2.drawRoundRect(8, 8, getWidth()-16, getHeight()-16, 12, 12);
+                    g2.setColor(new Color(0xfdf6e3));
+                    g2.fillRect(0,0,getWidth(),getHeight());
+                    g2.setStroke(new BasicStroke(6f));
+                    g2.setColor(new Color(0xc8960c));
+                    g2.drawRect(8,8,getWidth()-16,getHeight()-16);
+                    g2.setStroke(new BasicStroke(2f));
+                    g2.setColor(new Color(0xf0c040));
+                    g2.drawRect(20,20,getWidth()-40,getHeight()-40);
+                    int sx=getWidth()/2, sy=getHeight()-110;
+                    g2.setColor(new Color(0xc8960c));
+                    for(int i=0;i<16;i++){double a=Math.toRadians(i*22.5);int x1=(int)(sx+28*Math.cos(a));int y1=(int)(sy+28*Math.sin(a));int x2=(int)(sx+38*Math.cos(a+Math.toRadians(11.25)));int y2=(int)(sy+38*Math.sin(a+Math.toRadians(11.25)));g2.drawLine(x1,y1,x2,y2);}
+                    GradientPaint sg=new GradientPaint(sx-35,sy-35,new Color(0xffd700),sx+35,sy+35,new Color(0xb8860b));
+                    g2.setPaint(sg);g2.fillOval(sx-35,sy-35,70,70);
+                    g2.setColor(new Color(0xc8960c));g2.setStroke(new BasicStroke(2f));
+                    g2.drawOval(sx-35,sy-35,70,70);g2.drawOval(sx-28,sy-28,56,56);
+                    g2.setColor(new Color(0x5b3a00));g2.setFont(new Font("Segoe UI",Font.BOLD,12));
+                    FontMetrics fm=g2.getFontMetrics();
+                    g2.drawString("TS",sx-fm.stringWidth("TS")/2,sy+5);
+                    g2.setColor(new Color(0x888888));g2.setStroke(new BasicStroke(1f));
+                    g2.drawLine(sx-220,sy+50,sx-55,sy+50);
+                    g2.drawLine(sx+55,sy+50,sx+220,sy+50);
+                    g2.setFont(new Font("Segoe UI",Font.PLAIN,11));g2.setColor(new Color(0x666666));
+                    g2.drawString("Authorized Signatory",sx-220,sy+65);
+                    g2.drawString("Date: "+java.time.LocalDate.now().toString(),sx+60,sy+65);
                 }
             };
             certBg.setLayout(new BoxLayout(certBg, BoxLayout.Y_AXIS));
 
-            JLabel badgeLbl = new JLabel(badge, SwingConstants.CENTER);
-            badgeLbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 36));
-            badgeLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel titleLbl = new JLabel("Certificate of Achievement", SwingConstants.CENTER);
+            titleLbl.setFont(new Font("Palatino Linotype",Font.BOLD,46));
+            titleLbl.setForeground(new Color(0x5b3a00));
+            titleLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel nameLbl = new JLabel("This certifies that", SwingConstants.CENTER);
-            nameLbl.setFont(new Font("Segoe UI", Font.ITALIC, 16));
-            nameLbl.setForeground(new Color(0x94a3b8));
-            nameLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel presented = new JLabel("PROUDLY PRESENTED TO", SwingConstants.CENTER);
+            presented.setFont(new Font("Segoe UI",Font.PLAIN,13));
+            presented.setForeground(new Color(0x888888));
+            presented.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             JLabel userName = new JLabel(currentUser.getUsername().toUpperCase(), SwingConstants.CENTER);
-            userName.setFont(new Font("Segoe UI", Font.BOLD, 32));
-            userName.setForeground(new Color(0xf59e0b));
+            userName.setFont(new Font("Palatino Linotype",Font.BOLD+Font.ITALIC,52));
+            userName.setForeground(new Color(0x1a1a2e));
             userName.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel courseLbl = new JLabel("has successfully completed TechSikho Learning Path", SwingConstants.CENTER);
-            courseLbl.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-            courseLbl.setForeground(Color.WHITE);
-            courseLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel forLbl = new JLabel("FOR SUCCESSFULLY COMPLETING TECHSIKHO LEARNING PATH", SwingConstants.CENTER);
+            forLbl.setFont(new Font("Segoe UI",Font.PLAIN,12));
+            forLbl.setForeground(new Color(0x555555));
+            forLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel funLbl = new JLabel(funMessage, SwingConstants.CENTER);
-            funLbl.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
-            funLbl.setForeground(new Color(0x22c55e));
-            funLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel badgeLbl = new JLabel(badge+" | "+funMessage, SwingConstants.CENTER);
+            badgeLbl.setFont(new Font("Segoe UI",Font.BOLD,16));
+            badgeLbl.setForeground(new Color(0xc8960c));
+            badgeLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             JLabel statsLbl = new JLabel(statsLine, SwingConstants.CENTER);
-            statsLbl.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-            statsLbl.setForeground(new Color(0x64748b));
+            statsLbl.setFont(new Font("Segoe UI",Font.PLAIN,13));
+            statsLbl.setForeground(new Color(0x666666));
             statsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            JLabel dateLbl = new JLabel("Date: " + dateStr, SwingConstants.CENTER);
-            dateLbl.setFont(new Font("Segoe UI", Font.ITALIC, 13));
-            dateLbl.setForeground(new Color(0x475569));
-            dateLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            JLabel orgLbl = new JLabel("TechSikho Academy", SwingConstants.CENTER);
+            orgLbl.setFont(new Font("Palatino Linotype",Font.BOLD,18));
+            orgLbl.setForeground(new Color(0xc8960c));
+            orgLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+            certBg.add(Box.createVerticalStrut(40));
+            certBg.add(titleLbl);
             certBg.add(Box.createVerticalStrut(30));
-            certBg.add(badgeLbl);
-            certBg.add(Box.createVerticalStrut(15));
-            certBg.add(nameLbl);
-            certBg.add(Box.createVerticalStrut(8));
-            certBg.add(userName);
-            certBg.add(Box.createVerticalStrut(12));
-            certBg.add(courseLbl);
-            certBg.add(Box.createVerticalStrut(15));
-            certBg.add(funLbl);
+            certBg.add(presented);
             certBg.add(Box.createVerticalStrut(10));
+            certBg.add(userName);
+            certBg.add(Box.createVerticalStrut(25));
+            certBg.add(forLbl);
+            certBg.add(Box.createVerticalStrut(12));
+            certBg.add(badgeLbl);
+            certBg.add(Box.createVerticalStrut(12));
             certBg.add(statsLbl);
-            certBg.add(Box.createVerticalStrut(8));
-            certBg.add(dateLbl);
-            certBg.add(Box.createVerticalStrut(30));
-
-            JScrollPane scroll = new JScrollPane(certBg);
-            scroll.setBorder(null);
-            scroll.getViewport().setBackground(new Color(0x0a0a0a));
-
-            panel.add(title, BorderLayout.NORTH);
-            panel.add(scroll, BorderLayout.CENTER);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            certBg.add(Box.createVerticalStrut(12));
+            certBg.add(orgLbl);
+            certBg.add(Box.createVerticalGlue());
+
+            panel.add(certBg, BorderLayout.CENTER);
 
 
 
@@ -4141,7 +4088,7 @@ private void showAdmin() {
 
 
             panel.add(title, BorderLayout.NORTH);
-            panel.add(scroll, BorderLayout.CENTER);
+
         }
         contentPanel.removeAll();
         contentPanel.add(panel);
@@ -4206,7 +4153,7 @@ private void showAdmin() {
     private void showEscapeHacker() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸ” Escape the Hacker Room");
@@ -4225,7 +4172,7 @@ private void showAdmin() {
         int[] score = {0};
 
         JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(new Color(0x0a0a0a));
+        centerPanel.setBackground(new Color(0x0d1520));
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
         JLabel roomLbl = new JLabel("ðŸšï¸ You are trapped! Solve puzzles to escape...");
@@ -4253,7 +4200,7 @@ private void showAdmin() {
         scoreLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel optPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        optPanel.setBackground(new Color(0x0a0a0a));
+        optPanel.setBackground(new Color(0x0d1520));
         optPanel.setMaximumSize(new Dimension(500, 120));
 
         Runnable[] loadPuzzle = {null};
@@ -4322,7 +4269,7 @@ private void showAdmin() {
     private void showGuessOutput() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸ’» Guess the Output");
@@ -4342,7 +4289,7 @@ private void showAdmin() {
         int[] score = {0};
 
         JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(new Color(0x0a0a0a));
+        centerPanel.setBackground(new Color(0x0d1520));
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
         JLabel scoreLbl = new JLabel("Score: 0 / " + questions.length);
@@ -4364,7 +4311,7 @@ private void showAdmin() {
         feedbackLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel optPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        optPanel.setBackground(new Color(0x0a0a0a));
+        optPanel.setBackground(new Color(0x0d1520));
         optPanel.setMaximumSize(new Dimension(500, 120));
 
         Runnable[] loadQ = {null};
@@ -4427,7 +4374,7 @@ private void showAdmin() {
     private void showAIPrompt() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸ¤– AI Prompt Challenge");
@@ -4446,7 +4393,7 @@ private void showAdmin() {
         int[] totalScore = {0};
 
         JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(new Color(0x0a0a0a));
+        centerPanel.setBackground(new Color(0x0d1520));
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
         JLabel taskLbl = new JLabel("<html><center><b>Task:</b> " + tasks[0] + "</center></html>");
@@ -4582,10 +4529,10 @@ private void showAdmin() {
     }
 
     private void applyTheme(boolean dark) {
-        Color bg = dark ? new Color(0x0a0a0a) : new Color(0xb8c4cc);
+        Color bg = dark ? new Color(0x0d1520) : new Color(0xb8c4cc);
         Color sidebarBg;
         if (purchasedItems.contains("Dark Ninja Theme") && dark) {
-            sidebarBg = new Color(0x0a0a0a);
+            sidebarBg = new Color(0x0d1520);
         } else {
             sidebarBg = dark ? new Color(0x0d1117) : new Color(0xb8c4cc);
         }
@@ -4629,7 +4576,7 @@ private void showAdmin() {
         private final Map<String, Integer> activityData;
         ActivityHeatmapPanel(Map<String, Integer> activityData) {
             this.activityData = activityData;
-            setBackground(new Color(0x0a0a0a));
+            setBackground(new Color(0x0d1520));
             setPreferredSize(new Dimension(200, 200));
         }
         @Override
@@ -4683,7 +4630,7 @@ private void showAdmin() {
         stopBossTimer();
         contentPanel.removeAll();
         JPanel intro = new JPanel();
-        intro.setBackground(new Color(0x0a0a0a));
+        intro.setBackground(new Color(0x0d1520));
         intro.setLayout(new BoxLayout(intro, BoxLayout.Y_AXIS));
         intro.setBorder(BorderFactory.createEmptyBorder(60, 40, 60, 40));
 
@@ -4736,7 +4683,7 @@ private void showAdmin() {
 
         contentPanel.removeAll();
         JPanel battlePanel = new JPanel();
-        battlePanel.setBackground(new Color(0x0a0a0a));
+        battlePanel.setBackground(new Color(0x0d1520));
         battlePanel.setLayout(new BoxLayout(battlePanel, BoxLayout.Y_AXIS));
         battlePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
 
@@ -4753,7 +4700,7 @@ private void showAdmin() {
         qTextLbl.setForeground(Color.WHITE);
         qTextLbl.setAlignmentX(Component.LEFT_ALIGNMENT);
         JPanel optionsPanel = new JPanel(new GridLayout(2, 2, 10, 10));
-        optionsPanel.setBackground(new Color(0x0a0a0a));
+        optionsPanel.setBackground(new Color(0x0d1520));
         optionsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
         optionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 120));
 
@@ -4824,7 +4771,7 @@ private void showAdmin() {
         }
         contentPanel.removeAll();
         JPanel results = new JPanel();
-        results.setBackground(new Color(0x0a0a0a));
+        results.setBackground(new Color(0x0d1520));
         results.setLayout(new BoxLayout(results, BoxLayout.Y_AXIS));
         results.setBorder(BorderFactory.createEmptyBorder(50, 40, 50, 40));
         JLabel title = new JLabel("BATTLE COMPLETE!");
@@ -4896,7 +4843,7 @@ private void showAdmin() {
     private void showGlossary() {
         contentPanel.removeAll();
         JPanel panel = new JPanel(new BorderLayout(0, 15));
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
         JLabel title = new JLabel("Tech Glossary");
         title.setFont(new Font("Segoe UI", Font.BOLD, 24));
@@ -4904,7 +4851,7 @@ private void showAdmin() {
         panel.add(title, BorderLayout.NORTH);
 
         JPanel center = new JPanel(new BorderLayout(0, 10));
-        center.setBackground(new Color(0x0a0a0a));
+        center.setBackground(new Color(0x0d1520));
         JTextField searchField = new JTextField("Search terms...");
         searchField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         searchField.setBackground(new Color(0x0d1520));
@@ -4977,7 +4924,7 @@ private void showAdmin() {
     private void showMiniGames() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -4995,7 +4942,7 @@ private void showAdmin() {
         panel.add(Box.createVerticalStrut(24));
 
         JPanel grid = new JPanel(new GridLayout(2, 3, 20, 20));
-        grid.setBackground(new Color(0x0a0a0a));
+        grid.setBackground(new Color(0x0d1520));
         grid.setAlignmentX(Component.LEFT_ALIGNMENT);
         grid.setMaximumSize(new Dimension(Integer.MAX_VALUE, 520));
         grid.add(createMiniGameCard("Word Scramble", new Color(0x0ea5e9),
@@ -5052,7 +4999,7 @@ private void showAdmin() {
     // Ã¢â€â‚¬Ã¢â€â‚¬ XP SHOP Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
     private void showXPShop() {
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         Color cardBg = new Color(0x0d1520);
         Color gold = new Color(255, 215, 0);
         Color border = new Color(0x0ea5e9);
@@ -5209,7 +5156,7 @@ private void showAdmin() {
     private void showCodeBreaker() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         Color codeBg = new Color(0x0d1117);
 
         JPanel main = new JPanel(new BorderLayout());
@@ -5436,7 +5383,7 @@ private void showAdmin() {
     private void showChallenge() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel setup = new JPanel();
         setup.setBackground(bg);
         setup.setLayout(new BoxLayout(setup, BoxLayout.Y_AXIS));
@@ -5518,7 +5465,7 @@ private void showAdmin() {
         final long startTime = System.currentTimeMillis();
 
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(bg);
         panel.setBorder(BorderFactory.createEmptyBorder(25, 30, 25, 30));
@@ -5593,7 +5540,7 @@ private void showAdmin() {
     private void showChallengeResults(String friendName, int friendId, int yourScore, int total, int timeSec) {
         int friendScore = getFriendRecentQuizScore(friendId);
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel results = new JPanel();
         results.setBackground(bg);
         results.setLayout(new BoxLayout(results, BoxLayout.Y_AXIS));
@@ -5665,7 +5612,7 @@ private void showAdmin() {
 
     private void showWordScramble() {
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel mainContent = new JPanel(new BorderLayout());
         mainContent.setBackground(bg);
 
@@ -5901,7 +5848,7 @@ private void showAdmin() {
     private void showRapidFire() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel intro = new JPanel();
         intro.setBackground(bg);
         intro.setLayout(new BoxLayout(intro, BoxLayout.Y_AXIS));
@@ -5949,7 +5896,7 @@ private void showAdmin() {
         final boolean[] answered = {false};
 
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         JPanel gamePanel = new JPanel(new BorderLayout());
         gamePanel.setBackground(bg);
         gamePanel.setBorder(BorderFactory.createEmptyBorder(25, 30, 30, 30));
@@ -6151,7 +6098,7 @@ private void showAdmin() {
     private void showMysteryLanguage() {
         stopBossTimer();
         contentPanel.removeAll();
-        Color bg = new Color(0x0a0a0a);
+        Color bg = new Color(0x0d1520);
         Color codeBg = new Color(0x0d1117);
 
         JPanel main = new JPanel(new BorderLayout());
@@ -6372,7 +6319,7 @@ private void showAdmin() {
     private void showTypingTest() {
         contentPanel.removeAll();
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(0x0a0a0a));
+        panel.setBackground(new Color(0x0d1520));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
@@ -6388,7 +6335,7 @@ private void showAdmin() {
 
         JLabel snippetLabel = new JLabel("<html><pre style='font-family:monospace;color:#c8dcf8;'>" + currentSnippet[0] + "</pre></html>");
         snippetLabel.setFont(new Font("Monospaced", Font.PLAIN, 13));
-        snippetLabel.setBackground(new Color(0x0a0a0a));
+        snippetLabel.setBackground(new Color(0x0d1520));
         snippetLabel.setOpaque(true);
         snippetLabel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(0x0ea5e9)),
@@ -6470,7 +6417,7 @@ private void showAdmin() {
         });
 
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        btnRow.setBackground(new Color(0x0a0a0a));
+        btnRow.setBackground(new Color(0x0d1520));
         btnRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         btnRow.add(startBtn);
         btnRow.add(submitBtn);
@@ -6485,7 +6432,7 @@ private void showAdmin() {
     private void showBugSquash() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(0x0a0a0a));
+        main.setBackground(new Color(0x0d1520));
         main.setBorder(BorderFactory.createEmptyBorder(20, 25, 20, 25));
 
         JLabel title = new JLabel("ðŸ› Bug Squash");
@@ -6710,7 +6657,7 @@ private void showAdmin() {
     private void showBinaryBlitz() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(0x0a0a0a));
+        main.setBackground(new Color(0x0d1520));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸ’» Binary Blitz");
@@ -6825,7 +6772,7 @@ private void showAdmin() {
     private void showDebugDhamaal() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(0x0a0a0a));
+        main.setBackground(new Color(0x0d1520));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸ”¥ Debug Dhamaal");
@@ -6943,7 +6890,7 @@ private void showAdmin() {
     private void showStackOverflow() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(0x0a0a0a));
+        main.setBackground(new Color(0x0d1520));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸ’€ Stack Overflow");
@@ -7059,7 +7006,7 @@ private void showAdmin() {
     private void showDeployOrDie() {
         contentPanel.removeAll();
         JPanel main = new JPanel(new BorderLayout());
-        main.setBackground(new Color(0x0a0a0a));
+        main.setBackground(new Color(0x0d1520));
         main.setBorder(BorderFactory.createEmptyBorder(25, 25, 25, 25));
 
         JLabel title = new JLabel("ðŸš€ Deploy or Die");
