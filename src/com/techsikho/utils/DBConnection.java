@@ -6,21 +6,35 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String URL      = "jdbc:mysql://localhost:3306/techsikho_db";
-    private static final String USER     = "root";
-    private static final String PASSWORD = "root1421"; // tumhara password
-
     private static Connection conn = null;
 
     public static Connection getConnection() {
         try {
             if (conn == null || conn.isClosed()) {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("✅ DB Connected!");
+                String userHome = System.getProperty("user.home");
+                String dbPath = userHome + "/TechSikho/techsikho.db";
+                new java.io.File(userHome + "/TechSikho").mkdirs();
+                String url = "jdbc:sqlite:" + dbPath;
+                Class.forName("org.sqlite.JDBC");
+                conn = DriverManager.getConnection(url);
+                conn.createStatement().execute(
+                    "CREATE TABLE IF NOT EXISTS users (" +
+                    "user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "username TEXT UNIQUE NOT NULL," +
+                    "email TEXT UNIQUE NOT NULL," +
+                    "password_hash TEXT NOT NULL," +
+                    "full_name TEXT," +
+                    "role TEXT DEFAULT 'student'," +
+                    "total_xp INTEGER DEFAULT 0," +
+                    "current_level INTEGER DEFAULT 1," +
+                    "streak_count INTEGER DEFAULT 0," +
+                    "last_login TEXT," +
+                    "created_at TEXT DEFAULT CURRENT_TIMESTAMP)"
+                );
+                System.out.println("DB Connected!");
             }
         } catch (Exception e) {
-            System.err.println("❌ DB Error: " + e.getMessage());
+            System.err.println("DB Error: " + e.getMessage());
         }
         return conn;
     }
@@ -29,11 +43,9 @@ public class DBConnection {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
-                System.out.println("✅ DB Connection closed.");
             }
         } catch (SQLException e) {
-            System.err.println("❌ Close Error: " + e.getMessage());
+            System.err.println("Close Error: " + e.getMessage());
         }
     }
 }
-

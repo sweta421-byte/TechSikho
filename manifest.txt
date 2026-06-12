@@ -1,0 +1,2 @@
+Main-Class: com.techsikho.ui.SplashScreen
+Class-Path: lib/sqlite-jdbc-3.43.0.0.jar
