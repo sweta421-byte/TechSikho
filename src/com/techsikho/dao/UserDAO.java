@@ -108,7 +108,7 @@ public class UserDAO {
                 java.sql.Date lastLoginDate = rs.getDate(1);
                 java.sql.Date todayDate = new java.sql.Date(System.currentTimeMillis());
                 if (lastLoginDate == null || !lastLoginDate.equals(todayDate)) {
-                    String updateSql = "UPDATE users SET total_xp = total_xp + 5, last_login = NOW() WHERE user_id = ?";
+                    String updateSql = "UPDATE users SET total_xp = total_xp + 5, last_login = datetime('now') WHERE user_id = ?";
                     PreparedStatement updatePs = conn.prepareStatement(updateSql);
                     updatePs.setInt(1, userId);
                     boolean result = updatePs.executeUpdate() > 0;

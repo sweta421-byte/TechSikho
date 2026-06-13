@@ -875,7 +875,7 @@ public class DashboardFrame extends JFrame {
         JPanel missionsCard = createPolishedCard("Daily Missions", cardBg, teal);
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                 "SELECT COUNT(*) FROM user_progress WHERE user_id=? AND DATE(completion_date)=CURDATE()")) {
+                 "SELECT COUNT(*) FROM user_progress WHERE user_id=? AND DATE(completion_date)=DATE('now')")) {
             ps.setInt(1, currentUser.getUserId());
             ResultSet rs = ps.executeQuery();
             int quizzesToday = rs.next() ? rs.getInt(1) : 0;
@@ -1302,7 +1302,7 @@ public class DashboardFrame extends JFrame {
         int quizzesToday = 0;
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                 "SELECT COUNT(*) FROM user_progress WHERE user_id=? AND DATE(completion_date)=CURDATE()")) {
+                 "SELECT COUNT(*) FROM user_progress WHERE user_id=? AND DATE(completion_date)=DATE('now')")) {
             ps.setInt(1, currentUser.getUserId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) quizzesToday = rs.getInt(1);
@@ -3353,7 +3353,7 @@ public class DashboardFrame extends JFrame {
         java.util.List<String[]> weekList = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                 "SELECT username, full_name, total_xp, current_level, streak_count FROM users WHERE last_login >= DATE_SUB(NOW(), INTERVAL 7 DAY) ORDER BY total_xp DESC");
+                 "SELECT username, full_name, total_xp, current_level, streak_count FROM users WHERE last_login >= DATE('now','-7 days') ORDER BY total_xp DESC");
              ResultSet rs = ps.executeQuery()) {
             int r = 1;
             while (rs.next())
@@ -3368,7 +3368,7 @@ public class DashboardFrame extends JFrame {
         java.util.List<String[]> monthList = new ArrayList<>();
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(
-                 "SELECT username, full_name, total_xp, current_level, streak_count FROM users WHERE last_login >= DATE_SUB(NOW(), INTERVAL 30 DAY) ORDER BY total_xp DESC");
+                 "SELECT username, full_name, total_xp, current_level, streak_count FROM users WHERE last_login >= DATE('now','-30 days') ORDER BY total_xp DESC");
              ResultSet rs = ps.executeQuery()) {
             int r = 1;
             while (rs.next())
@@ -4550,7 +4550,7 @@ private void showAdmin() {
     }
 
     private boolean isWeeklyChampion() {
-        String sql = "SELECT user_id FROM user_progress WHERE completion_date >= DATE_SUB(NOW(), INTERVAL 7 DAY) GROUP BY user_id ORDER BY COUNT(*) DESC LIMIT 1";
+        String sql = "SELECT user_id FROM user_progress WHERE completion_date >= DATE('now','-7 days') GROUP BY user_id ORDER BY COUNT(*) DESC LIMIT 1";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
@@ -4561,7 +4561,7 @@ private void showAdmin() {
 
     private Map<String, Integer> loadHeatmapData() {
         Map<String, Integer> data = new HashMap<>();
-        String sql = "SELECT DATE(completion_date) as day, COUNT(*) as cnt FROM user_progress WHERE user_id = ? AND completion_date >= DATE_SUB(NOW(), INTERVAL 12 WEEK) GROUP BY DATE(completion_date)";
+        String sql = "SELECT DATE(completion_date) as day, COUNT(*) as cnt FROM user_progress WHERE user_id = ? AND completion_date >= DATE('now','-84 days') GROUP BY DATE(completion_date)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, currentUser.getUserId());
